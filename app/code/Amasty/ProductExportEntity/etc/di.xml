@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductExportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Amasty\ProductExportEntity\Export\FieldsClass\CategoryAttribute" type="Amasty\ExportCore\Export\FieldsClass\EavEMAttribute"/>
+    <virtualType name="Amasty\ProductExportEntity\Export\Product\SourceOption\WebsiteOptionsWithDefault" type="Amasty\ProductExportEntity\Export\Product\SourceOption\WebsiteOptions">
+        <arguments>
+            <argument name="withDefault" xsi:type="boolean">true</argument>
+            <argument name="defaultWebsiteLabel" xsi:type="string">All Websites</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Amasty\ProductExportEntity\Export\Product\SourceOption\CustomerGroupWithAll" type="Amasty\ExportCore\Export\SourceOption\CustomerGroupOptions">
+        <arguments>
+            <argument name="withAllGroups" xsi:type="boolean">true</argument>
+        </arguments>
+    </virtualType>
+    <type name="Amasty\ProductExportEntity\Export\DataHandling\FieldModifier\Customer\GroupId2GroupCode">
+        <arguments>
+            <argument name="sourceModel" xsi:type="object">Amasty\ProductExportEntity\Export\Product\SourceOption\CustomerGroupWithAll</argument>
+        </arguments>
+    </type>
+</config>

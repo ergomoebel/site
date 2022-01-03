@@ -1,0 +1,483 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="sales_order_item">
+        <name>Order Item</name>
+        <group>Sales</group>
+        <description>Order Item Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">sales_order_item</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="item_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty>
+                            <excludeBehaviors>
+                                <addDirect/>
+                            </excludeBehaviors>
+                        </notEmpty>
+                    </validation>
+                    <required/>
+                    <synchronization>
+                        <item>
+                            <entityName>sales_invoice_item</entityName>
+                            <fieldName>order_item_id</fieldName>
+                        </item>
+                        <item>
+                            <entityName>sales_creditmemo_item</entityName>
+                            <fieldName>order_item_id</fieldName>
+                        </item>
+                        <item>
+                            <entityName>sales_shipment_item</entityName>
+                            <fieldName>order_item_id</fieldName>
+                        </item>
+                    </synchronization>
+                </field>
+                <field name="parent_item_id">
+                    <required/>
+                </field>
+                <field name="order_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <notEmpty/>
+                        <nonNegative/>
+                        <tableRowExists tableName="sales_order"
+                                        idFieldName="entity_id"
+                                        rootOnly="true"
+                                        error="Order entity with specified 'entity_id' doesn't exist">
+                            <excludeBehaviors>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </tableRowExists>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="store_id">
+                    <validation>
+                        <storeExists/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="product_id">
+                    <required/>
+                </field>
+                <field name="product_type">
+                    <validation>
+                        <notEmpty>
+                            <includeBehaviors>
+                                <addDirect/>
+                                <addUpdateDirect/>
+                            </includeBehaviors>
+                        </notEmpty>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="no_discount">
+                    <actions>
+                        <defaultValue value="0"/>
+                    </actions>
+                </field>
+                <field name="weight">
+                    <required/>
+                </field>
+                <field name="is_virtual">
+                    <validation>
+                        <boolean/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="sku">
+                    <required/>
+                </field>
+                <field name="name">
+                    <required/>
+                </field>
+                <field name="is_qty_decimal">
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="qty_ordered">
+                    <validation>
+                        <greaterThanZero/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="price">
+                    <actions>
+                        <defaultValue value="0"/>
+                    </actions>
+                    <required/>
+                </field>
+                <field name="base_price">
+                    <actions>
+                        <defaultValue value="0"/>
+                    </actions>
+                    <required/>
+                </field>
+                <field name="row_total">
+                    <actions>
+                        <defaultValue value="0"/>
+                    </actions>
+                    <required/>
+                </field>
+                <field name="base_row_total">
+                    <actions>
+                        <defaultValue value="0"/>
+                    </actions>
+                    <required/>
+                </field>
+                <field name="row_invoiced">
+                    <actions>
+                        <defaultValue value="0"/>
+                    </actions>
+                </field>
+                <field name="base_row_invoiced">
+                    <actions>
+                        <defaultValue value="0"/>
+                    </actions>
+                </field>
+                <field name="row_weight">
+                    <required/>
+                </field>
+                <field name="locked_do_invoice">
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="locked_do_ship">
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="created_at">
+                    <validation>
+                        <dateFormat/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="updated_at">
+                    <validation>
+                        <dateFormat/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="product_options">
+                    <actions>
+                        <unserialize/>
+                    </actions>
+                    <validation>
+                        <notEmpty>
+                            <includeBehaviors>
+                                <addDirect/>
+                                <addUpdateDirect/>
+                            </includeBehaviors>
+                        </notEmpty>
+                    </validation>
+                    <required/>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name='item_id'>13</field>
+                    <field name='order_id'>14</field>
+                    <field name='sku'>WSH12-28-Purple</field>
+                    <field name='name'>Erika Running Short-28-Purple</field>
+                    <field name='product_id'>2032</field>
+                    <field name='product_type'>simple</field>
+                    <field name='store_id'>1</field>
+                    <field name='parent_item_id'/>
+                    <field name='qty_ordered'>1.0000</field>
+                    <field name='price'>45.0000</field>
+                    <field name='is_virtual'>0</field>
+                    <field name='quote_item_id'>18</field>
+                    <field name='created_at'>2020-08-16 20:58:17</field>
+                    <field name='updated_at'>2020-08-16 20:58:38</field>
+                    <field name='product_options'>{"info_buyRequest":{"qty":1,"options":[]}}</field>
+                    <field name='weight'>1.0000</field>
+                    <field name='description'/>
+                    <field name='applied_rule_ids'>2</field>
+                    <field name='additional_data'/>
+                    <field name='is_qty_decimal'>0</field>
+                    <field name='no_discount'>0</field>
+                    <field name='qty_backordered'/>
+                    <field name='qty_canceled'>0.0000</field>
+                    <field name='qty_invoiced'>1.0000</field>
+                    <field name='qty_refunded'>0.0000</field>
+                    <field name='qty_shipped'>1.0000</field>
+                    <field name='base_cost'/>
+                    <field name='base_price'>45.0000</field>
+                    <field name='original_price'>45.0000</field>
+                    <field name='base_original_price'>45.0000</field>
+                    <field name='tax_percent'>8.2500</field>
+                    <field name='tax_amount'>3.7100</field>
+                    <field name='base_tax_amount'>3.7100</field>
+                    <field name='tax_invoiced'>3.7100</field>
+                    <field name='base_tax_invoiced'>3.7100</field>
+                    <field name='discount_percent'>0.0000</field>
+                    <field name='discount_amount'>0.0000</field>
+                    <field name='base_discount_amount'>0.0000</field>
+                    <field name='discount_invoiced'>0.0000</field>
+                    <field name='base_discount_invoiced'>0.0000</field>
+                    <field name='amount_refunded'>0.0000</field>
+                    <field name='base_amount_refunded'>0.0000</field>
+                    <field name='row_total'>45.0000</field>
+                    <field name='base_row_total'>45.0000</field>
+                    <field name='row_invoiced'>45.0000</field>
+                    <field name='base_row_invoiced'>45.0000</field>
+                    <field name='row_weight'>0.0000</field>
+                    <field name='base_tax_before_discount'/>
+                    <field name='tax_before_discount'/>
+                    <field name='ext_order_item_id'/>
+                    <field name='locked_do_invoice'/>
+                    <field name='locked_do_ship'/>
+                    <field name='price_incl_tax'>48.7100</field>
+                    <field name='base_price_incl_tax'>48.7100</field>
+                    <field name='row_total_incl_tax'>48.7100</field>
+                    <field name='base_row_total_incl_tax'>48.7100</field>
+                    <field name='discount_tax_compensation_amount'>0.0000</field>
+                    <field name='base_discount_tax_compensation_amount'>0.0000</field>
+                    <field name='discount_tax_compensation_invoiced'>0.0000</field>
+                    <field name='base_discount_tax_compensation_invoiced'>0.0000</field>
+                    <field name='discount_tax_compensation_refunded'/>
+                    <field name='base_discount_tax_compensation_refunded'/>
+                    <field name='tax_canceled'/>
+                    <field name='discount_tax_compensation_canceled'/>
+                    <field name='tax_refunded'/>
+                    <field name='base_tax_refunded'/>
+                    <field name='discount_refunded'/>
+                    <field name='base_discount_refunded'/>
+                    <field name='weee_tax_applied'>[]</field>
+                    <field name='weee_tax_applied_amount'/>
+                    <field name='weee_tax_applied_row_amount'/>
+                    <field name='weee_tax_disposition'/>
+                    <field name='weee_tax_row_disposition'/>
+                    <field name='base_weee_tax_applied_amount'/>
+                    <field name='base_weee_tax_applied_row_amnt'/>
+                    <field name='base_weee_tax_disposition'/>
+                    <field name='base_weee_tax_row_disposition'/>
+                    <field name='gift_message_id'/>
+                    <field name='gift_message_available'/>
+                    <field name='free_shipping'>0</field>
+                </row>
+                <row>
+                    <field name='item_id'>14</field>
+                    <field name='order_id'>14</field>
+                    <field name='sku'>WSH12-28-Red</field>
+                    <field name='name'>Erika Running Short-28-Red</field>
+                    <field name='product_id'>2033</field>
+                    <field name='product_type'>simple</field>
+                    <field name='store_id'>1</field>
+                    <field name='parent_item_id'/>
+                    <field name='qty_ordered'>1.0000</field>
+                    <field name='price'>45.0000</field>
+                    <field name='is_virtual'>0</field>
+                    <field name='quote_item_id'>19</field>
+                    <field name='created_at'>2020-08-16 20:58:17</field>
+                    <field name='updated_at'>2020-08-16 20:58:38</field>
+                    <field name='product_options'>{"info_buyRequest":{"qty":1,"options":[]}}</field>
+                    <field name='weight'>1.0000</field>
+                    <field name='description'/>
+                    <field name='applied_rule_ids'>2</field>
+                    <field name='additional_data'/>
+                    <field name='is_qty_decimal'>0</field>
+                    <field name='no_discount'>0</field>
+                    <field name='qty_backordered'/>
+                    <field name='qty_canceled'>0.0000</field>
+                    <field name='qty_invoiced'>1.0000</field>
+                    <field name='qty_refunded'>0.0000</field>
+                    <field name='qty_shipped'>1.0000</field>
+                    <field name='base_cost'/>
+                    <field name='base_price'>45.0000</field>
+                    <field name='original_price'>45.0000</field>
+                    <field name='base_original_price'>45.0000</field>
+                    <field name='tax_percent'>8.2500</field>
+                    <field name='tax_amount'>3.7200</field>
+                    <field name='base_tax_amount'>3.7200</field>
+                    <field name='tax_invoiced'>3.7200</field>
+                    <field name='base_tax_invoiced'>3.7200</field>
+                    <field name='discount_percent'>0.0000</field>
+                    <field name='discount_amount'>0.0000</field>
+                    <field name='base_discount_amount'>0.0000</field>
+                    <field name='discount_invoiced'>0.0000</field>
+                    <field name='base_discount_invoiced'>0.0000</field>
+                    <field name='amount_refunded'>0.0000</field>
+                    <field name='base_amount_refunded'>0.0000</field>
+                    <field name='row_total'>45.0000</field>
+                    <field name='base_row_total'>45.0000</field>
+                    <field name='row_invoiced'>45.0000</field>
+                    <field name='base_row_invoiced'>45.0000</field>
+                    <field name='row_weight'>0.0000</field>
+                    <field name='base_tax_before_discount'/>
+                    <field name='tax_before_discount'/>
+                    <field name='ext_order_item_id'/>
+                    <field name='locked_do_invoice'/>
+                    <field name='locked_do_ship'/>
+                    <field name='price_incl_tax'>48.7200</field>
+                    <field name='base_price_incl_tax'>48.7200</field>
+                    <field name='row_total_incl_tax'>48.7200</field>
+                    <field name='base_row_total_incl_tax'>48.7200</field>
+                    <field name='discount_tax_compensation_amount'>0.0000</field>
+                    <field name='base_discount_tax_compensation_amount'>0.0000</field>
+                    <field name='discount_tax_compensation_invoiced'>0.0000</field>
+                    <field name='base_discount_tax_compensation_invoiced'>0.0000</field>
+                    <field name='discount_tax_compensation_refunded'/>
+                    <field name='base_discount_tax_compensation_refunded'/>
+                    <field name='tax_canceled'/>
+                    <field name='discount_tax_compensation_canceled'/>
+                    <field name='tax_refunded'/>
+                    <field name='base_tax_refunded'/>
+                    <field name='discount_refunded'/>
+                    <field name='base_discount_refunded'/>
+                    <field name='weee_tax_applied'>[]</field>
+                    <field name='weee_tax_applied_amount'/>
+                    <field name='weee_tax_applied_row_amount'/>
+                    <field name='weee_tax_disposition'/>
+                    <field name='weee_tax_row_disposition'/>
+                    <field name='base_weee_tax_applied_amount'/>
+                    <field name='base_weee_tax_applied_row_amnt'/>
+                    <field name='base_weee_tax_disposition'/>
+                    <field name='base_weee_tax_row_disposition'/>
+                    <field name='gift_message_id'/>
+                    <field name='gift_message_available'/>
+                    <field name='free_shipping'>0</field>
+                </row>
+                <row>
+                    <field name='item_id'>15</field>
+                    <field name='order_id'>14</field>
+                    <field name='sku'>WSH12-29-Green</field>
+                    <field name='name'>Erika Running Short-29-Green</field>
+                    <field name='product_id'>2034</field>
+                    <field name='product_type'>simple</field>
+                    <field name='store_id'>1</field>
+                    <field name='parent_item_id'/>
+                    <field name='qty_ordered'>1.0000</field>
+                    <field name='price'>45.0000</field>
+                    <field name='is_virtual'>0</field>
+                    <field name='quote_item_id'>20</field>
+                    <field name='created_at'>2020-08-16 20:58:17</field>
+                    <field name='updated_at'>2020-08-16 20:58:38</field>
+                    <field name='product_options'>{"info_buyRequest":{"qty":1,"options":[]}}</field>
+                    <field name='weight'>1.0000</field>
+                    <field name='description'/>
+                    <field name='applied_rule_ids'>2</field>
+                    <field name='additional_data'/>
+                    <field name='is_qty_decimal'>0</field>
+                    <field name='no_discount'>0</field>
+                    <field name='qty_backordered'/>
+                    <field name='qty_canceled'>0.0000</field>
+                    <field name='qty_invoiced'>1.0000</field>
+                    <field name='qty_refunded'>0.0000</field>
+                    <field name='qty_shipped'>1.0000</field>
+                    <field name='base_cost'/>
+                    <field name='base_price'>45.0000</field>
+                    <field name='original_price'>45.0000</field>
+                    <field name='base_original_price'>45.0000</field>
+                    <field name='tax_percent'>8.2500</field>
+                    <field name='tax_amount'>3.7100</field>
+                    <field name='base_tax_amount'>3.7100</field>
+                    <field name='tax_invoiced'>3.7100</field>
+                    <field name='base_tax_invoiced'>3.7100</field>
+                    <field name='discount_percent'>0.0000</field>
+                    <field name='discount_amount'>0.0000</field>
+                    <field name='base_discount_amount'>0.0000</field>
+                    <field name='discount_invoiced'>0.0000</field>
+                    <field name='base_discount_invoiced'>0.0000</field>
+                    <field name='amount_refunded'>0.0000</field>
+                    <field name='base_amount_refunded'>0.0000</field>
+                    <field name='row_total'>45.0000</field>
+                    <field name='base_row_total'>45.0000</field>
+                    <field name='row_invoiced'>45.0000</field>
+                    <field name='base_row_invoiced'>45.0000</field>
+                    <field name='row_weight'>0.0000</field>
+                    <field name='base_tax_before_discount'/>
+                    <field name='tax_before_discount'/>
+                    <field name='ext_order_item_id'/>
+                    <field name='locked_do_invoice'/>
+                    <field name='locked_do_ship'/>
+                    <field name='price_incl_tax'>48.7100</field>
+                    <field name='base_price_incl_tax'>48.7100</field>
+                    <field name='row_total_incl_tax'>48.7100</field>
+                    <field name='base_row_total_incl_tax'>48.7100</field>
+                    <field name='discount_tax_compensation_amount'>0.0000</field>
+                    <field name='base_discount_tax_compensation_amount'>0.0000</field>
+                    <field name='discount_tax_compensation_invoiced'>0.0000</field>
+                    <field name='base_discount_tax_compensation_invoiced'>0.0000</field>
+                    <field name='discount_tax_compensation_refunded'/>
+                    <field name='base_discount_tax_compensation_refunded'/>
+                    <field name='tax_canceled'/>
+                    <field name='discount_tax_compensation_canceled'/>
+                    <field name='tax_refunded'/>
+                    <field name='base_tax_refunded'/>
+                    <field name='discount_refunded'/>
+                    <field name='base_discount_refunded'/>
+                    <field name='weee_tax_applied'>[]</field>
+                    <field name='weee_tax_applied_amount'/>
+                    <field name='weee_tax_applied_row_amount'/>
+                    <field name='weee_tax_disposition'/>
+                    <field name='weee_tax_row_disposition'/>
+                    <field name='base_weee_tax_applied_amount'/>
+                    <field name='base_weee_tax_applied_row_amnt'/>
+                    <field name='base_weee_tax_disposition'/>
+                    <field name='base_weee_tax_row_disposition'/>
+                    <field name='gift_message_id'/>
+                    <field name='gift_message_available'/>
+                    <field name='free_shipping'>0</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <addUpdateDirect>
+                <tableName>sales_order_item</tableName>
+            </addUpdateDirect>
+            <addDirect>
+                <tableName>sales_order_item</tableName>
+            </addDirect>
+            <updateDirect>
+                <tableName>sales_order_item</tableName>
+            </updateDirect>
+            <deleteDirect>
+                <tableName>sales_order_item</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="sales_order_item">
+        <parent_entity>sales_order</parent_entity>
+        <child_entity>sales_order_item</child_entity>
+        <sub_entity_field_name>sales_order_item</sub_entity_field_name>
+        <type>one_to_many</type>
+        <validation class="Amasty\OrderImportEntity\Import\Validation\RelationValidator\OrderItemValidator">
+            <excludeBehaviors>
+                <deleteDirect/>
+                <updateDirect/>
+            </excludeBehaviors>
+        </validation>
+        <required>
+            <includeBehaviors>
+                <addDirect/>
+                <addUpdateDirect/>
+            </includeBehaviors>
+        </required>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">order_id</argument>
+        </arguments>
+    </relation>
+</config>

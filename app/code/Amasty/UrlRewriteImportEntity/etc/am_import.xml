@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_UrlRewriteImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <include path="Amasty_UrlRewriteImportEntity::entity/url_rewrite_category.xml"/>
+    <include path="Amasty_UrlRewriteImportEntity::entity/url_rewrite_cms_page.xml"/>
+    <include path="Amasty_UrlRewriteImportEntity::entity/url_rewrite_product.xml"/>
+</config>

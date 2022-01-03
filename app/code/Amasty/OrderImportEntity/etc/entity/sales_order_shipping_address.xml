@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="sales_order_shipping_address">
+        <name>Order Shipping Address</name>
+        <group>Sales</group>
+        <description>Order Shipping Address Item Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">sales_order_address</argument>
+                </arguments>
+            </fieldsClass>
+            <rowValidation class="Amasty\OrderImportEntity\Import\Validation\RowValidator\ShippingAddressRowValidator">
+                <excludeBehaviors>
+                    <deleteDirect/>
+                    <updateDirect/>
+                    <addUpdateDirect/>
+                </excludeBehaviors>
+            </rowValidation>
+            <fields>
+                <field name="entity_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty>
+                            <excludeBehaviors>
+                                <addDirect/>
+                            </excludeBehaviors>
+                        </notEmpty>
+                    </validation>
+                    <required/>
+                    <synchronization>
+                        <item>
+                            <entityName>sales_order</entityName>
+                            <fieldName>shipping_address_id</fieldName>
+                        </item>
+                    </synchronization>
+                </field>
+                <field name="parent_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <tableRowExists tableName="sales_order"
+                                        idFieldName="entity_id"
+                                        rootOnly="true"
+                                        error="Order entity with specified 'entity_id' doesn't exist">
+                            <excludeBehaviors>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </tableRowExists>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="quote_address_id">
+                    <required/>
+                </field>
+                <field name="region_id">
+                    <validation>
+                        <custom class="Amasty\OrderImportEntity\Import\Validation\EntityValidator\Region" error="The specified %1 doesn't exist."/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="region">
+                    <required/>
+                </field>
+                <field name="lastname">
+                    <required/>
+                </field>
+                <field name="street">
+                    <required/>
+                </field>
+                <field name="city">
+                    <required/>
+                </field>
+                <field name="email">
+                    <required/>
+                </field>
+                <field name="telephone">
+                    <required/>
+                </field>
+                <field name="firstname">
+                    <required/>
+                </field>
+                <field name="address_type">
+                    <required/>
+                </field>
+                <field name="country_id">
+                    <validation>
+                        <custom class="Amasty\OrderImportEntity\Import\Validation\EntityValidator\Country" error="The specified %1 doesn't exist."/>
+                    </validation>
+                    <required/>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name='entity_id'>23</field>
+                    <field name='parent_id'>14</field>
+                    <field name='customer_address_id'/>
+                    <field name='quote_address_id'>39</field>
+                    <field name='region_id'>33</field>
+                    <field name='customer_id'/>
+                    <field name='fax'/>
+                    <field name='region'>Michigan</field>
+                    <field name='postcode'>49628-7978</field>
+                    <field name='lastname'>Willow</field>
+                    <field name='street'>6146 Honey Bluff Parkway</field>
+                    <field name='city'>Calder</field>
+                    <field name='email'>jane@willow.com</field>
+                    <field name='telephone'>(555) 229-3326</field>
+                    <field name='country_id'>US</field>
+                    <field name='firstname'>Jane</field>
+                    <field name='address_type'>shipping</field>
+                    <field name='prefix'/>
+                    <field name='middlename'/>
+                    <field name='suffix'/>
+                    <field name='company'/>
+                    <field name='vat_id'/>
+                    <field name='vat_is_valid'/>
+                    <field name='vat_request_id'/>
+                    <field name='vat_request_date'/>
+                    <field name='vat_request_success'/>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <addUpdateDirect>
+                <tableName>sales_order_address</tableName>
+            </addUpdateDirect>
+            <addDirect>
+                <tableName>sales_order_address</tableName>
+            </addDirect>
+            <updateDirect>
+                <tableName>sales_order_address</tableName>
+            </updateDirect>
+            <deleteDirect>
+                <tableName>sales_order_address</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="sales_order_shipping_address">
+        <parent_entity>sales_order</parent_entity>
+        <child_entity>sales_order_shipping_address</child_entity>
+        <sub_entity_field_name>sales_order_shipping_address</sub_entity_field_name>
+        <type>one_to_many</type>
+        <validation class="Amasty\OrderImportEntity\Import\Validation\RelationValidator\ShippingAddressValidator">
+            <includeBehaviors>
+                <addDirect/>
+                <addUpdateDirect/>
+            </includeBehaviors>
+        </validation>
+        <required>
+            <includeBehaviors>
+                <addDirect/>
+                <addUpdateDirect/>
+            </includeBehaviors>
+        </required>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">parent_id</argument>
+        </arguments>
+    </relation>
+</config>

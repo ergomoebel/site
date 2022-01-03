@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductImport
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">product_import_profile_form.product_import_profile_form_data_source</item>
+            <item name="ajaxSave" xsi:type="boolean">true</item>
+            <item name="component" xsi:type="string">Amasty_ImportPro/js/form</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Profile Set Up Steps</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="save_and_validate" class="Amasty\ProductImport\Block\Adminhtml\Edit\Button\SaveAndValidate"/>
+            <button name="save_and_run" class="Amasty\ProductImport\Block\Adminhtml\Edit\Button\SaveAndRun"/>
+            <button name="save_and_continue" class="Amasty\ProductImport\Block\Adminhtml\Edit\Button\SaveAndContinueButton"/>
+            <button name="save" class="Amasty\ProductImport\Block\Adminhtml\Edit\Button\SaveButton"/>
+            <button name="reset" class="Amasty\ProductImport\Block\Adminhtml\Edit\Button\ResetButton"/>
+            <button name="duplicate" class="Amasty\ProductImport\Block\Adminhtml\Edit\Button\DuplicateButton"/>
+            <button name="back" class="Amasty\ProductImport\Block\Adminhtml\Edit\Button\BackButton"/>
+            <button name="delete" class="Amasty\ProductImport\Block\Adminhtml\Edit\Button\DeleteButton"/>
+        </buttons>
+        <layout>
+            <navContainerName>left</navContainerName>
+            <type>tabs</type>
+        </layout>
+        <namespace>product_import_profile_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>product_import_profile_form.product_import_profile_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="product_import_profile_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Amasty_ImportCore/js/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="amproductimport/profile/save"/>
+        </settings>
+        <dataProvider class="Amasty\ProductImport\Ui\DataProvider\Profile\Form" name="product_import_profile_form_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="general">
+        <settings>
+            <label translate="true">General Configuration</label>
+        </settings>
+        <fieldset name="configuration">
+            <settings>
+                <label translate="true"></label>
+                <dataScope/>
+            </settings>
+            <field name="name" formElement="input">
+                <settings>
+                    <label translate="true">Profile Name</label>
+                    <dataType>text</dataType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                </settings>
+            </field>
+            <field name="reindex" formElement="checkbox">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="value" xsi:type="number">0</item>
+                        <item name="valueMap" xsi:type="array">
+                            <item name="true" xsi:type="number">1</item>
+                            <item name="false" xsi:type="number">0</item>
+                        </item>
+                        <item name="prefer" xsi:type="string">toggle</item>
+                    </item>
+                </argument>
+                <settings>
+                    <label translate="true">Reindex After Importing</label>
+                </settings>
+            </field>
+            <field name="disable_products" formElement="checkbox">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="value" xsi:type="number">0</item>
+                        <item name="valueMap" xsi:type="array">
+                            <item name="true" xsi:type="number">1</item>
+                            <item name="false" xsi:type="number">0</item>
+                        </item>
+                        <item name="prefer" xsi:type="string">toggle</item>
+                    </item>
+                </argument>
+                <settings>
+                    <label translate="true">Disable Products Not in File</label>
+                    <notice translate="true">Please note: If the setting is enabled, reindex will be performed in importing to make the products invisible on a storefront.</notice>
+                </settings>
+            </field>
+        </fieldset>
+        <container name="run" component="Amasty_ImportPro/js/run/run">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="idField" xsi:type="string">id</item>
+                    <item name="requestIdField" xsi:type="string">profile_id</item>
+                </item>
+            </argument>
+            <container name="modal">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="componentType" xsi:type="string">modal</item>
+                        <item name="component" xsi:type="string">Magento_Ui/js/modal/modal-component</item>
+                        <item name="options" xsi:type="array">
+                            <item name="type" xsi:type="string">popup</item>
+                            <item name="modalClass" xsi:type="string">ameimportpro-modal-container</item>
+                            <item name="title" xsi:type="string" translate="true">Generate Profile</item>
+                        </item>
+                    </item>
+                </argument>
+                <container name="import-process">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="componentType" xsi:type="string">container</item>
+                            <item name="startUrl" xsi:type="url" path="*/*/import"/>
+                            <item name="statusUrl" xsi:type="url" path="amimport/import/status"/>
+                            <item name="downloadUrl" xsi:type="url" path="amimport/import/download/processIdentity/_process_identity_"/>
+                            <item name="template" xsi:type="string">Amasty_ImportPro/run/import-process</item>
+                            <item name="component" xsi:type="string">Amasty_ImportPro/js/run/import-process</item>
+                        </item>
+                    </argument>
+                </container>
+            </container>
+        </container>
+    </fieldset>
+    <fieldset name="file_config">
+        <settings>
+            <label translate="true">File Settings</label>
+        </settings>
+    </fieldset>
+    <fieldset name="file_source">
+        <settings>
+            <label translate="true">Import Source</label>
+        </settings>
+    </fieldset>
+    <fieldset name="import_behavior">
+        <settings>
+            <label translate="true">Import Settings</label>
+        </settings>
+    </fieldset>
+    <fieldset name="fields">
+        <settings>
+            <label translate="true">Fields Configuration</label>
+            <additionalClasses>
+                <class name="amproductimport-fields-configuration">true</class>
+            </additionalClasses>
+        </settings>
+        <container name="container_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="template" xsi:type="string">ui/form/components/complex</item>
+                    <item name="label" xsi:type="string"></item>
+                    <item name="additionalClasses" xsi:type="string">amproductimport-tooltip</item>
+<!--                    <item name="text" xsi:type="string" translate="true">Here we have a tree structure with root entity and its subentities. Each subenity has its own fields to be added into the export file.</item>-->
+                </item>
+            </argument>
+        </container>
+    </fieldset>
+    <fieldset name="automatic_import">
+        <settings>
+            <label translate="true">Automatic Import</label>
+        </settings>
+        <container name="schedule_container">
+            <argument name="data" xsi:type="array">
+                <item name="dataScope" xsi:type="string" />
+                <item name="type" xsi:type="string">group</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Schedule</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                </item>
+            </argument>
+        </container>
+    </fieldset>
+    <fieldset name="alert_notifications">
+        <settings>
+            <label translate="true">Alert Notifications</label>
+            <additionalClasses>
+                <class name="amproductimport-general-title">true</class>
+            </additionalClasses>
+        </settings>
+    </fieldset>
+
+    <fieldset name="import_history" class="Amasty\ProductImport\Ui\Component\Form\ImportHistoryFieldset">
+        <settings>
+            <label translate="true">Import History</label>
+            <additionalClasses>
+                <class name="amproductimport-grid-fieldset">true</class>
+            </additionalClasses>
+        </settings>
+        <insertListing name="history_grid" component="Amasty_ProductImport/js/insert-history-listing">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <!--Avoid admin__scope-old cssclass assign -->
+                    <item name="cssclass" xsi:type="string">history-grid-insert-listing</item>
+                    <item name="autoRender" xsi:type="boolean">true</item>
+                    <item name="externalProvider" xsi:type="string">product_import_history_listing.product_import_history_listing_data_source</item>
+                    <item name="ns" xsi:type="string">product_import_history_listing</item>
+                    <item name="jobType" xsi:type="string">product_import</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="jobId" xsi:type="string">${ $.provider }:data.id</item>
+                    </item>
+                    <item name="exports" xsi:type="array">
+                        <item name="jobId" xsi:type="string">${ $.externalProvider }:params.job_id</item>
+                        <item name="jobType" xsi:type="string">${ $.externalProvider }:params.job_type</item>
+                    </item>
+                </item>
+            </argument>
+        </insertListing>
+    </fieldset>
+</form>

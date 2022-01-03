@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CmsImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="cms_block_store_entity">
+        <name>Block Store</name>
+        <isHidden>true</isHidden>
+        <description>Cms Block Store Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">cms_block_store</argument>
+                    <argument name="strict" xsi:type="boolean">true</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="entity_id" isIdentity="true">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="row_id" isIdentity="true">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="store_id">
+                    <validation>
+                        <storeExists/>
+                    </validation>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name="block_id">1</field>
+                    <field name="row_id">1</field>
+                    <field name="store_id">0</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <custom class="Amasty\CmsImportEntity\Import\Behavior\Block\Save\StoreRelation"
+                    code="save_cms_block_store_relations"
+                    name="Add/Update">
+                <executeOnParent>
+                    <addDirect/>
+                    <addUpdateDirect/>
+                    <updateDirect/>
+                </executeOnParent>
+            </custom>
+            <deleteDirect name="Delete">
+                <tableName>catalog_product_website</tableName>
+                <idField>product_id</idField>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="cms_block_entity_store">
+        <parent_entity>cms_block_entity</parent_entity>
+        <child_entity>cms_block_store_entity</child_entity>
+        <sub_entity_field_name>cms_block_store</sub_entity_field_name>
+        <type>one_to_many</type>
+        <validation class="Amasty\CmsImportEntity\Import\Validation\RelationValidator\BlockStoreValidator">
+            <includeBehaviors>
+                <addDirect/>
+            </includeBehaviors>
+        </validation>
+        <arguments>
+            <argument name="parent_entity_name" xsi:type="string">Magento\Cms\Api\Data\BlockInterface</argument>
+            <argument name="child_entity_name" xsi:type="string">Magento\Cms\Api\Data\BlockInterface</argument>
+        </arguments>
+    </relation>
+</config>

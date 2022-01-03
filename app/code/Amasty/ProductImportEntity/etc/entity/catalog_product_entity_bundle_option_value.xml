@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductImportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="catalog_product_entity_bundle_option_value">
+        <name>Bundle Option Value</name>
+        <group>Product</group>
+        <description>Bundle Option Value Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">catalog_product_bundle_option_value</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="value_id">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="option_id" isIdentity="true">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="store_id"/>
+                <field name="title">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <required/>
+                </field>
+                <field name="parent_product_id">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <custom class="Amasty\ProductImportEntity\Import\Validation\EntityValidator\Product\LinkField"
+                                error="Product entity with specified 'parent_product_id' doesn't exist"
+                                rootOnly="true">
+                            <excludeBehaviors>
+                                <addDirect/>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </custom>
+                    </validation>
+                    <required/>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name="option_id">1</field>
+                    <field name="store_id">0</field>
+                    <field name="title">Bundle Option 1</field>
+                    <field name="parent_product_id">6</field>
+                </row>
+                <row>
+                    <field name="option_id">2</field>
+                    <field name="store_id">0</field>
+                    <field name="title">Bundle Option 2</field>
+                    <field name="parent_product_id">6</field>
+                </row>
+                <row>
+                    <field name="option_id">3</field>
+                    <field name="store_id">0</field>
+                    <field name="title">Yoga Strap</field>
+                    <field name="parent_product_id">7</field>
+                </row>
+                <row>
+                    <field name="option_id">4</field>
+                    <field name="store_id">0</field>
+                    <field name="title">Yoga Strap</field>
+                    <field name="parent_product_id">7</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <custom class="Amasty\ProductImportEntity\Import\Behavior\Product\Save\Bundle\BundleOptionValue"
+                    code="save_bundle_option_value"
+                    name="Add/Update">
+                <executeOnParent>
+                    <addDirect/>
+                    <addUpdateDirect/>
+                    <updateDirect/>
+                </executeOnParent>
+            </custom>
+            <deleteDirect name="Delete">
+                <tableName>catalog_product_bundle_option_value</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="catalog_product_entity_bundle_option_value">
+        <parent_entity>catalog_product_entity_bundle_option</parent_entity>
+        <child_entity>catalog_product_entity_bundle_option_value</child_entity>
+        <sub_entity_field_name>catalog_product_bundle_option_value</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">option_id</argument>
+            <argument name="child_field_name" xsi:type="string">option_id</argument>
+        </arguments>
+    </relation>
+</config>

@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ExportPro
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Amasty_ExportPro::config" title="Amasty Export Pro Settings" sortOrder="052416" />
+                        </resource>
+                    </resource>
+                </resource>
+                <resource id="Magento_Backend::system">
+                    <resource id="Amasty_ExportCore::exportcore">
+                        <resource id="Amasty_ExportPro::exportcron" translate="title" title="Export Cron Jobs" sortOrder="100">
+                            <resource id="Amasty_ExportPro::export_job_view" translate="title" title="Export Cron Jobs View" />
+                            <resource id="Amasty_ExportPro::export_job_delete" translate="title" title="Export Cron Jobs Delete" />
+                            <resource id="Amasty_ExportPro::export_job_edit" translate="title" title="Export Cron Jobs Edit" />
+                            <resource id="Amasty_ExportPro::export_job_create" translate="title" title="Export Cron Jobs Create" />
+                            <resource id="Amasty_ExportPro::export" translate="title" title="Amasty Export Cron Export" />
+                        </resource>
+                        <resource id="Amasty_ExportPro::exporthistory" translate="title" title="Export History" sortOrder="110">
+                            <resource id="Amasty_ExportPro::export_history_clear" translate="title" title="Export History Clear" />
+                            <resource id="Amasty_ExportPro::export_history_view" translate="title" title="Export History View" />
+                            <resource id="Amasty_ExportPro::export_history_delete" translate="title" title="Export History Delete" />
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

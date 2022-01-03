@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ExportPro
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Amasty_ExportCore::exportcron"
+             title="Cron Jobs"
+             translate="title"
+             module="Amasty_ExportPro"
+             parent="Amasty_ExportCore::exportcore"
+             dependsOnModule="Amasty_ExportCore"
+             action="amexportpro/exportjob/index"
+             sortOrder="20"
+             resource="Amasty_ExportPro::exportcron"
+        />
+
+        <add id="Amasty_ExportCore::exporthistory"
+             title="Export History"
+             translate="title"
+             module="Amasty_ExportPro"
+             parent="Amasty_ExportCore::exportcore"
+             dependsOnModule="Amasty_ExportCore"
+             action="amexportpro/history/index"
+             sortOrder="30"
+             resource="Amasty_ExportPro::exporthistory"
+        />
+    </menu>
+</config>

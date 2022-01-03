@@ -1,0 +1,157 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductExportEntity
+ */
+
+declare(strict_types=1);
+
+namespace Amasty\ProductExportEntity\Export\CustomOption\ScopedEntity;
+
+use Amasty\ProductExportEntity\Model\ResourceModel\ScopedEntity\AbstractCollector;
+use Magento\Catalog\Model\Product\Option;
+use Magento\Catalog\Model\ResourceModel\Product\Option\Collection;
+use Magento\Framework\Data\Collection\AbstractDb;
+
+class OptionCollector extends AbstractCollector
+{
+    const TITLE_FIELDS = ['title', 'store_title'];
+
+    const PRICE_FIELDS = [
+        'store_price',
+        'store_price_type',
+        'price',
+        'price_type'
+    ];
+
+    /**
+     * @var bool
+     */
+    private $isTitleFieldsAddedToResult = false;
+
+    /**
+     * @var bool
+     */
+    private $isPriceFieldsAddedToResult = false;
+
+    protected function performCollect(AbstractDb $collection, array $defaultItems, $scopeValue)
+    {
+        $items = [];
+        /** @var Option $option */
+        foreach ($collection as $option) {
+            $itemData = [];
+            $optionData = $option->getData();
+
+            foreach ($this->getFieldsToSelectAsArray() as $fieldName) {
+                if (isset($optionData[$fieldName])) {
+                    if (in_array($fieldName, ['type', 'title'])) {
+                        $itemData[$fieldName] = $optionData[$fieldName];
+                    } elseif ($fieldName == self::STORE_ID_FIELD) {
+                        $itemData[$fieldName] = $scopeValue;
+                    } else {
+                        $itemData[$fieldName] = $this->getFieldValue(
+                            $fieldName,
+                            $defaultItems,
+                            $optionData,
+                            'option_id'
+                        );
+                    }
+                }
+            }
+
+            $items[] = $itemData;
+        }
+        return $items;
+    }
+
+    /**
+     * Prepare options collection
+     *
+     * @param Collection|AbstractDb $collection
+     * @param int $scopeValue
+     * @return Collection
+     */
+    protected function prepareCollection(AbstractDb $collection, $scopeValue)
+    {
+        $collection->reset()
+            ->addOrder('sort_order', Collection::SORT_ORDER_ASC);
+
+        $this->addFieldsToSelect(
+            $collection,
+            $scopeValue,
+            $this->fieldsToSelect
+        );
+
+        foreach ($this->fieldsToFilter as $field) {
+            $collection->addFieldToFilter(...$field);
+        }
+        return $collection;
+    }
+
+    /**
+     * Add fields to select
+     *
+     * @param Collection $collection
+     * @param int $storeId
+     * @param array $fields
+     */
+    private function addFieldsToSelect(Collection $collection, $storeId, array $fields)
+    {
+        foreach ($fields as $field) {
+            $fieldNames = $this->fieldArgumentProcessor->getFieldNames($field);
+
+            foreach ($fieldNames as $fieldName) {
+                if (in_array($fieldName, self::TITLE_FIELDS)) {
+                    $this->addTitleFieldsToResult($collection, $storeId);
+                } elseif (in_array($fieldName, self::PRICE_FIELDS)) {
+                    $this->addPriceFieldsToResult($collection, $storeId);
+                } elseif ($fieldName != self::STORE_ID_FIELD) {
+                    if (is_array($field[0])) {
+                        $collection->addFieldToSelect($fieldName);
+                    } else {
+                        $collection->addFieldToSelect(...$field);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Add title fields to result
+     *
+     * @param Collection $collection
+     * @param int $storeId
+     * @return void
+     */
+    private function addTitleFieldsToResult(Collection $collection, $storeId)
+    {
+        if (!$this->isTitleFieldsAddedToResult) {
+            $collection->addTitleToResult($storeId);
+            $this->isTitleFieldsAddedToResult = true;
+        }
+    }
+
+    /**
+     * Add price fields to result
+     *
+     * @param Collection $collection
+     * @param int $storeId
+     * return void
+     */
+    private function addPriceFieldsToResult(Collection $collection, $storeId)
+    {
+        if (!$this->isPriceFieldsAddedToResult) {
+            $collection->addPriceToResult($storeId);
+            $this->isPriceFieldsAddedToResult = true;
+        }
+    }
+
+    protected function resetState()
+    {
+        parent::resetState();
+
+        $this->isTitleFieldsAddedToResult = false;
+        $this->isPriceFieldsAddedToResult = false;
+    }
+}

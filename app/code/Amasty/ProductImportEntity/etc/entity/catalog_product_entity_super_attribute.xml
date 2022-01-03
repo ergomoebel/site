@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="catalog_product_entity_super_attribute">
+        <name>Configurable Product Super Attribute</name>
+        <group>Product</group>
+        <description>Configurable Product Super Attribute Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">catalog_product_super_attribute</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="product_super_attribute_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty/>
+                    </validation>
+                    <required>
+                        <excludeBehaviors>
+                            <addDirect/>
+                        </excludeBehaviors>
+                    </required>
+                </field>
+                <field name="product_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty/>
+                    </validation>
+                    <required/>
+                    <synchronization>
+                        <item>
+                            <entityName>catalog_product_entity_super_attribute_link</entityName>
+                            <fieldName>parent_id</fieldName>
+                        </item>
+                    </synchronization>
+                </field>
+                <field name="attribute_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                        <custom class="Amasty\ProductImportEntity\Import\DataHandling\FieldModifier\Product\EavAttributeCode2Id"
+                                apply="beforeValidate"
+                        />
+                    </actions>
+                    <validation>
+                        <integer/>
+                        <nonNegative/>
+                        <notEmpty/>
+                        <eavAttributeExists/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="position">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <integer/>
+                        <nonNegative/>
+                        <notEmpty isZeroValueAllowed="true"/>
+                    </validation>
+                    <required/>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name="product_super_attribute_id">100</field>
+                    <field name="product_id">4</field>
+                    <field name="attribute_id">color</field>
+                    <field name="position">0</field>
+                </row>
+                <row>
+                    <field name="product_super_attribute_id">101</field>
+                    <field name="product_id">4</field>
+                    <field name="attribute_id">size</field>
+                    <field name="position">1</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <addUpdateDirect name="Add/Update">
+                <tableName>catalog_product_super_attribute</tableName>
+            </addUpdateDirect>
+            <addDirect name="Only add">
+                <tableName>catalog_product_super_attribute</tableName>
+            </addDirect>
+            <updateDirect name="Only update">
+                <tableName>catalog_product_super_attribute</tableName>
+            </updateDirect>
+            <deleteDirect name="Delete">
+                <tableName>catalog_product_super_attribute</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="catalog_product_entity_super_attribute">
+        <parent_entity>catalog_product_entity</parent_entity>
+        <child_entity>catalog_product_entity_super_attribute</child_entity>
+        <sub_entity_field_name>catalog_product_super_attribute</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_entity_name" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+            <argument name="child_field_name" xsi:type="string">product_id</argument>
+        </arguments>
+    </relation>
+</config>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderExport
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <listingToolbar name="listing_top">
+        <exportButton name="export_button">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Amasty_OrderExport/js/grid/export</item>
+                    <item name="options" xsi:type="object">Amasty\OrderExport\Model\OrderExportList</item>
+                </item>
+            </argument>
+        </exportButton>
+    </listingToolbar>
+    <container name="run" component="Amasty_ExportPro/js/run/run">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="idField" xsi:type="string">id</item>
+                <item name="requestIdField" xsi:type="string">profile_id</item>
+            </item>
+        </argument>
+        <container name="modal">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="componentType" xsi:type="string">modal</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/modal/modal-component</item>
+                    <item name="options" xsi:type="array">
+                        <item name="type" xsi:type="string">popup</item>
+                        <item name="modalClass" xsi:type="string">amexportpro-modal-container</item>
+                        <item name="title" xsi:type="string" translate="true">Generate Profile</item>
+                    </item>
+                </item>
+            </argument>
+            <container name="export-process">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="componentType" xsi:type="string">container</item>
+                        <item name="startUrl" xsi:type="url" path="*/*/export"/>
+                        <item name="statusUrl" xsi:type="url" path="amexport/export/status"/>
+                        <item name="downloadUrl" xsi:type="url" path="amexport/export/download/processIdentity/_process_identity_"/>
+                        <item name="template" xsi:type="string">Amasty_ExportPro/run/export-process</item>
+                        <item name="component" xsi:type="string">Amasty_ExportPro/js/run/export-process</item>
+                    </item>
+                </argument>
+            </container>
+        </container>
+    </container>
+</listing>

@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductImportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="inventory_source_item">
+        <name>MSI Inventory Source Item</name>
+        <group>Product</group>
+        <description>MSI Inventory Source Item Import Entity</description>
+        <enabledChecker class="Amasty\ImportCore\Import\Config\IsModuleEnabled">
+            <arguments>
+                <argument name="moduleName" xsi:type="string">Magento_Inventory</argument>
+            </arguments>
+        </enabledChecker>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">inventory_source_item</argument>
+                </arguments>
+            </fieldsClass>
+            <rowValidation class="Amasty\ProductImportEntity\Import\Validation\RowValidator\Inventory\SourceItemValidator">
+                <excludeBehaviors>
+                    <deleteDirect/>
+                </excludeBehaviors>
+            </rowValidation>
+            <fields>
+                <field name="source_item_id">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="source_code">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <notEmpty/>
+                        <tableRowExists tableName="inventory_source"
+                                        idFieldName="source_code"
+                                        error="Inventory Source with specified 'source_code' doesn't exist.">
+                            <excludeBehaviors>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </tableRowExists>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="sku">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <notEmpty/>
+                        <custom class="Amasty\ProductImportEntity\Import\Validation\EntityValidator\Product\Sku"
+                                error="The specified product sku doesn't exist."
+                                rootOnly="true"/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="quantity">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="status">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                    <required/>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name='source_item_id'>1</field>
+                    <field name='source_code'>default</field>
+                    <field name='sku'>24-MB01</field>
+                    <field name='quantity'>100</field>
+                    <field name='status'>1</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <custom class="Amasty\ProductImportEntity\Import\Behavior\Inventory\Save\SourceItem"
+                    code="save_inventory_source_item"
+                    name="Add/Update">
+                <executeOnParent>
+                    <addDirect/>
+                    <addUpdateDirect/>
+                    <updateDirect/>
+                    <custom code="save_inventory_source"/>
+                </executeOnParent>
+            </custom>
+            <deleteDirect name="Delete">
+                <tableName>inventory_source_item</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="catalog_product_entity_inventory_source_item">
+        <parent_entity>catalog_product_entity</parent_entity>
+        <child_entity>inventory_source_item</child_entity>
+        <sub_entity_field_name>inventory_source_item</sub_entity_field_name>
+        <skip_relation_fields_update>true</skip_relation_fields_update>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">sku</argument>
+            <argument name="child_field_name" xsi:type="string">sku</argument>
+        </arguments>
+    </relation>
+    <relation code="inventory_source_item">
+        <parent_entity>inventory_source_item</parent_entity>
+        <child_entity>inventory_source</child_entity>
+        <sub_entity_field_name>inventory_source</sub_entity_field_name>
+        <skip_relation_fields_update>true</skip_relation_fields_update>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">source_code</argument>
+            <argument name="child_field_name" xsi:type="string">source_code</argument>
+        </arguments>
+    </relation>
+</config>

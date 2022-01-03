@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductImportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="inventory_source_stock_link">
+        <name>MSI Inventory Source Stock Link</name>
+        <group>Product</group>
+        <description>MSI Inventory Source Stock Link Import Entity</description>
+        <enabledChecker class="Amasty\ImportCore\Import\Config\IsModuleEnabled">
+            <arguments>
+                <argument name="moduleName" xsi:type="string">Magento_Inventory</argument>
+            </arguments>
+        </enabledChecker>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">inventory_source_stock_link</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="link_id">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="stock_id">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <tableRowExists tableName="inventory_stock"
+                                        idFieldName="stock_id"
+                                        error="Inventory Stock with specified 'stock_id' doesn't exist."
+                                        rootOnly="true">
+                            <excludeBehaviors>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </tableRowExists>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="source_code">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <notEmpty/>
+                        <tableRowExists tableName="inventory_source"
+                                        idFieldName="source_code"
+                                        error="Inventory Source with specified 'source_code' doesn't exist."
+                                        rootOnly="true">
+                            <excludeBehaviors>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </tableRowExists>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="priority">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <smallIntRange/>
+                    </validation>
+                    <required/>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name='link_id'>1</field>
+                    <field name='stock_id'>1</field>
+                    <field name='source_code'>default</field>
+                    <field name='priority'>1</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <custom class="Amasty\ProductImportEntity\Import\Behavior\Inventory\Save\SourceStockLink"
+                    code="save_inventory_stock_link"
+                    name="Add/Update">
+                <executeOnParent>
+                    <addDirect/>
+                    <addUpdateDirect/>
+                    <custom code="save_inventory_source"/>
+                </executeOnParent>
+            </custom>
+            <updateDirect name="Only update">
+                <tableName>inventory_source_stock_link</tableName>
+            </updateDirect>
+            <deleteDirect name="Delete">
+                <tableName>inventory_source_stock_link</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="inventory_source_stock_link">
+        <parent_entity>inventory_source</parent_entity>
+        <child_entity>inventory_source_stock_link</child_entity>
+        <sub_entity_field_name>inventory_source_stock_link</sub_entity_field_name>
+        <skip_relation_fields_update>true</skip_relation_fields_update>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">source_code</argument>
+            <argument name="child_field_name" xsi:type="string">source_code</argument>
+        </arguments>
+    </relation>
+</config>

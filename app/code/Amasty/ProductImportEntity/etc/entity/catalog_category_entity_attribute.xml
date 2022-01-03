@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="catalog_category_entity_attribute">
+        <name>Product Category Attribute</name>
+        <group>Product</group>
+        <description>Product Category Attribute Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\EavAttribute">
+                <arguments>
+                    <argument name="entityType" xsi:type="string">catalog_category</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="entity_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="store_id">
+                    <validation>
+                        <storeExists/>
+                    </validation>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name='entity_id'>7</field>
+                    <field name='row_id'>7</field>
+                    <field name='store_id'>0</field>
+                    <field name='name'>Equipment</field>
+                    <field name='is_active'>Yes</field>
+                    <field name='description'>Equipment</field>
+                    <field name='meta_title'>Meta Title</field>
+                    <field name='meta_keywords'>Meta Keywords</field>
+                    <field name='meta_description'>Meta Description</field>
+                    <field name='is_anchor'>Yes</field>
+                    <field name='path'>1/2/7</field>
+                    <field name='level'>1</field>
+                    <field name='include_in_menu'>Yes</field>
+                    <field name='url_key'>sample</field>
+                    <field name='url_path'>sample/equipment</field>
+                </row>
+                <row>
+                    <field name='entity_id'>8</field>
+                    <field name='row_id'>8</field>
+                    <field name='store_id'>0</field>
+                    <field name='name'>Bags</field>
+                    <field name='is_active'>Yes</field>
+                    <field name='description'>Bags</field>
+                    <field name='meta_title'>Bags Meta Title</field>
+                    <field name='meta_keywords'>Bags Meta Keywords</field>
+                    <field name='meta_description'>Bags Meta Description</field>
+                    <field name='is_anchor'>Yes</field>
+                    <field name='path'>1/2/8</field>
+                    <field name='level'>1</field>
+                    <field name='include_in_menu'>Yes</field>
+                    <field name='url_key'>sample_bags</field>
+                    <field name='url_path'>sample/sample_bags</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <updateEavEM>
+                <entityDataInterface>Magento\Catalog\Api\Data\CategoryInterface</entityDataInterface>
+                <scopeType>store</scopeType>
+                <scopeIdentifier>store_id</scopeIdentifier>
+                <executeOnParent>
+                    <addDirect/>
+                    <addUpdateDirect/>
+                    <updateDirect/>
+                    <custom code="save_category_product_relation"/>
+                </executeOnParent>
+            </updateEavEM>
+            <deleteEavEM>
+                <entityDataInterface>Magento\Catalog\Api\Data\CategoryInterface</entityDataInterface>
+                <scopeType>store</scopeType>
+                <scopeIdentifier>store_id</scopeIdentifier>
+                <executeOnParent>
+                    <deleteDirect/>
+                </executeOnParent>
+            </deleteEavEM>
+        </behaviors>
+    </entity>
+    <relation code="catalog_category_entity_attribute">
+        <parent_entity>catalog_category_entity</parent_entity>
+        <child_entity>catalog_category_entity_attribute</child_entity>
+        <sub_entity_field_name>catalog_category_attribute</sub_entity_field_name>
+        <skip_relation_fields_update>true</skip_relation_fields_update>
+        <type>one_to_many</type>
+        <action class="Amasty\ProductImportEntity\Import\DataHandling\RelationModifier\CatalogEavAttribute">
+            <arguments>
+                <argument name="entity_data_interface" xsi:type="string">Magento\Catalog\Api\Data\CategoryInterface</argument>
+            </arguments>
+        </action>
+        <arguments>
+            <argument name="parent_entity_name" xsi:type="string">Magento\Catalog\Api\Data\CategoryInterface</argument>
+            <argument name="child_entity_name" xsi:type="string">Magento\Catalog\Api\Data\CategoryInterface</argument>
+        </arguments>
+    </relation>
+</config>

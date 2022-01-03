@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="customer_segment_relation">
+        <name>Magento Customer Segment Relation</name>
+        <group>Customer</group>
+        <description>Customer Segment Relation Import Entity</description>
+        <enabledChecker class="Amasty\ImportCore\Import\Config\IsModuleEnabled">
+            <arguments>
+                <argument name="moduleName" xsi:type="string">Magento_CustomerSegment</argument>
+            </arguments>
+        </enabledChecker>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">magento_customersegment_customer</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="segment_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty>
+                            <excludeBehaviors>
+                                <addDirect/>
+                            </excludeBehaviors>
+                        </notEmpty>
+                    </validation>
+                </field>
+                <field name="customer_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <notEmpty/>
+                        <nonNegative/>
+                        <customerExists>
+                            <includeBehaviors>
+                                <addDirect/>
+                                <updateDirect/>
+                                <addUpdateDirect/>
+                            </includeBehaviors>
+                        </customerExists>
+                    </validation>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name="segment_id">1</field>
+                    <field name="customer_id">1</field>
+                    <field name="added_date">2021-01-19 10:04:36</field>
+                    <field name="updated_date">2021-01-19 10:04:36</field>
+                    <field name='website_id'>1</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <addUpdateDirect name="Add/Update" indexerMethod="update">
+                <tableName>magento_customersegment_customer</tableName>
+                <idField>segment_id</idField>
+            </addUpdateDirect>
+            <addDirect name="Only add" indexerMethod="update">
+                <tableName>magento_customersegment_customer</tableName>
+                <idField>segment_id</idField>
+            </addDirect>
+            <updateDirect name="Only update" indexerMethod="update">
+                <tableName>magento_customersegment_customer</tableName>
+                <idField>segment_id</idField>
+            </updateDirect>
+            <deleteDirect name="Delete" indexerMethod="delete">
+                <tableName>magento_customersegment_customer</tableName>
+                <idField>segment_id</idField>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="magento_customersegment_customer">
+        <parent_entity>customer_segment</parent_entity>
+        <child_entity>customer_segment_relation</child_entity>
+        <sub_entity_field_name>customer_segment_relation</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">segment_id</argument>
+            <argument name="child_field_name" xsi:type="string">segment_id</argument>
+        </arguments>
+    </relation>
+</config>

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerImport
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Amasty_CustomerImport::customer_import"
+             title="Import Customers"
+             translate="title"
+             module="Amasty_CustomerImport"
+             parent="Magento_Backend::system"
+             dependsOnModule="Amasty_CustomerImport"
+             sortOrder="10"
+             resource="Amasty_CustomerImport::customer_import"
+        />
+        <add id="Amasty_CustomerImport::customer_import_profiles"
+             title="Profiles"
+             translate="title"
+             module="Amasty_CustomerImport"
+             parent="Amasty_CustomerImport::customer_import"
+             dependsOnModule="Amasty_CustomerImport"
+             action="amcustomerimport/profile/index"
+             sortOrder="15"
+             resource="Amasty_CustomerImport::customer_import_profiles"
+        />
+        <add id="Amasty_CustomerImport::customer_import_history"
+             title="History"
+             translate="title"
+             module="Amasty_CustomerImport"
+             parent="Amasty_CustomerImport::customer_import"
+             dependsOnModule="Amasty_CustomerImport"
+             action="amcustomerimport/history/index"
+             sortOrder="20"
+             resource="Amasty_CustomerImport::customer_import_history"
+        />
+    </menu>
+</config>

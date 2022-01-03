@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductExportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="catalog_product_entity_attribute">
+        <name>Product Attribute</name>
+        <group>Product</group>
+        <collectionFactory class="Amasty\ProductExportEntity\Model\ResourceModel\Product\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\EavEMAttribute">
+                <arguments>
+                    <argument name="entityType" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="store_id">
+                    <actions>
+                        <storeId2StoreCode/>
+                    </actions>
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Magento\Cms\Ui\Component\Listing\Column\Cms\Options</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="price_type">
+                    <actions>
+                        <custom class="Amasty\ProductExportEntity\Export\DataHandling\FieldModifier\Product\Type\Bundle\TypeValue2TypeLabel"/>
+                    </actions>
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Amasty\ProductExportEntity\Export\Product\Type\Bundle\SourceOption\TypeOptions</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="sku_type">
+                    <actions>
+                        <custom class="Amasty\ProductExportEntity\Export\DataHandling\FieldModifier\Product\Type\Bundle\TypeValue2TypeLabel"/>
+                    </actions>
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Amasty\ProductExportEntity\Export\Product\Type\Bundle\SourceOption\TypeOptions</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="weight_type">
+                    <actions>
+                        <custom class="Amasty\ProductExportEntity\Export\DataHandling\FieldModifier\Product\Type\Bundle\TypeValue2TypeLabel"/>
+                    </actions>
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Amasty\ProductExportEntity\Export\Product\Type\Bundle\SourceOption\TypeOptions</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="giftcard_amounts">
+                    <remove>true</remove>
+                </field>
+                <field name="category_ids">
+                    <remove>true</remove>
+                </field>
+                <field name="am_giftcard_prices">
+                    <remove>true</remove>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="catalog_product_entity_attribute">
+        <parent_entity>catalog_product_entity</parent_entity>
+        <child_entity>catalog_product_entity_attribute</child_entity>
+        <sub_entity_field_name>catalog_product_attribute</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_entity_name" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+            <argument name="child_entity_name" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+        </arguments>
+    </relation>
+    <relation code="attribute_catalog_product_entity">
+        <parent_entity>catalog_product_entity_attribute</parent_entity>
+        <child_entity>catalog_product_entity</child_entity>
+        <sub_entity_field_name>catalog_product_entity</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_entity_name" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+            <argument name="child_entity_name" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+        </arguments>
+    </relation>
+</config>

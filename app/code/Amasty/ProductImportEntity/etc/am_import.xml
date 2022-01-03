@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <include path="Amasty_ProductImportEntity::entity/catalog_product_entity.xml"/>
+    <include path="Amasty_ProductImportEntity::entity/catalog_product_entity_attribute.xml"/>
+
+    <include path="Amasty_ProductImportEntity::entity/catalog_product_entity_review.xml"/>
+
+    <include path="Amasty_ProductImportEntity::entity/catalog_product_entity_website.xml"/>
+    <include path="Amasty_ProductImportEntity::entity/catalog_product_entity_attribute_set.xml"/>
+
+    <include path="Amasty_ProductImportEntity::entity/catalog_category_entity.xml"/>
+    <include path="Amasty_ProductImportEntity::entity/catalog_category_entity_attribute.xml"/>
+
+    <include path="Amasty_ProductImportEntity::entity/catalog_product_entity_custom_option.xml"/>
+    <include path="Amasty_ProductImportEntity::entity/catalog_product_entity_custom_option_value.xml"/>
+
+    <include path="Amasty_ProductImportEntity::entity/catalog_product_entity_super_attribute.xml"/>
+    <include path="Amasty_ProductImportEntity::entity/catalog_product_entity_super_attribute_label.xml"/>
+    <include path="Amasty_ProductImportEntity::entity/catalog_product_entity_super_attribute_link.xml"/>
+
+    <include path="Amasty_ProductImportEntity::entity/catalog_product_entity_super_links.xml"/>
+    <include path="Amasty_ProductImportEntity::entity/catalog_product_entity_crosssell_links.xml"/>
+    <include path="Amasty_ProductImportEntity::entity/catalog_product_entity_related_links.xml"/>
+    <include path="Amasty_ProductImportEntity::entity/catalog_product_entity_upsell_links.xml"/>
+
+    <include path="Amasty_ProductImportEntity::entity/catalog_product_entity_bundle_option.xml"/>
+    <include path="Amasty_ProductImportEntity::entity/catalog_product_entity_bundle_option_value.xml"/>
+    <include path="Amasty_ProductImportEntity::entity/catalog_product_entity_bundle_selection.xml"/>
+
+    <include path="Amasty_ProductImportEntity::entity/catalog_product_entity_tier_price.xml"/>
+
+    <include path="Amasty_ProductImportEntity::entity/catalog_product_entity_giftcard_amount.xml"/>
+
+    <include path="Amasty_ProductImportEntity::entity/catalog_product_entity_inventory_stock_item.xml"/>
+    <include path="Amasty_ProductImportEntity::entity/catalog_product_entity_inventory_stock_status.xml"/>
+
+    <include path="Amasty_ProductImportEntity::entity/inventory_source.xml"/>
+    <include path="Amasty_ProductImportEntity::entity/inventory_source_carrier_link.xml"/>
+    <include path="Amasty_ProductImportEntity::entity/inventory_source_item.xml"/>
+    <include path="Amasty_ProductImportEntity::entity/inventory_source_stock_link.xml"/>
+    <include path="Amasty_ProductImportEntity::entity/inventory_stock.xml"/>
+</config>

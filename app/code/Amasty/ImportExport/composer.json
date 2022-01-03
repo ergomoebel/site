@@ -1,0 +1,31 @@
+{
+    "name": "amasty/module-import-export",
+    "description": "Import and Export Extension by Amasty",
+    "require": {
+        "php": "^7.1.0",
+        "amasty/base": ">=1.12.11",
+        "amasty/module-product-export": ">=1.7.1",
+        "amasty/module-product-import": ">=1.1.1",
+        "amasty/module-customer-export": ">=1.7.1",
+        "amasty/module-customer-import": ">=1.3.1",
+        "amasty/module-order-export": ">=1.8.1",
+        "amasty/module-order-import": ">=1.4.1",
+        "amasty/module-url-rewrite-export-entity": ">=1.0.0",
+        "amasty/module-url-rewrite-import-entity": ">=1.0.0",
+        "amasty/module-cms-import-entity": ">=1.0.0",
+        "amasty/module-cms-export-entity": ">=1.0.0"
+    },
+    "type": "magento2-module",
+    "version": "1.3.1",
+    "license": [
+        "Commercial"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\ImportExport\\": ""
+        }
+    }
+}

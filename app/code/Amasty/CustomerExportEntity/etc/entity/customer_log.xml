@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerExportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="customer_log">
+        <name>Customer Log</name>
+        <group>Customer</group>
+        <collectionFactory class="Amasty\ExportCore\Export\Config\CustomEntity\CollectionFactory">
+            <arguments>
+                <argument name="tableName" xsi:type="string">customer_log</argument>
+                <argument name="idField" xsi:type="string">log_id</argument>
+            </arguments>
+        </collectionFactory>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+        </fieldsConfig>
+    </entity>
+    <relation code="customer_log_customer">
+        <parent_entity>customer_log</parent_entity>
+        <child_entity>customer_entity</child_entity>
+        <sub_entity_field_name>customer_entity</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">customer_id</argument>
+            <argument name="child_field_name" xsi:type="string">entity_id</argument>
+        </arguments>
+    </relation>
+    <relation code="customer_customer_log">
+        <parent_entity>customer_entity</parent_entity>
+        <child_entity>customer_log</child_entity>
+        <sub_entity_field_name>customer_log</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">customer_id</argument>
+        </arguments>
+    </relation>
+</config>

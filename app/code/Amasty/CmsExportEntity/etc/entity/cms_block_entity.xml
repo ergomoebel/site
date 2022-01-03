@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CmsExportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="cms_block_entity">
+        <name>Block</name>
+        <group>Cms</group>
+        <collectionFactory class="Magento\Cms\Model\ResourceModel\Block\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+            <fields>
+                <field name="block_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="title">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="identifier">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="content"/>
+                <field name="is_active">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+                <field name="creation_time">
+                    <filter>
+                        <type>date</type>
+                    </filter>
+                </field>
+                <field name="update_time">
+                    <filter>
+                        <type>date</type>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+</config>

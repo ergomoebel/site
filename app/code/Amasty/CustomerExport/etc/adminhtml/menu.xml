@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerExport
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Amasty_CustomerExport::customer_export"
+             title="Export Customers"
+             translate="title"
+             module="Amasty_CustomerExport"
+             parent="Magento_Backend::system"
+             dependsOnModule="Amasty_CustomerExport"
+             sortOrder="15"
+             resource="Amasty_CustomerExport::customer_export"
+        />
+        <add id="Amasty_CustomerExport::customer_export_profiles"
+             title="Profiles"
+             translate="title"
+             module="Amasty_CustomerExport"
+             parent="Amasty_CustomerExport::customer_export"
+             dependsOnModule="Amasty_CustomerExport"
+             action="amcustomerexport/profile/index"
+             sortOrder="10"
+             resource="Amasty_CustomerExport::customer_export_profiles"
+        />
+        <add id="Amasty_CustomerExport::customer_export_history"
+             title="History"
+             translate="title"
+             module="Amasty_CustomerExport"
+             parent="Amasty_CustomerExport::customer_export"
+             dependsOnModule="Amasty_CustomerExport"
+             action="amcustomerexport/history/index"
+             sortOrder="20"
+             resource="Amasty_CustomerExport::customer_export_history"
+        />
+        <add id="Amasty_CustomerExport::customer_export_connections"
+             title="3rd Party Connections"
+             translate="title"
+             module="Amasty_CustomerExport"
+             parent="Amasty_CustomerExport::customer_export"
+             dependsOnModule="Amasty_CustomerExport"
+             action="amcustomerexport/connection/index"
+             sortOrder="30"
+             resource="Amasty_CustomerExport::customer_export_connections"
+        />
+    </menu>
+</config>

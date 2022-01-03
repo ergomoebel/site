@@ -1,0 +1,27 @@
+{
+    "name": "amasty/module-product-export",
+    "description": "Product Export by Amasty",
+    "require": {
+        "php": "^7.1.0",
+        "amasty/base": "*",
+        "amasty/module-product-export-entity": "*",
+        "amasty/module-export-pro": ">=1.5.0",
+        "amasty/cron-schedule-list": "*"
+    },
+    "suggest": {
+        "amasty/module-product-export-mftf-3": "Install module-product-export-mftf-3 module to be able to run Product Export MFTF tests for Magento 2.4.0+ version"
+    },
+    "type": "magento2-module",
+    "version": "1.7.1",
+    "license": [
+        "Commercial"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\ProductExport\\": ""
+        }
+    }
+}

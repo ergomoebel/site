@@ -1,0 +1,280 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ExportPro
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\ExportPro\Api\CronJobRepositoryInterface" type="Amasty\ExportPro\Model\Job\Repository"/>
+    <preference for="Amasty\ExportPro\Api\Data\CronJobInterface" type="Amasty\ExportPro\Model\Job\Job"/>
+    <preference for="Amasty\ExportPro\Api\HistoryRepositoryInterface" type="Amasty\ExportPro\Model\History\Repository"/>
+    <preference for="Amasty\ExportPro\Api\Data\HistoryInterface" type="Amasty\ExportPro\Model\History\History"/>
+    <preference for="Amasty\ExportPro\Api\LastExportedIdRepositoryInterface"
+                type="Amasty\ExportPro\Model\LastExportedId\Repository"/>
+    <preference for="Amasty\ExportPro\Api\Data\LastExportedIdInterface" type="Amasty\ExportPro\Model\LastExportedId\LastExportedId"/>
+    <preference for="Amasty\ExportPro\Export\FileDestination\Type\FtpFile\ConfigInterface" type="Amasty\ExportPro\Export\FileDestination\Type\FtpFile\Config"/>
+    <preference for="Amasty\ExportPro\Export\FileDestination\Type\SftpFile\ConfigInterface" type="Amasty\ExportPro\Export\FileDestination\Type\SftpFile\Config"/>
+    <preference for="Amasty\ExportPro\Export\FileDestination\Type\Email\ConfigInterface" type="Amasty\ExportPro\Export\FileDestination\Type\Email\Config"/>
+    <preference for="Amasty\ExportPro\Export\FileDestination\Type\Rest\ConfigInterface" type="Amasty\ExportPro\Export\FileDestination\Type\Rest\Config"/>
+    <preference for="Amasty\ExportPro\Export\FileDestination\Type\Dropbox\ConfigInterface" type="Amasty\ExportPro\Export\FileDestination\Type\Dropbox\Config"/>
+    <preference for="Amasty\ExportPro\Export\FileDestination\Type\GoogleDrive\ConfigInterface" type="Amasty\ExportPro\Export\FileDestination\Type\GoogleDrive\Config"/>
+
+    <preference for="Amasty\ExportPro\Export\FileDestination\Type\Rest\Auth\Basic\ConfigInterface" type="Amasty\ExportPro\Export\FileDestination\Type\Rest\Auth\Basic\Config"/>
+    <preference for="Amasty\ExportPro\Export\FileDestination\Type\Rest\Auth\Bearer\ConfigInterface" type="Amasty\ExportPro\Export\FileDestination\Type\Rest\Auth\Bearer\Config"/>
+
+    <preference for="Amasty\ExportPro\Export\Template\Type\Xlsx\ConfigInterface" type="Amasty\ExportPro\Export\Template\Type\Xlsx\Config"/>
+    <preference for="Amasty\ExportPro\Export\Template\Type\Ods\ConfigInterface" type="Amasty\ExportPro\Export\Template\Type\Ods\Config"/>
+    <preference for="Amasty\ExportPro\Export\Template\Type\Twig\ConfigInterface" type="Amasty\ExportPro\Export\Template\Type\Twig\Config"/>
+    <preference for="Amasty\ExportPro\Export\Template\Type\Json\ConfigInterface" type="Amasty\ExportPro\Export\Template\Type\Json\Config"/>
+
+    <preference for="Amasty\ExportPro\Export\Notification\Type\Email\ConfigInterface" type="Amasty\ExportPro\Export\Notification\Type\Email\Config"/>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="export_job_listing_data_source" xsi:type="string">Amasty\ExportPro\Model\Job\ResourceModel\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Amasty\ExportPro\Model\Job\ResourceModel\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">amasty_export_cron_job</argument>
+            <argument name="resourceModel" xsi:type="string">Amasty\ExportPro\Model\Job\ResourceModel\Job</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Amasty\ExportPro\Model\History\HistoryStrategies">
+        <arguments>
+            <argument name="strategies" xsi:type="array">
+                <item name="export" xsi:type="string">export</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\ExportCore\Api\FileDestination\FileDestinationConfigInterface">
+        <arguments>
+            <argument name="fileDestinationConfig" xsi:type="array">
+                <item name="drive" xsi:type="array">
+                    <item name="code" xsi:type="const">Amasty\ExportPro\Export\FileDestination\Type\GoogleDrive\Meta::TYPE_ID</item>
+                    <item name="fileDestinationClass" xsi:type="string">Amasty\ExportPro\Export\FileDestination\Type\GoogleDrive\FileDestination</item>
+                    <item name="metaClass" xsi:type="string">Amasty\ExportPro\Export\FileDestination\Type\GoogleDrive\Meta</item>
+                    <item translatable="true" name="name" xsi:type="string">Store Exported File on Google Drive</item>
+                </item>
+                <item name="dropbox" xsi:type="array">
+                    <item name="code" xsi:type="const">Amasty\ExportPro\Export\FileDestination\Type\Dropbox\Meta::TYPE_ID</item>
+                    <item name="fileDestinationClass" xsi:type="string">Amasty\ExportPro\Export\FileDestination\Type\Dropbox\FileDestination</item>
+                    <item name="metaClass" xsi:type="string">Amasty\ExportPro\Export\FileDestination\Type\Dropbox\Meta</item>
+                    <item translatable="true" name="name" xsi:type="string">Store Exported File on Dropbox</item>
+                </item>
+                <item name="ftp" xsi:type="array">
+                    <item name="code" xsi:type="const">Amasty\ExportPro\Export\FileDestination\Type\FtpFile\Meta::TYPE_ID</item>
+                    <item name="fileDestinationClass" xsi:type="string">Amasty\ExportPro\Export\FileDestination\Type\FtpFile\FileDestination</item>
+                    <item name="metaClass" xsi:type="string">Amasty\ExportPro\Export\FileDestination\Type\FtpFile\Meta</item>
+                    <item translatable="true" name="name" xsi:type="string">Upload Exported File By FTP</item>
+                </item>
+                <item name="sftp" xsi:type="array">
+                    <item name="code" xsi:type="const">Amasty\ExportPro\Export\FileDestination\Type\SftpFile\Meta::TYPE_ID</item>
+                    <item name="fileDestinationClass" xsi:type="string">Amasty\ExportPro\Export\FileDestination\Type\SftpFile\FileDestination</item>
+                    <item name="metaClass" xsi:type="string">Amasty\ExportPro\Export\FileDestination\Type\SftpFile\Meta</item>
+                    <item translatable="true" name="name" xsi:type="string">Upload Exported File By SFTP</item>
+                </item>
+                <item name="email" xsi:type="array">
+                    <item name="code" xsi:type="const">Amasty\ExportPro\Export\FileDestination\Type\Email\Meta::TYPE_ID</item>
+                    <item name="fileDestinationClass" xsi:type="string">Amasty\ExportPro\Export\FileDestination\Type\Email\FileDestination</item>
+                    <item name="metaClass" xsi:type="string">Amasty\ExportPro\Export\FileDestination\Type\Email\Meta</item>
+                    <item translatable="true" name="name" xsi:type="string">Send Exported File to E-mail</item>
+                </item>
+                <item name="rest" xsi:type="array">
+                    <item name="code" xsi:type="const">Amasty\ExportPro\Export\FileDestination\Type\Rest\Meta::TYPE_ID</item>
+                    <item name="fileDestinationClass" xsi:type="string">Amasty\ExportPro\Export\FileDestination\Type\Rest\FileDestination</item>
+                    <item name="metaClass" xsi:type="string">Amasty\ExportPro\Export\FileDestination\Type\Rest\Meta</item>
+                    <item translatable="true" name="name" xsi:type="string">Send to Rest Api Endpoint</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Amasty\ExportPro\Export\FileDestination\Type\Rest\Auth\AuthConfig">
+        <arguments>
+            <argument name="authConfig" xsi:type="array">
+                <item name="bearer" xsi:type="array">
+                    <item name="metaClass" xsi:type="string">Amasty\ExportPro\Export\FileDestination\Type\Rest\Auth\Bearer\Meta</item>
+                    <item name="authClass" xsi:type="string">Amasty\ExportPro\Export\FileDestination\Type\Rest\Auth\Bearer\Auth</item>
+                    <item name="code" xsi:type="const">Amasty\ExportPro\Export\FileDestination\Type\Rest\Auth\Bearer\Meta::CODE</item>
+                    <item translatable="true" name="name" xsi:type="string">Bearer</item>
+                </item>
+                <item name="basic" xsi:type="array">
+                    <item name="metaClass" xsi:type="string">Amasty\ExportPro\Export\FileDestination\Type\Rest\Auth\Basic\Meta</item>
+                    <item name="authClass" xsi:type="string">Amasty\ExportPro\Export\FileDestination\Type\Rest\Auth\Basic\Auth</item>
+                    <item name="code" xsi:type="const">Amasty\ExportPro\Export\FileDestination\Type\Rest\Auth\Basic\Meta::CODE</item>
+                    <item translatable="true" name="name" xsi:type="string">Basic</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Amasty\ExportCore\Api\PostProcessing\PostProcessingConfigInterface">
+        <arguments>
+            <argument name="postProcessingConfig" xsi:type="array">
+                <item name="compress" xsi:type="array">
+                    <item name="code" xsi:type="const">Amasty\ExportPro\Export\PostProcessing\Type\Compress\Meta::TYPE_ID</item>
+                    <item name="processorClass" xsi:type="string">Amasty\ExportPro\Export\PostProcessing\Type\Compress\Processor</item>
+                    <item name="metaClass" xsi:type="string">Amasty\ExportPro\Export\PostProcessing\Type\Compress\Meta</item>
+                    <item translatable="true" name="name" xsi:type="string">Compress Export File With Gzip</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\ExportCore\Api\Template\TemplateConfigInterface">
+        <arguments>
+            <argument name="templateConfig" xsi:type="array">
+                <item name="ods" xsi:type="array">
+                    <item name="code" xsi:type="const">Amasty\ExportPro\Export\Template\Type\Ods\Renderer::TYPE_ID</item>
+                    <item name="rendererClass" xsi:type="string">Amasty\ExportPro\Export\Template\Type\Ods\Renderer</item>
+                    <item name="metaClass" xsi:type="string">Amasty\ExportPro\Export\Template\Type\Ods\Meta</item>
+                    <item translatable="true" name="name" xsi:type="string">ODS</item>
+                </item>
+                <item name="xlsx" xsi:type="array">
+                    <item name="code" xsi:type="const">Amasty\ExportPro\Export\Template\Type\Xlsx\Renderer::TYPE_ID</item>
+                    <item name="rendererClass" xsi:type="string">Amasty\ExportPro\Export\Template\Type\Xlsx\Renderer</item>
+                    <item name="metaClass" xsi:type="string">Amasty\ExportPro\Export\Template\Type\Xlsx\Meta</item>
+                    <item translatable="true" name="name" xsi:type="string">XLSX</item>
+                </item>
+                <item name="twig" xsi:type="array">
+                    <item name="code" xsi:type="const">Amasty\ExportPro\Export\Template\Type\Twig\Renderer::TYPE_ID</item>
+                    <item name="rendererClass" xsi:type="string">Amasty\ExportPro\Export\Template\Type\Twig\Renderer</item>
+                    <item name="metaClass" xsi:type="string">Amasty\ExportPro\Export\Template\Type\Twig\Meta</item>
+                    <item translatable="true" name="name" xsi:type="string">Template</item>
+                </item>
+                <item name="json" xsi:type="array">
+                    <item name="code" xsi:type="const">Amasty\ExportPro\Export\Template\Type\Json\Renderer::TYPE_ID</item>
+                    <item name="rendererClass" xsi:type="string">Amasty\ExportPro\Export\Template\Type\Json\Renderer</item>
+                    <item name="metaClass" xsi:type="string">Amasty\ExportPro\Export\Template\Type\Json\Meta</item>
+                    <item translatable="true" name="name" xsi:type="string">JSON</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Amasty\ExportPro\Export\Template\Type\Twig\Renderer">
+        <arguments>
+            <argument name="debug" xsi:type="boolean">false</argument>
+            <!-- use should add ExtensionFactory only. Ex.: -->
+            <!--<argument name="extensions" xsi:type="array">-->
+                <!--<item name="twig-intl" xsi:type="object">Twig\Extra\Intl\IntlExtensionFactory</item>-->
+            <!--</argument>-->
+        </arguments>
+    </type>
+    <!-- TODO inject batch size/export new entities in job form -->
+    <virtualType name="AmastyExport">
+        <arguments>
+            <argument name="actionGroups" xsi:type="array">
+                <item name="preparation" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="actions" xsi:type="array">
+                        <item name="addLastExportedIdFilter" xsi:type="array">
+                            <item name="class" xsi:type="string">Amasty\ExportPro\Export\Action\Preparation\AddLastExportedIdFilterAction</item>
+                            <item name="sortOrder" xsi:type="number">35</item>
+                        </item>
+                        <item name="saveLastExportedId" xsi:type="array">
+                            <item name="class" xsi:type="string">Amasty\ExportPro\Export\Action\Preparation\SaveLastExportedIdAction</item>
+                            <item name="sortOrder" xsi:type="number">45</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Amasty\ExportPro\Model\Notification\ExportAlertNotifier">
+        <arguments>
+            <argument name="notifiers" xsi:type="array">
+                <item name="email" xsi:type="object">Amasty\ExportPro\Export\Notification\Type\Email\Notifier\Proxy</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\ExportPro\Export\Template\Type\Twig\Sandbox\Policy">
+        <arguments>
+            <argument name="enabled" xsi:type="boolean">true</argument>
+            <argument name="tags" xsi:type="array">
+                <item name="apply" xsi:type="string">apply</item>
+                <item name="autoescape" xsi:type="string">autoescape</item>
+                <item name="do" xsi:type="string">do</item>
+                <item name="for" xsi:type="string">for</item>
+                <item name="if" xsi:type="string">if</item>
+                <item name="macro" xsi:type="string">macro</item>
+                <item name="set" xsi:type="string">set</item>
+                <item name="verbatim" xsi:type="string">verbatim</item>
+                <item name="with" xsi:type="string">with</item>
+            </argument>
+            <argument name="filters" xsi:type="array">
+                <item name="abs" xsi:type="string">abs</item>
+                <item name="batch" xsi:type="string">batch</item>
+                <item name="capitalize" xsi:type="string">capitalize</item>
+                <item name="column" xsi:type="string">column</item>
+                <item name="convert_encoding" xsi:type="string">convert_encoding</item>
+                <item name="country_name" xsi:type="string">country_name</item>
+                <item name="currency_name" xsi:type="string">currency_name</item>
+                <item name="currency_symbol" xsi:type="string">currency_symbol</item>
+                <item name="data_uri" xsi:type="string">data_uri</item>
+                <item name="date" xsi:type="string">date</item>
+                <item name="date_modify" xsi:type="string">date_modify</item>
+                <item name="default" xsi:type="string">default</item>
+                <item name="escape" xsi:type="string">escape</item>
+                <item name="filter" xsi:type="string">filter</item>
+                <item name="first" xsi:type="string">first</item>
+                <item name="format" xsi:type="string">format</item>
+                <item name="format_currency" xsi:type="string">format_currency</item>
+                <item name="format_date" xsi:type="string">format_date</item>
+                <item name="format_datetime" xsi:type="string">format_datetime</item>
+                <item name="format_number" xsi:type="string">format_number</item>
+                <item name="format_time" xsi:type="string">format_time</item>
+                <item name="html_to_markdown" xsi:type="string">html_to_markdown</item>
+                <item name="inky_to_html" xsi:type="string">inky_to_html</item>
+                <item name="inline_css" xsi:type="string">inline_css</item>
+                <item name="join" xsi:type="string">join</item>
+                <item name="json_encode" xsi:type="string">json_encode</item>
+                <item name="keys" xsi:type="string">keys</item>
+                <item name="language_name" xsi:type="string">language_name</item>
+                <item name="last" xsi:type="string">last</item>
+                <item name="length" xsi:type="string">length</item>
+                <item name="locale_name" xsi:type="string">locale_name</item>
+                <item name="lower" xsi:type="string">lower</item>
+                <item name="map" xsi:type="string">map</item>
+                <item name="markdown_to_html" xsi:type="string">markdown_to_html</item>
+                <item name="merge" xsi:type="string">merge</item>
+                <item name="nl2br" xsi:type="string">nl2br</item>
+                <item name="number_format" xsi:type="string">number_format</item>
+                <item name="raw" xsi:type="string">raw</item>
+                <item name="reduce" xsi:type="string">reduce</item>
+                <item name="replace" xsi:type="string">replace</item>
+                <item name="reverse" xsi:type="string">reverse</item>
+                <item name="round" xsi:type="string">round</item>
+                <item name="slice" xsi:type="string">slice</item>
+                <item name="sort" xsi:type="string">sort</item>
+                <item name="spaceless" xsi:type="string">spaceless</item>
+                <item name="split" xsi:type="string">split</item>
+                <item name="striptags" xsi:type="string">striptags</item>
+                <item name="timezone_name" xsi:type="string">timezone_name</item>
+                <item name="title" xsi:type="string">title</item>
+                <item name="trim" xsi:type="string">trim</item>
+                <item name="u" xsi:type="string">u</item>
+                <item name="upper" xsi:type="string">upper</item>
+                <item name="url_encode" xsi:type="string">url_encode</item>
+            </argument>
+            <argument name="functions" xsi:type="array">
+                <item name="country_timezones" xsi:type="string">country_timezones</item>
+                <item name="cycle" xsi:type="string">cycle</item>
+                <item name="date" xsi:type="string">date</item>
+                <item name="dump" xsi:type="string">dump</item>
+                <item name="html_classes" xsi:type="string">html_classes</item>
+                <item name="max" xsi:type="string">max</item>
+                <item name="min" xsi:type="string">min</item>
+                <item name="random" xsi:type="string">random</item>
+                <item name="range" xsi:type="string">range</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

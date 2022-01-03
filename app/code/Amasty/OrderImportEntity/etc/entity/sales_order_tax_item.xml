@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="sales_order_tax_item">
+        <name>Order Tax Item</name>
+        <group>Sales</group>
+        <description>Order Tax Import Entity</description>
+        <fieldsConfig>
+            <!-- This is an initial fields config -->
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">sales_order_tax</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="tax_item_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty>
+                            <excludeBehaviors>
+                                <addDirect/>
+                            </excludeBehaviors>
+                        </notEmpty>
+                    </validation>
+                </field>
+                <field name="tax_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <tableRowExists tableName="sales_order_tax"
+                                        idFieldName="tax_id"
+                                        rootOnly="true"
+                                        error="Tax entity with specified 'tax_id' doesn't exist">
+                            <excludeBehaviors>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </tableRowExists>
+                    </validation>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name='tax_item_id'>1</field>
+                    <field name='tax_id'>3</field>
+                    <field name='item_id'>13</field>
+                    <field name='tax_percent'>8.2500</field>
+                    <field name='amount'>11.1400</field>
+                    <field name='base_amount'>11.1400</field>
+                    <field name='real_amount'>11.1400</field>
+                    <field name='real_base_amount'>11.1400</field>
+                    <field name='associated_item_id'>13</field>
+                    <field name="taxable_item_type">product</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <addUpdateDirect>
+                <tableName>sales_order_tax_item</tableName>
+            </addUpdateDirect>
+            <addDirect>
+                <tableName>sales_order_tax_item</tableName>
+            </addDirect>
+            <updateDirect>
+                <tableName>sales_order_tax_item</tableName>
+            </updateDirect>
+            <deleteDirect>
+                <tableName>sales_order_tax_item</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="sales_order_tax_item">
+        <parent_entity>sales_order_tax</parent_entity>
+        <child_entity>sales_order_tax_item</child_entity>
+        <sub_entity_field_name>sales_order_tax_item</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">tax_id</argument>
+            <argument name="child_field_name" xsi:type="string">tax_id</argument>
+        </arguments>
+    </relation>
+</config>

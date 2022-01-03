@@ -1,0 +1,166 @@
+"Are you sure you want to do this?","Are you sure you want to do this?"
+Delete,Delete
+History,History
+"Save and Generate","Save and Generate"
+"Something went wrong. Please try again.","Something went wrong. Please try again."
+"You have successfully deleted the job","You have successfully deleted the job"
+"We can't delete item right now. Please review the log and try again.","We can't delete item right now. Please review the log and try again."
+"Edit Job","Edit Job"
+"This job no longer exists.","This job no longer exists."
+"New Export Job","New Export Job"
+"Job Id is not set","Job Id is not set"
+"Export Cron Jobs","Export Cron Jobs"
+"Cron jobs was successfully removed.","Cron jobs was successfully removed."
+"New Export Cron Job","New Export Cron Job"
+"You saved the profile.","You saved the profile."
+"An error has occurred","An error has occurred"
+"History has been cleared.","History has been cleared."
+"Something went wrong.","Something went wrong."
+"Export History","Export History"
+"Error occurred while deleting History Record with ID %1. Error: %2","Error occurred while deleting History Record with ID %1. Error: %2"
+"%1 History Record(s) has been successfully deleted","%1 History Record(s) has been successfully deleted"
+"%1 History Record(s) has been failed to delete","%1 History Record(s) has been failed to delete"
+"Generated Access Token","Generated Access Token"
+"Please follow the <a href=""' . . '"" target=""_blank"">instructions</a> from the user guide to generate access token.","Please follow the <a href=""' . . '"" target=""_blank"">instructions</a> from the user guide to generate access token."
+"File Path","File Path"
+"File Name for Dropbox","File Name for Dropbox"
+"PHP library <a href=""https://github.com/spatie/dropbox-api""  target=""_blank"">Spatie</a> is not installed. Please install the library to proceed with Dropbox storage.","PHP library <a href=""https://github.com/spatie/dropbox-api""  target=""_blank"">Spatie</a> is not installed. Please install the library to proceed with Dropbox storage."
+"Email Sender","Email Sender"
+"E-mail Recipients","E-mail Recipients"
+"E-mail Message Subject","E-mail Message Subject"
+"Email Template","Email Template"
+Host,Host
+"Passive Mode","Passive Mode"
+User,User
+Password,Password
+"File Name for FTP","File Name for FTP"
+"File Path is not specified.","File Path is not specified."
+"Wrong Service Account Key File provided.","Wrong Service Account Key File provided."
+"First folder in the File Path must be shared from root.","First folder in the File Path must be shared from root."
+"Upload Service Account Key File","Upload Service Account Key File"
+"Select the File","Select the File"
+"Please follow the <a href=""' . . '"" target=""_blank"">instructions</a> from the user guide to create a service account key.","Please follow the <a href=""' . . '"" target=""_blank"">instructions</a> from the user guide to create a service account key."
+"File Name for Google Drive","File Name for Google Drive"
+"<a href=""https://github.com/googleapis/google-api-php-client""  target=""_blank"">Google APIs Client Library</a> for PHP is not installed. Please install the library to proceed with Google Drive storage.","<a href=""https://github.com/googleapis/google-api-php-client""  target=""_blank"">Google APIs Client Library</a> for PHP is not installed. Please install the library to proceed with Google Drive storage."
+"File can not be saved to the destination folder.","File can not be saved to the destination folder."
+Username,Username
+Token,Token
+"Rest Api Endpoint","Rest Api Endpoint"
+"Ex.: https://magento.instance/rest/all/V1/some/endpoint","Ex.: https://magento.instance/rest/all/V1/some/endpoint"
+Auth,Auth
+"No Auth","No Auth"
+Method,Method
+"Content Type","Content Type"
+name,name
+JSON,JSON
+XML,XML
+POST,POST
+PUT,PUT
+"The path is invalid. Verify and try again.","The path is invalid. Verify and try again."
+"File Name for SFTP","File Name for SFTP"
+"Batch Size","Batch Size"
+label,label
+"Export Only New Entities","Export Only New Entities"
+description,description
+"Only newly created entities (Order, Invoice, Shipment…) will be exported if the setting is enabled. The entities exported previously will be skipped.","Only newly created entities (Order, Invoice, Shipment…) will be exported if the setting is enabled. The entities exported previously will be skipped."
+"Use Custom Entity Key","Use Custom Entity Key"
+"Custom Entity Key","Custom Entity Key"
+"Email Alert for Export Error","Email Alert for Export Error"
+"Enable Email Alert","Enable Email Alert"
+"Emails will be sent to recipients when an error happens in export.","Emails will be sent to recipients when an error happens in export."
+"Email Recipients","Email Recipients"
+Header,Header
+Footer,Footer
+"Add Header Row","Add Header Row"
+"Merge Rows into One","Merge Rows into One"
+"Data from multiple rows will be merged into one cell, if enabled.","Data from multiple rows will be merged into one cell, if enabled."
+"Merged Rows Data Delimiter","Merged Rows Data Delimiter"
+"The character that delimits each field of the child rows.","The character that delimits each field of the child rows."
+"Entity Key Delimiter","Entity Key Delimiter"
+"The character that separates the entity key from the column name.","The character that separates the entity key from the column name."
+"PHP library <a href=""https://github.com/box/spout"" target=""_blank"">Spout</a> is not installed. Please install the library to proceed with %1 format","PHP library <a href=""https://github.com/box/spout"" target=""_blank"">Spout</a> is not installed. Please install the library to proceed with %1 format"
+Template,Template
+"Please Select...","Please Select..."
+Content,Content
+"{{ item }} is root entity variable","{{ item }} is root entity variable"
+"Item Delimiter","Item Delimiter"
+Extension,Extension
+"PHP library <a href=""https://twig.symfony.com/doc/3.x/installation.html"" target=""_blank"">Twig</a> is not installed. Please install the library to proceed.","PHP library <a href=""https://twig.symfony.com/doc/3.x/installation.html"" target=""_blank"">Twig</a> is not installed. Please install the library to proceed."
+"Unable to save history with ID %1. Error: %2","Unable to save history with ID %1. Error: %2"
+"Unable to save new history. Error: %1","Unable to save new history. Error: %1"
+"History with specified ID ""%1"" not found.","History with specified ID ""%1"" not found."
+"Unable to remove history with ID %1. Error: %2","Unable to remove history with ID %1. Error: %2"
+"Unable to remove history. Error: %1","Unable to remove history. Error: %1"
+"Unexpected situation","Unexpected situation"
+"Unable to save job with ID %1. Error: %2","Unable to save job with ID %1. Error: %2"
+"Unable to save new job. Error: %1","Unable to save new job. Error: %1"
+"Job with specified ID ""%1"" not found.","Job with specified ID ""%1"" not found."
+"Unable to remove job with ID %1. Error: %2","Unable to remove job with ID %1. Error: %2"
+"Unable to remove job. Error: %1","Unable to remove job. Error: %1"
+"Unable to save last run data ID %1. Error: %2","Unable to save last run data ID %1. Error: %2"
+"Unable to save last run data. Error: %1","Unable to save last run data. Error: %1"
+"'Export: Unable to send notification. Error is: ' .","'Export: Unable to send notification. Error is: ' ."
+"Amasty Export Pro: Export Run Notification","Amasty Export Pro: Export Run Notification"
+Processing,Processing
+Failed,Failed
+Success,Success
+Disabled,Disabled
+Enabled,Enabled
+%subject,%subject
+"The profile '%name' was successfully executed on %date. The export file is attached to this email.","The profile '%name' was successfully executed on %date. The export file is attached to this email."
+"Delete image","Delete image"
+Download,Download
+"Show Log","Show Log"
+"Please wait...","Please wait..."
+"Step 1","Step 1"
+"Step 2","Step 2"
+"Step 3","Step 3"
+"Export Finished","Export Finished"
+"Export Cron Jobs View","Export Cron Jobs View"
+"Export Cron Jobs Delete","Export Cron Jobs Delete"
+"Export Cron Jobs Edit","Export Cron Jobs Edit"
+"Export Cron Jobs Create","Export Cron Jobs Create"
+"Amasty Export Cron Export","Amasty Export Cron Export"
+"Export History Clear","Export History Clear"
+"Export History View","Export History View"
+"Export History Delete","Export History Delete"
+"Cron Jobs","Cron Jobs"
+"Store Exported File on Google Drive","Store Exported File on Google Drive"
+"Store Exported File on Dropbox","Store Exported File on Dropbox"
+"Upload Exported File By FTP","Upload Exported File By FTP"
+"Upload Exported File By SFTP","Upload Exported File By SFTP"
+"Send Exported File to E-mail","Send Exported File to E-mail"
+"Send to Rest Api Endpoint","Send to Rest Api Endpoint"
+Bearer,Bearer
+Basic,Basic
+"Compress Export File With Gzip","Compress Export File With Gzip"
+ODS,ODS
+XLSX,XLSX
+"Clear History","Clear History"
+"Delete History","Delete History"
+"Are you sure you want to delete selected history items?","Are you sure you want to delete selected history items?"
+"History ID","History ID"
+"Job ID","Job ID"
+"Job Name","Job Name"
+"Exported At","Exported At"
+Status,Status
+Log,Log
+"Records Proceed/Total","Records Proceed/Total"
+"Exported File","Exported File"
+"Profile Export Log","Profile Export Log"
+Close,Close
+Export,Export
+Back,Back
+"Save and Continue Edit","Save and Continue Edit"
+"Save Job","Save Job"
+"Export Settings","Export Settings"
+"Select Entity","Select Entity"
+"Cron Job Title","Cron Job Title"
+Schedule,Schedule
+"Delete Jobs","Delete Jobs"
+"Are you sure you want to delete selected jobs?","Are you sure you want to delete selected jobs?"
+ID,ID
+"Job Title","Job Title"
+"Entity Type","Entity Type"
+Edit,Edit
+"Job Settings","Job Settings"

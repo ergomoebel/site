@@ -1,0 +1,6 @@
+"Inventory Source Item with sku ""%1"" is already exists on ""%2"" source","Inventory Source Item with sku ""%1"" is already exists on ""%2"" source"
+"A duplicate field was found in attribute set entity.","A duplicate field was found in attribute set entity."
+"Bundle option 'option_id' value %1 is already exists","Bundle option 'option_id' value %1 is already exists"
+"'option_id' value is missing in Product Custom Option data.","'option_id' value is missing in Product Custom Option data."
+"'product_id' value is missing in Product Custom Option data.","'product_id' value is missing in Product Custom Option data."
+"'option_type_id' value is missing in Product Custom Option data.","'option_type_id' value is missing in Product Custom Option data."

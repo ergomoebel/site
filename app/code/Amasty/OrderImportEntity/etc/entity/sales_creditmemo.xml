@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="sales_creditmemo">
+        <name>Order Credit Memo</name>
+        <group>Sales</group>
+        <description>Order Credit Memo Import Entity</description>
+        <fieldsConfig>
+            <!-- This is an initial fields config -->
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">sales_creditmemo</argument>
+                </arguments>
+            </fieldsClass>
+            <rowValidation class="Amasty\OrderImportEntity\Import\Validation\RowValidator\CreditmemoRowValidator">
+                <excludeBehaviors>
+                    <deleteDirect/>
+                    <updateDirect/>
+                    <addUpdateDirect/>
+                </excludeBehaviors>
+            </rowValidation>
+            <fields>
+                <field name="entity_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty>
+                            <excludeBehaviors>
+                                <addDirect/>
+                            </excludeBehaviors>
+                        </notEmpty>
+                    </validation>
+                </field>
+                <field name="order_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <tableRowExists tableName="sales_order"
+                                        idFieldName="entity_id"
+                                        rootOnly="true"
+                                        error="Order entity with specified 'entity_id' doesn't exist">
+                            <excludeBehaviors>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </tableRowExists>
+                    </validation>
+                </field>
+                <field name="store_id">
+                    <validation>
+                        <storeExists/>
+                    </validation>
+                </field>
+                <field name="email_sent">
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="send_email">
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="created_at">
+                    <validation>
+                        <dateFormat/>
+                    </validation>
+                </field>
+                <field name="updated_at">
+                    <validation>
+                        <dateFormat/>
+                    </validation>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name="entity_id">1</field>
+                    <field name="store_id">1</field>
+                    <field name="adjustment_positive"/>
+                    <field name="base_shipping_tax_amount">0.0000</field>
+                    <field name="store_to_order_rate">0.0000</field>
+                    <field name="base_discount_amount">0.0000</field>
+                    <field name="base_to_order_rate">1.0000</field>
+                    <field name="grand_total">39.6400</field>
+                    <field name="base_adjustment_negative"/>
+                    <field name="base_subtotal_incl_tax">34.6400</field>
+                    <field name="shipping_amount">5.0000</field>
+                    <field name="subtotal_incl_tax">34.6400</field>
+                    <field name="adjustment_negative"/>
+                    <field name="base_shipping_amount">5.0000</field>
+                    <field name="store_to_base_rate">0.0000</field>
+                    <field name="base_to_global_rate">1.0000</field>
+                    <field name="base_adjustment">0.0000</field>
+                    <field name="base_subtotal">32.0000</field>
+                    <field name="discount_amount">0.0000</field>
+                    <field name="subtotal">32.0000</field>
+                    <field name="adjustment">0.0000</field>
+                    <field name="base_grand_total">39.6400</field>
+                    <field name="base_adjustment_positive"/>
+                    <field name="base_tax_amount">2.6400</field>
+                    <field name="shipping_tax_amount">0.0000</field>
+                    <field name="tax_amount">2.6400</field>
+                    <field name="order_id">2</field>
+                    <field name="email_sent"/>
+                    <field name="send_email"/>
+                    <field name="creditmemo_status"/>
+                    <field name="state">2</field>
+                    <field name="shipping_address_id">3</field>
+                    <field name="billing_address_id">4</field>
+                    <field name="invoice_id"/>
+                    <field name="store_currency_code">USD</field>
+                    <field name="order_currency_code">USD</field>
+                    <field name="base_currency_code">USD</field>
+                    <field name="global_currency_code">USD</field>
+                    <field name="transaction_id"/>
+                    <field name="increment_id">000000001</field>
+                    <field name="created_at">2020-04-29 07:20:23</field>
+                    <field name="updated_at">2020-04-29 07:20:23</field>
+                    <field name="discount_tax_compensation_amount">0.0000</field>
+                    <field name="base_discount_tax_compensation_amount">0.0000</field>
+                    <field name="shipping_discount_tax_compensation_amount">0.0000</field>
+                    <field name="base_shipping_discount_tax_compensation_amnt">0.0000</field>
+                    <field name="shipping_incl_tax">5.0000</field>
+                    <field name="base_shipping_incl_tax">5.0000</field>
+                    <field name="discount_description"/>
+                    <field name="customer_note"/>
+                    <field name="customer_note_notify"/>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <indexer class="CreditmemoGridAggregator" apply="entity" />
+        <behaviors>
+            <addUpdateDirect name="Add/Update" indexerMethod="refresh">
+                <tableName>sales_creditmemo</tableName>
+            </addUpdateDirect>
+            <addDirect name="Only add" indexerMethod="refresh">
+                <tableName>sales_creditmemo</tableName>
+            </addDirect>
+            <updateDirect name="Only update" indexerMethod="refresh">
+                <tableName>sales_creditmemo</tableName>
+            </updateDirect>
+            <deleteDirect name="Delete" indexerMethod="purge">
+                <tableName>sales_creditmemo</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="sales_creditmemo">
+        <parent_entity>sales_order</parent_entity>
+        <child_entity>sales_creditmemo</child_entity>
+        <sub_entity_field_name>sales_creditmemo</sub_entity_field_name>
+        <type>one_to_many</type>
+        <validation class="Amasty\OrderImportEntity\Import\Validation\RelationValidator\CreditmemoValidator">
+            <excludeBehaviors>
+                <delete/>
+            </excludeBehaviors>
+        </validation>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">order_id</argument>
+        </arguments>
+    </relation>
+</config>

@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="sales_order_tax">
+        <name>Order Tax</name>
+        <group>Sales</group>
+        <description>Order Tax Import Entity</description>
+        <fieldsConfig>
+            <!-- This is an initial fields config -->
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">sales_order_tax</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="tax_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty>
+                            <excludeBehaviors>
+                                <addDirect/>
+                            </excludeBehaviors>
+                        </notEmpty>
+                    </validation>
+                </field>
+                <field name="order_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <tableRowExists tableName="sales_order"
+                                        idFieldName="entity_id"
+                                        rootOnly="true"
+                                        error="Order entity with specified 'entity_id' doesn't exist">
+                            <excludeBehaviors>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </tableRowExists>
+                    </validation>
+                </field>
+                <field name="priority">
+                    <actions>
+                        <defaultValue value="0"/>
+                    </actions>
+                </field>
+                <field name="position">
+                    <actions>
+                        <defaultValue value="0"/>
+                    </actions>
+                </field>
+                <field name="process">
+                    <actions>
+                        <defaultValue value="0"/>
+                    </actions>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name='order_id'>14</field>
+                    <field name='code'>US-MI-*-Rate 1</field>
+                    <field name='tax_id'>3</field>
+                    <field name='title'>US-MI-*-Rate 1</field>
+                    <field name='percent'>8.2500</field>
+                    <field name='amount'>11.1400</field>
+                    <field name='priority'>0</field>
+                    <field name='position'>0</field>
+                    <field name='base_amount'>11.1400</field>
+                    <field name='process'>0</field>
+                    <field name='base_real_amount'>11.1400</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <addUpdateDirect>
+                <tableName>sales_order_tax</tableName>
+            </addUpdateDirect>
+            <addDirect>
+                <tableName>sales_order_tax</tableName>
+            </addDirect>
+            <updateDirect>
+                <tableName>sales_order_tax</tableName>
+            </updateDirect>
+            <deleteDirect>
+                <tableName>sales_order_tax</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="sales_order_tax">
+        <parent_entity>sales_order</parent_entity>
+        <child_entity>sales_order_tax</child_entity>
+        <sub_entity_field_name>sales_order_tax</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">order_id</argument>
+        </arguments>
+    </relation>
+</config>

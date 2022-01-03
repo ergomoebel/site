@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductExportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="catalog_product_entity_super_attribute_label">
+        <name>Configurable Product Super Attribute Label</name>
+        <isHidden>true</isHidden>
+        <collectionFactory class="Amasty\ProductExportEntity\Model\ResourceModel\Product\Type\Configurable\Attribute\Label\ScopedCollectionFactory"/>
+        <fieldsConfig>
+            <fields>
+                <field name="value_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="product_super_attribute_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="store_id">
+                    <actions>
+                        <storeId2StoreCode/>
+                    </actions>
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Magento\Cms\Ui\Component\Listing\Column\Cms\Options</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="use_default">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+                <field name="value">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="catalog_product_entity_super_attribute_label">
+        <parent_entity>catalog_product_entity_super_attribute</parent_entity>
+        <child_entity>catalog_product_entity_super_attribute_label</child_entity>
+        <sub_entity_field_name>catalog_product_super_attribute_label</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">product_super_attribute_id</argument>
+            <argument name="child_field_name" xsi:type="string">product_super_attribute_id</argument>
+        </arguments>
+    </relation>
+</config>

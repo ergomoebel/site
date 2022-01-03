@@ -1,0 +1,6 @@
+<!-- ko if: $row().indexed_status == 1 -->
+<span class="grid-severity-notice"><span data-bind="i18n:'Enabled'"></span></span>
+<!-- /ko -->
+<!-- ko if: $row().indexed_status == 0 -->
+<span class="grid-severity-critical"><span data-bind="i18n:'Disabled'"></span></span>
+<!-- /ko -->

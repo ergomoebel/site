@@ -1,0 +1,23 @@
+<div class="amprogressbar-progress-bar">
+    <div class="amprogressbar-progress-timer">
+        <div class="amprogressbar-progress-container">
+            <div class="amprogressbar-progress-wrapper">
+                <progress max="100" value="0" class="amprogressbar-progress" data-bind="value: $parent.percentage()"></progress>
+            </div>
+            <span class="amprogressbar-value"><span data-bind="text: $parent.percentage()"></span>%</span>
+        </div>
+    </div>
+</div>
+
+<!-- ko if: $parent.messages() -->
+<div class="messages" style="margin: 20px 0">
+    <!-- ko foreach: $parent.messages() -->
+    <div class="message" data-bind="text: $data.message,
+                css: {
+                     'message-error error': $data.type === 40 || $data.type === 50,
+                     'message-warning warning': $data.type === 30
+                     }">
+    </div>
+    <!-- /ko -->
+</div>
+<!-- /ko -->

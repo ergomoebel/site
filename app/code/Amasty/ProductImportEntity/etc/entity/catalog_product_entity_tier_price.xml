@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductImportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="catalog_product_entity_tier_price">
+        <name>Customer Group Price</name>
+        <group>Product</group>
+        <description>Customer Group Price Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">catalog_product_entity_tier_price</argument>
+                    <argument name="strict" xsi:type="boolean">true</argument>
+                </arguments>
+            </fieldsClass>
+            <fields rowActionClass="Amasty\ProductImportEntity\Import\DataHandling\RowModifier\Product\TierPrice">
+                <field name="value_id">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="all_groups">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="customer_group_id">
+                    <actions>
+                        <trim/>
+                        <custom class="Amasty\ProductImportEntity\Import\DataHandling\FieldModifier\Customer\GroupCode2GroupId"
+                                apply="beforeValidate"
+                        />
+                    </actions>
+                    <validation>
+                        <customerGroupExists/>
+                    </validation>
+                </field>
+                <field name="qty">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="value">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="website_id">
+                    <actions>
+                        <trim/>
+                        <websiteCode2WebsiteId/>
+                    </actions>
+                    <validation>
+                        <websiteExists/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="percentage_value">
+                    <actions>
+                        <trim/>
+                        <emptyToNull/>
+                    </actions>
+                </field>
+                <field name="row_id">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <tableRowExists tableName="catalog_product_entity"
+                                        idFieldName="row_id"
+                                        error="Product entity with specified 'row_id' doesn't exist"
+                                        rootOnly="true">
+                            <excludeBehaviors>
+                                <addDirect/>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </tableRowExists>
+                    </validation>
+                    <synchronization>
+                        <item>
+                            <entityName>catalog_product_entity</entityName>
+                            <fieldName>row_id</fieldName>
+                        </item>
+                    </synchronization>
+                </field>
+                <field name="entity_id">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <tableRowExists tableName="catalog_product_entity"
+                                        idFieldName="entity_id"
+                                        error="Product entity with specified 'entity_id' doesn't exist"
+                                        rootOnly="true">
+                            <excludeBehaviors>
+                                <addDirect/>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </tableRowExists>
+                    </validation>
+                    <synchronization>
+                        <item>
+                            <entityName>catalog_product_entity</entityName>
+                            <fieldName>entity_id</fieldName>
+                        </item>
+                    </synchronization>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name='value_id'>1</field>
+                    <field name='all_groups'>0</field>
+                    <field name='customer_group_id'>General</field>
+                    <field name='qty'>15</field>
+                    <field name='value'>20</field>
+                    <field name='website_id'>All Websites</field>
+                    <field name='percentage_value'>20</field>
+                    <field name='row_id'>1</field>
+                    <field name='entity_id'>1</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <custom class="Amasty\ImportCore\Import\Behavior\AddUpdate\Table"
+                    code="save_tier_price"
+                    name="Add/Update">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">catalog_product_entity_tier_price</argument>
+                </arguments>
+                <executeOnParent>
+                    <addDirect/>
+                    <addUpdateDirect/>
+                    <updateDirect/>
+                </executeOnParent>
+            </custom>
+            <deleteDirect name="Delete">
+                <tableName>catalog_product_entity_tier_price</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="catalog_product_entity_tier_price">
+        <parent_entity>catalog_product_entity</parent_entity>
+        <child_entity>catalog_product_entity_tier_price</child_entity>
+        <sub_entity_field_name>catalog_product_tier_price</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_entity_name" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+            <argument name="child_entity_name" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+        </arguments>
+    </relation>
+</config>

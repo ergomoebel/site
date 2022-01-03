@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="customer_newsletter_subscriber">
+        <name>Customer Newsletter Subscriber</name>
+        <group>Customer</group>
+        <description>Customer Newsletter Subscriber Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">newsletter_subscriber</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="subscriber_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty>
+                            <excludeBehaviors>
+                                <addDirect/>
+                            </excludeBehaviors>
+                        </notEmpty>
+                    </validation>
+                </field>
+                <field name="store_id">
+                    <validation>
+                        <storeExists/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="change_status_at">
+                    <validation>
+                        <dateFormat/>
+                    </validation>
+                </field>
+                <field name="customer_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <notEmpty isZeroValueAllowed="true"/>
+                        <nonNegative/>
+                        <customerExists>
+                            <excludeBehaviors>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </customerExists>
+                    </validation>
+                </field>
+                <field name="subscriber_email">
+                    <validation>
+                        <notEmpty>
+                            <includeBehaviors>
+                                <addDirect/>
+                            </includeBehaviors>
+                        </notEmpty>
+                        <custom class="Amasty\CustomerImportEntity\Import\Validation\EntityValidator\EmailFormat" error="%1 has a wrong format."/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="subscriber_status">
+                    <validation>
+                        <notEmpty>
+                            <includeBehaviors>
+                                <addDirect/>
+                            </includeBehaviors>
+                        </notEmpty>
+                        <custom class="Amasty\CustomerImportEntity\Import\Validation\EntityValidator\SubscriberStatus" error="The specified %1 doesn't exist."/>
+                    </validation>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name="subscriber_id">1</field>
+                    <field name="store_id">1</field>
+                    <field name="change_status_at">2021-06-14 07:56:47</field>
+                    <field name="customer_id">1</field>
+                    <field name="subscriber_email">roni_cost@example.com</field>
+                    <field name="subscriber_status">1</field>
+                    <field name="subscriber_confirm_code">7gozaduevb6yxj3srv7wlel0sdaa2y64</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <addUpdateDirect name="Add/Update" indexerMethod="update">
+                <tableName>newsletter_subscriber</tableName>
+            </addUpdateDirect>
+            <addDirect name="Only add" indexerMethod="update">
+                <tableName>newsletter_subscriber</tableName>
+            </addDirect>
+            <updateDirect name="Only update" indexerMethod="update">
+                <tableName>newsletter_subscriber</tableName>
+            </updateDirect>
+            <deleteDirect name="Delete" indexerMethod="delete">
+                <tableName>newsletter_subscriber</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="customer_newsletter_subscriber">
+        <parent_entity>customer_entity</parent_entity>
+        <child_entity>customer_newsletter_subscriber</child_entity>
+        <sub_entity_field_name>customer_newsletter_subscriber</sub_entity_field_name>
+        <type>one_to_one</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">customer_id</argument>
+        </arguments>
+    </relation>
+</config>

@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="sales_shipment_track">
+        <name>Order Shipment Track</name>
+        <group>Sales</group>
+        <description>Order Shipment Track Import Entity</description>
+        <fieldsConfig>
+            <!-- This is an initial fields config -->
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">sales_shipment_track</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="entity_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty>
+                            <excludeBehaviors>
+                                <addDirect/>
+                            </excludeBehaviors>
+                        </notEmpty>
+                    </validation>
+                </field>
+                <field name="parent_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <tableRowExists tableName="sales_shipment"
+                                        idFieldName="entity_id"
+                                        rootOnly="true"
+                                        error="Shipment with specified 'entity_id' doesn't exist">
+                            <excludeBehaviors>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </tableRowExists>
+                    </validation>
+                </field>
+                <field name="order_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="created_at">
+                    <validation>
+                        <dateFormat/>
+                    </validation>
+                </field>
+                <field name="updated_at">
+                    <validation>
+                        <dateFormat/>
+                    </validation>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name="entity_id">4</field>
+                    <field name="parent_id">4</field>
+                    <field name='order_id'>14</field>
+                    <field name='track_number'>131411231</field>
+                    <field name="carrier_code">dhl</field>
+                    <field name='weight'>1.0000</field>
+                    <field name='qty'>1.0000</field>
+                    <field name="description"/>
+                    <field name="title">DHL</field>
+                    <field name="created_at">2020-10-27 12:53:56</field>
+                    <field name="updated_at">2020-10-27 12:53:56</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <addUpdateDirect>
+                <tableName>sales_shipment_track</tableName>
+            </addUpdateDirect>
+            <addDirect>
+                <tableName>sales_shipment_track</tableName>
+            </addDirect>
+            <updateDirect>
+                <tableName>sales_shipment_track</tableName>
+            </updateDirect>
+            <deleteDirect>
+                <tableName>sales_shipment_track</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="sales_shipment_track">
+        <parent_entity>sales_shipment</parent_entity>
+        <child_entity>sales_shipment_track</child_entity>
+        <sub_entity_field_name>sales_shipment_track</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">parent_id</argument>
+        </arguments>
+    </relation>
+</config>

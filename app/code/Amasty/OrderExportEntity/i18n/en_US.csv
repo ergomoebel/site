@@ -1,0 +1,16 @@
+"Order Export","Order Export"
+"Add to Options","Add to Options"
+"Select ""Yes"" to add this attribute to the list of options in the order export.","Select ""Yes"" to add this attribute to the list of options in the order export."
+"Price in Order Currency","Price in Order Currency"
+"Specify pairs of custom option title and custom option value here. Firstly, specify the custom option title, then send the cursor to the next line (using a Return key) and specify the custom option value.","Specify pairs of custom option title and custom option value here. Firstly, specify the custom option title, then send the cursor to the next line (using a Return key) and specify the custom option value."
+is,is
+"is not","is not"
+"more or equal","more or equal"
+"less or equal","less or equal"
+"greater than","greater than"
+"less than","less than"
+like,like
+"Amasty: Order Export - Product Attributes","Amasty: Order Export - Product Attributes"
+"Rebuild attributes index","Rebuild attributes index"
+"Amasty: Order Export - Product Custom Options","Amasty: Order Export - Product Custom Options"
+"Rebuild custom options index","Rebuild custom options index"

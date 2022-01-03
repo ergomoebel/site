@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderExportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="sales_order_tax_item">
+        <name>Order Tax Item</name>
+        <isHidden>true</isHidden>
+        <collectionFactory class="Amasty\ExportCore\Export\Config\CustomEntity\CollectionFactory">
+            <arguments>
+                <argument name="tableName" xsi:type="string">sales_order_tax_item</argument>
+                <argument name="idField" xsi:type="string">tax_item_id</argument>
+            </arguments>
+        </collectionFactory>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe">
+                <arguments>
+                    <argument name="strict" xsi:type="boolean">true</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="real_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="real_base_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="order_tax_item">
+        <parent_entity>sales_order_tax</parent_entity>
+        <child_entity>sales_order_tax_item</child_entity>
+        <sub_entity_field_name>sales_order_tax_item</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">tax_id</argument>
+            <argument name="child_field_name" xsi:type="string">tax_id</argument>
+        </arguments>
+    </relation>
+</config>

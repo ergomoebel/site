@@ -1,0 +1,10 @@
+<div class="amloader-spinner-container">
+    <div class="amloader-spinner">
+        <!-- ko foreach: new Array(12) -->
+        <div class="amloader-dot-container" data-bind="css:'dot-' + ($index()+1) + '-container'">
+            <div class="amloader-dot" data-bind="css:'dot-' + ($index()+1)"></div>
+        </div>
+        <!-- /ko -->
+    </div>
+    <p class="amloader-title" data-bind="i18n: 'Please wait...'"></p>
+</div>

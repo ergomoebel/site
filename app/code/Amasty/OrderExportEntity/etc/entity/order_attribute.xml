@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderExportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="amasty_order_attribute">
+        <name>Amasty Order Attribute</name>
+        <group>Sales</group>
+        <isHidden>true</isHidden>
+        <enabledChecker class="Amasty\ExportCore\Export\Config\IsModuleEnabled">
+            <arguments>
+                <argument name="moduleName" xsi:type="string">Amasty_Orderattr</argument>
+            </arguments>
+        </enabledChecker>
+        <collectionFactory class="Amasty\Orderattr\Model\ResourceModel\Entity\EntityData\CollectionFactory"/>
+        <!-- set parent_entity_type to 1 (order) -->
+        <collectionModifier class="Amasty\OrderExportEntity\Export\OrderAttribute\CollectionModifier"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\OrderExportEntity\Export\FieldsClass\OrderAttribute"/>
+        </fieldsConfig>
+    </entity>
+    <relation code="order_amasty_order_attribute">
+        <parent_entity>sales_order</parent_entity>
+        <child_entity>amasty_order_attribute</child_entity>
+        <sub_entity_field_name>amasty_order_attribute</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">parent_id</argument>
+        </arguments>
+    </relation>
+</config>

@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerExportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="customer_entity">
+        <name>Customer</name>
+        <group>Customer</group>
+        <collectionFactory class="Amasty\CustomerExportEntity\Model\ResourceModel\Customer\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+            <fields>
+                <field name="entity_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="website_id">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Amasty\ExportCore\Export\SourceOption\WebsiteOptions</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="email">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="group_id">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Amasty\ExportCore\Export\SourceOption\CustomerGroupOptions</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="store_id">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Magento\Cms\Ui\Component\Listing\Column\Cms\Options</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="created_in">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Amasty\CustomerExportEntity\Export\SourceOption\CreatedInOptions</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="created_at">
+                    <filter>
+                        <type>date</type>
+                    </filter>
+                </field>
+                <field name="is_active">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="customer_order">
+        <parent_entity>customer_entity</parent_entity>
+        <child_entity>sales_order</child_entity>
+        <sub_entity_field_name>sales_order</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">customer_id</argument>
+        </arguments>
+    </relation>
+</config>

@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerExportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="customer_newsletter_subscriber">
+        <name>Customer Newsletter Subscriber</name>
+        <group>Customer</group>
+        <collectionFactory class="Magento\Newsletter\Model\ResourceModel\Subscriber\CollectionFactory"/>
+        <enabledChecker class="Amasty\ExportCore\Export\Config\IsModuleEnabled">
+            <arguments>
+                <argument name="moduleName" xsi:type="string">Magento_Newsletter</argument>
+            </arguments>
+        </enabledChecker>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+            <fields>
+                <field name="store_id">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Magento\Cms\Ui\Component\Listing\Column\Cms\Options</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="subscriber_status">
+                    <actions>
+                        <optionValue2OptionLabel>
+                            <arguments>
+                                <argument name="optionSource" xsi:type="object">Amasty\CustomerExportEntity\Export\SourceOption\Newsletter\Subscriber\StatusOptions</argument>
+                            </arguments>
+                        </optionValue2OptionLabel>
+                    </actions>
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Amasty\CustomerExportEntity\Export\SourceOption\Newsletter\Subscriber\StatusOptions</class>
+                        </options>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="customer_newsletter_subscriber_customer">
+        <parent_entity>customer_newsletter_subscriber</parent_entity>
+        <child_entity>customer_entity</child_entity>
+        <sub_entity_field_name>customer_entity</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">customer_id</argument>
+            <argument name="child_field_name" xsi:type="string">entity_id</argument>
+        </arguments>
+    </relation>
+    <relation code="customer_customer_newsletter_subscriber">
+        <parent_entity>customer_entity</parent_entity>
+        <child_entity>customer_newsletter_subscriber</child_entity>
+        <sub_entity_field_name>customer_newsletter_subscriber</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">customer_id</argument>
+        </arguments>
+    </relation>
+</config>

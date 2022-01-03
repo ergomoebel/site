@@ -1,0 +1,27 @@
+{
+    "name": "amasty/module-export-pro",
+    "description": "Export Pro by Amasty",
+    "require": {
+        "php": "^7.1.0",
+        "amasty/module-export-core": ">=1.1.0",
+        "amasty/module-cron-schedule": "*",
+        "amasty/base": "*",
+        "box/spout": "^3.1",
+        "twig/twig": "^2.13.1 || ^3.0",
+        "spatie/dropbox-api": "*",
+        "google/apiclient": "^2.0"
+    },
+    "type": "magento2-module",
+    "version": "1.5.0",
+    "license": [
+        "Commercial"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\ExportPro\\": ""
+        }
+    }
+}

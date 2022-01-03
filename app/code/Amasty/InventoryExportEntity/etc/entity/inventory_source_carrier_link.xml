@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_InventoryExportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="inventory_source_carrier_link">
+        <name>MSI Inventory Source Carrier Link</name>
+        <group>Inventory</group>
+        <enabledChecker class="Amasty\ExportCore\Export\Config\IsModuleEnabled">
+            <arguments>
+                <argument name="moduleName" xsi:type="string">Magento_Inventory</argument>
+            </arguments>
+        </enabledChecker>
+        <collectionFactory class="Magento\Inventory\Model\ResourceModel\SourceCarrierLink\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+        </fieldsConfig>
+    </entity>
+    <relation code="inventory_source_carrier_link">
+        <parent_entity>inventory_source</parent_entity>
+        <child_entity>inventory_source_carrier_link</child_entity>
+        <sub_entity_field_name>inventory_source_carrier_link</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">source_code</argument>
+            <argument name="child_field_name" xsi:type="string">source_code</argument>
+        </arguments>
+    </relation>
+    <relation code="carrier_link_inventory_source">
+        <parent_entity>inventory_source_carrier_link</parent_entity>
+        <child_entity>inventory_source</child_entity>
+        <sub_entity_field_name>inventory_source</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">source_code</argument>
+            <argument name="child_field_name" xsi:type="string">source_code</argument>
+        </arguments>
+    </relation>
+</config>

@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerExportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="customer_entity_attribute">
+        <name>Customer Attribute</name>
+        <group>Customer</group>
+        <collectionFactory class="Magento\Customer\Model\ResourceModel\Customer\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\CustomerExportEntity\Export\FieldsClass\CustomerAttribute"/>
+            <fields>
+                <field name="entity_id"/>
+                <field name="email">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="created_at">
+                    <filter>
+                        <type>date</type>
+                    </filter>
+                </field>
+                <field name="updated_at">
+                    <filter>
+                        <type>date</type>
+                    </filter>
+                </field>
+                <field name="dob">
+                    <filter>
+                        <type>date</type>
+                    </filter>
+                </field>
+                <field name="store_id">
+                    <actions>
+                        <storeId2StoreCode/>
+                    </actions>
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Magento\Cms\Ui\Component\Listing\Column\Cms\Options</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="website_id">
+                    <actions>
+                        <custom class="Amasty\ExportCore\Export\DataHandling\FieldModifier\WebsiteId2WebsiteCode"/>
+                    </actions>
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Amasty\ExportCore\Export\SourceOption\WebsiteOptions</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="created_in">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Amasty\CustomerExportEntity\Export\SourceOption\CreatedInOptions</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="group_id">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Amasty\ExportCore\Export\SourceOption\CustomerGroupOptions</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="disable_auto_group_change">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="customer_entity_attribute">
+        <parent_entity>customer_entity</parent_entity>
+        <child_entity>customer_entity_attribute</child_entity>
+        <sub_entity_field_name>customer_entity_attribute</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">entity_id</argument>
+        </arguments>
+    </relation>
+    <relation code="attribute_customer_entity">
+        <parent_entity>customer_entity_attribute</parent_entity>
+        <child_entity>customer_entity</child_entity>
+        <sub_entity_field_name>customer_entity</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">entity_id</argument>
+        </arguments>
+    </relation>
+</config>

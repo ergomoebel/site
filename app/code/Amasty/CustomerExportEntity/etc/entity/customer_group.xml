@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerExportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="customer_group">
+        <name>Customer Group</name>
+        <group>Customer</group>
+        <collectionFactory class="Magento\Customer\Model\ResourceModel\Group\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+        </fieldsConfig>
+    </entity>
+    <relation code="customer_group_customer">
+        <parent_entity>customer_group</parent_entity>
+        <child_entity>customer_entity</child_entity>
+        <sub_entity_field_name>customer_entity</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">customer_group_id</argument>
+            <argument name="child_field_name" xsi:type="string">group_id</argument>
+        </arguments>
+    </relation>
+    <relation code="customer_customer_group">
+        <parent_entity>customer_entity</parent_entity>
+        <child_entity>customer_group</child_entity>
+        <sub_entity_field_name>customer_group</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">group_id</argument>
+            <argument name="child_field_name" xsi:type="string">customer_group_id</argument>
+        </arguments>
+    </relation>
+</config>

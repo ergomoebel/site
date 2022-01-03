@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ExportPro
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Amasty\ExportCore\Api\Config\ProfileConfigInterface">
+        <attribute code="ftp_file_destination" type="Amasty\ExportPro\Export\FileDestination\Type\FtpFile\ConfigInterface" />
+        <attribute code="sftp_file_destination" type="Amasty\ExportPro\Export\FileDestination\Type\SftpFile\ConfigInterface" />
+        <attribute code="email_file_destination" type="Amasty\ExportPro\Export\FileDestination\Type\Email\ConfigInterface" />
+        <attribute code="rest_file_destination" type="Amasty\ExportPro\Export\FileDestination\Type\Rest\ConfigInterface" />
+        <attribute code="dropbox_file_destination" type="Amasty\ExportPro\Export\FileDestination\Type\Dropbox\ConfigInterface" />
+        <attribute code="drive_file_destination" type="Amasty\ExportPro\Export\FileDestination\Type\GoogleDrive\ConfigInterface" />
+
+        <attribute code="compress_processor" type="Amasty\ExportPro\Export\PostProcessing\Type\Compress\ConfigInterface" />
+
+        <attribute code="ods_template" type="Amasty\ExportPro\Export\Template\Type\Ods\ConfigInterface" />
+        <attribute code="xlsx_template" type="Amasty\ExportPro\Export\Template\Type\Xlsx\ConfigInterface" />
+        <attribute code="json_template" type="Amasty\ExportPro\Export\Template\Type\Json\ConfigInterface" />
+        <attribute code="twig_template" type="Amasty\ExportPro\Export\Template\Type\Twig\ConfigInterface" />
+
+        <attribute code="email_notification_config" type="Amasty\ExportPro\Export\Notification\Type\Email\ConfigInterface" />
+
+        <attribute code="external_id" type="int" />
+        <attribute code="manual_run" type="boolean" />
+        <attribute code="name" type="string" />
+        <attribute code="export_new_entities" type="boolean" />
+        <attribute code="last_exported_id" type="int" />
+        <attribute code="use_custom_prefix" type="string" />
+    </extension_attributes>
+
+    <extension_attributes for="Amasty\ExportPro\Export\FileDestination\Type\Rest\ConfigInterface">
+        <attribute code="bearer" type="Amasty\ExportPro\Export\FileDestination\Type\Rest\Auth\Bearer\ConfigInterface" />
+        <attribute code="basic" type="Amasty\ExportPro\Export\FileDestination\Type\Rest\Auth\Basic\ConfigInterface" />
+    </extension_attributes>
+</config>

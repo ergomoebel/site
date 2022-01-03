@@ -1,0 +1,265 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="catalog_product_entity_attribute">
+        <name>Product Attribute</name>
+        <isHidden>true</isHidden>
+        <description>Product Attribute Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\EavAttribute">
+                <arguments>
+                    <argument name="entityType" xsi:type="string">catalog_product</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="store_id"/>
+                <field name="price_type">
+                    <actions>
+                        <custom class="Amasty\ProductImportEntity\Import\DataHandling\FieldModifier\Product\Bundle\TypeValue2TypeLabel"
+                                apply="beforeValidate"/>
+                    </actions>
+                </field>
+                <field name="sku_type">
+                    <actions>
+                        <custom class="Amasty\ProductImportEntity\Import\DataHandling\FieldModifier\Product\Bundle\TypeValue2TypeLabel"
+                                apply="beforeValidate"/>
+                    </actions>
+                </field>
+                <field name="weight_type">
+                    <actions>
+                        <custom class="Amasty\ProductImportEntity\Import\DataHandling\FieldModifier\Product\Bundle\TypeValue2TypeLabel"
+                                apply="beforeValidate"/>
+                    </actions>
+                </field>
+                <field name="price_view">
+                    <actions>
+                        <custom class="Amasty\ProductImportEntity\Import\DataHandling\FieldModifier\Product\Bundle\PriceViewLabel2PriceViewValue"
+                                apply="beforeValidate"/>
+                    </actions>
+                </field>
+                <field name="giftcard_amounts">
+                    <remove>true</remove>
+                </field>
+                <field name="category_ids">
+                    <remove>true</remove>
+                </field>
+                <field name="am_giftcard_prices">
+                    <remove>true</remove>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name="entity_id">1</field>
+                    <field name="row_id">1</field>
+                    <field name="name">Sprite Yoga Strap 6 foot</field>
+                    <field name="status">Enabled</field>
+                    <field name="visibility">Catalog, Search</field>
+                    <field name="description"><![CDATA[<p>The Sprite Yoga Strap is your untiring partner in demanding stretches, holds and alignment routines. The strap"s 100% organic cotton fabric is woven tightly to form a soft, textured yet non-slip surface. The plastic clasp buckle is easily adjustable, lightweight and urable under strain.</p><ul><li>100% soft and durable cotton.<li>Plastic cinch buckle is easy to use.<li>Three natural colors made from phthalate and heavy metal free dyes.</ul>]]></field>
+                    <field name="short_description">The Sprite Yoga Strap is your untiring partner in demanding stretches, holds and alignment routines.</field>
+                    <field name="price">14.00</field>
+                    <field name="url_key">sprite-yoga-strap-6-foot</field>
+                    <field name="meta_title">Meta</field>
+                    <field name="meta_keywords">meta1,meta2,meta3</field>
+                    <field name="meta_description">meta description</field>
+                    <field name="tax_class_id">Taxable Goods</field>
+                    <field name="msrp_display_actual_price_type">Use config</field>
+                    <field name="page_layout">Product -- Full Width</field>
+                    <field name="options_container">Block after Info Column</field>
+                    <field name="weight">1.23</field>
+                    <field name="price_type"/>
+                    <field name="price_view"/>
+                    <field name="sku_type"/>
+                    <field name="weight_type"/>
+                    <field name="shipment_type"/>
+                </row>
+                <row>
+                    <field name="entity_id">2</field>
+                    <field name="row_id">2</field>
+                    <field name="name">Sprite Yoga Strap 8 foot</field>
+                    <field name="status">Enabled</field>
+                    <field name="visibility">Catalog, Search</field>
+                    <field name="description"><![CDATA[<p>The Sprite Yoga Strap is your untiring partner in demanding stretches, holds and alignment routines. The strap"s 100% organic cotton fabric is woven tightly to form a soft, textured yet non-slip surface. The plastic clasp buckle is easily adjustable, lightweight and durable under strain.</p><ul><li>8" long x 1.0" wide.<li>100% soft and durable cotton.<li>Plastic cinch buckle is easy to use.<li>Three natural colors made from phthalate and heavy metal free dyes.</ul>]]></field>
+                    <field name="short_description"/>
+                    <field name="price">17.00</field>
+                    <field name="url_key">sprite-yoga-strap-8-foot</field>
+                    <field name="meta_title">Meta</field>
+                    <field name="meta_keywords">meta1,meta2,meta3</field>
+                    <field name="meta_description">meta description</field>
+                    <field name="tax_class_id">Taxable Goods</field>
+                    <field name="msrp_display_actual_price_type">Use config</field>
+                    <field name="page_layout">Product -- Full Width</field>
+                    <field name="options_container">Block after Info Column</field>
+                    <field name="weight">1</field>
+                    <field name="price_type"/>
+                    <field name="price_view"/>
+                    <field name="sku_type"/>
+                    <field name="weight_type"/>
+                    <field name="shipment_type"/>
+                </row>
+                <row>
+                    <field name="entity_id">3</field>
+                    <field name="row_id">3</field>
+                    <field name="name">Sprite Yoga Strap 10 foot</field>
+                    <field name="status">Enabled</field>
+                    <field name="visibility">Catalog, Search</field>
+                    <field name="description"><![CDATA[<p>The Sprite Yoga Strap is your untiring partner in demanding stretches, holds and alignment routines. The strap's 100% organic cotton fabric is woven tightly to form a soft, textured yet non-slip surface. The plastic clasp buckle is easily adjustable, lightweight and durable under strain.</p><ul><li>10' long x 1.0" wide.<li>100% soft and durable cotton.<li>Plastic cinch buckle is easy to use.<li>Three natural colors made from phthalate and heavy metal free dyes.</ul>]]></field>
+                    <field name="short_description"/>
+                    <field name="price">23.00</field>
+                    <field name="url_key">sprite-yoga-strap-10-foot</field>
+                    <field name="meta_title">Meta</field>
+                    <field name="meta_keywords">meta1,meta2,meta3</field>
+                    <field name="meta_description">meta description</field>
+                    <field name="tax_class_id">Taxable Goods</field>
+                    <field name="msrp_display_actual_price_type">Use config</field>
+                    <field name="page_layout">Product -- Full Width</field>
+                    <field name="options_container">Block after Info Column</field>
+                    <field name="weight">1</field>
+                    <field name="price_type"/>
+                    <field name="price_view"/>
+                    <field name="sku_type"/>
+                    <field name="weight_type"/>
+                    <field name="shipment_type"/>
+                </row>
+                <row>
+                    <field name="entity_id">4</field>
+                    <field name="row_id">4</field>
+                    <field name="name">Endeavor Daytrip Backpack</field>
+                    <field name="status">Enabled</field>
+                    <field name="visibility">Catalog, Search</field>
+                    <field name="description"><![CDATA[<p>With more room than it appears, the Endeavor Daytrip Backpack will hold a whole day"s worth of books, binders and gym clothes. The spacious main compartment includes a dedicated laptop sleeve. Two other compartments offer extra storage space.</p>]]></field>
+                    <field name="short_description"/>
+                    <field name="price"/>
+                    <field name="url_key">endeavor-daytrip-backpack</field>
+                    <field name="meta_title">Meta</field>
+                    <field name="meta_keywords">meta1,meta2,meta3</field>
+                    <field name="meta_description">meta description</field>
+                    <field name="tax_class_id">Taxable Goods</field>
+                    <field name="msrp_display_actual_price_type">Use config</field>
+                    <field name="page_layout">Product -- Full Width</field>
+                    <field name="options_container">Block after Info Column</field>
+                    <field name="weight"/>
+                    <field name="price_type"/>
+                    <field name="price_view"/>
+                    <field name="sku_type"/>
+                    <field name="weight_type"/>
+                    <field name="shipment_type"/>
+                </row>
+                <row>
+                    <field name="entity_id">5</field>
+                    <field name="row_id">5</field>
+                    <field name="name">Set of Sprite Yoga Straps</field>
+                    <field name="status">Enabled</field>
+                    <field name="visibility">Catalog, Search</field>
+                    <field name="description"><![CDATA[<p>Great set of Sprite Yoga Straps for every stretch and hold you need. There are three straps in this set: 6', 8' and 10'.</p><ul><li>100% soft and durable cotton.</li><li>Plastic cinch buckle is easy to use.</li><li>Choice of three natural colors made from phthalate and heavy metal free dyes.</li></ul>]]></field>
+                    <field name="short_description"/>
+                    <field name="price"/>
+                    <field name="url_key">set-of-sprite-yoga-straps</field>
+                    <field name="meta_title">Meta</field>
+                    <field name="meta_keywords">meta1,meta2,meta3</field>
+                    <field name="meta_description">meta description</field>
+                    <field name="tax_class_id">Taxable Goods</field>
+                    <field name="msrp_display_actual_price_type">Use config</field>
+                    <field name="page_layout">Product -- Full Width</field>
+                    <field name="options_container">Block after Info Column</field>
+                    <field name="weight"/>
+                    <field name="price_type"/>
+                    <field name="price_view"/>
+                    <field name="sku_type"/>
+                    <field name="weight_type"/>
+                    <field name="shipment_type"/>
+                </row>
+                <row>
+                    <field name="entity_id">6</field>
+                    <field name="row_id">6</field>
+                    <field name="name">Sprite Yoga Strap Dynamic Bundle</field>
+                    <field name="status">Enabled</field>
+                    <field name="visibility">Catalog, Search</field>
+                    <field name="description"><![CDATA[<p>The Sprite Yoga Strap is your untiring partner in demanding stretches, holds and alignment routines. The strap's 100% organic cotton fabric is woven tightly to form a soft, textured yet non-slip surface. The plastic clasp buckle is easily adjustable, lightweight and durable under strain.</p><ul><li>100% soft and durable cotton.<li>Plastic cinch buckle is easy to use.<li>Three natural colors made from phthalate and heavy metal free dyes.</ul>]]></field>
+                    <field name="short_description"/>
+                    <field name="price">14.00</field>
+                    <field name="url_key">sprite-yoga-strap2</field>
+                    <field name="meta_title">Meta</field>
+                    <field name="meta_keywords">meta1,meta2,meta3</field>
+                    <field name="meta_description">meta description</field>
+                    <field name="tax_class_id">Taxable Goods</field>
+                    <field name="msrp_display_actual_price_type">Use config</field>
+                    <field name="page_layout">Product -- Full Width</field>
+                    <field name="options_container">Block after Info Column</field>
+                    <field name="weight">1.12</field>
+                    <field name="price_type">dynamic</field>
+                    <field name="price_view">Price range</field>
+                    <field name="sku_type">dynamic</field>
+                    <field name="weight_type">fixed</field>
+                    <field name="shipment_type">Together</field>
+                </row>
+                <row>
+                    <field name="entity_id">7</field>
+                    <field name="row_id">7</field>
+                    <field name="name">Sprite Yoga Strap Fixed Bundle</field>
+                    <field name="status">Enabled</field>
+                    <field name="visibility">Catalog, Search</field>
+                    <field name="description"><![CDATA[<p>The Sprite Yoga Strap is your untiring partner in demanding stretches, holds and alignment routines. The strap's 100% organic cotton fabric is woven tightly to form a soft, textured yet non-slip surface. The plastic clasp buckle is easily adjustable, lightweight and durable under strain.</p><ul><li>100% soft and durable cotton.<li>Plastic cinch buckle is easy to use.<li>Three natural colors made from phthalate and heavy metal free dyes.</ul>]]></field>
+                    <field name="short_description"/>
+                    <field name="price">14.00</field>
+                    <field name="url_key">sprite-yoga-strap3</field>
+                    <field name="meta_title">Meta</field>
+                    <field name="meta_keywords">meta1,meta2,meta3</field>
+                    <field name="meta_description">meta description</field>
+                    <field name="tax_class_id">Taxable Goods</field>
+                    <field name="msrp_display_actual_price_type">Use config</field>
+                    <field name="page_layout">Product -- Full Width</field>
+                    <field name="options_container">Block after Info Column</field>
+                    <field name="weight">1</field>
+                    <field name="price_type">fixed</field>
+                    <field name="price_view">Price range</field>
+                    <field name="sku_type">fixed</field>
+                    <field name="weight_type">fixed</field>
+                    <field name="shipment_type">Together</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <updateEavEM>
+                <entityDataInterface>Magento\Catalog\Api\Data\ProductInterface</entityDataInterface>
+                <scopeType>store</scopeType>
+                <scopeIdentifier>store_id</scopeIdentifier>
+                <executeOnParent>
+                    <addDirect/>
+                    <addUpdateDirect/>
+                    <updateDirect/>
+                </executeOnParent>
+            </updateEavEM>
+            <deleteEavEM>
+                <entityDataInterface>Magento\Catalog\Api\Data\ProductInterface</entityDataInterface>
+                <scopeType>store</scopeType>
+                <scopeIdentifier>store_id</scopeIdentifier>
+                <executeOnParent>
+                    <deleteDirect/>
+                </executeOnParent>
+            </deleteEavEM>
+        </behaviors>
+    </entity>
+    <relation code="catalog_product_entity_attribute">
+        <parent_entity>catalog_product_entity</parent_entity>
+        <child_entity>catalog_product_entity_attribute</child_entity>
+        <sub_entity_field_name>catalog_product_attribute</sub_entity_field_name>
+        <type>one_to_many</type>
+        <action class="Amasty\ProductImportEntity\Import\DataHandling\RelationModifier\CatalogEavAttribute">
+            <arguments>
+                <argument name="entity_data_interface" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+            </arguments>
+        </action>
+        <arguments>
+            <argument name="parent_entity_name" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+            <argument name="child_entity_name" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+        </arguments>
+    </relation>
+</config>

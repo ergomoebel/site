@@ -1,0 +1,19 @@
+<div class="amexportpro-result-container">
+    <div class="amsteps-result-container">
+        <a data-bind="i18n:'Download', attr:{href: $parent.getDownloadLink()}"
+           target="_blank"
+           class="abs-action-primary"></a>
+    </div>
+    <!-- ko if: $parent.messages() -->
+    <div class="messages" style="margin: 20px 0">
+        <!-- ko foreach: $parent.messages() -->
+        <div class="message" data-bind="text: $data.message,
+                css: {
+                     'message-error error': $data.type === 40 || $data.type === 50,
+                     'message-warning warning': $data.type === 30
+                     }">
+        </div>
+        <!-- /ko -->
+    </div>
+    <!-- /ko -->
+</div>

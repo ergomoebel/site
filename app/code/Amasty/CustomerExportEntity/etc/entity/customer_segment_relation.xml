@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerExportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="customer_segment_relation">
+        <name>Customer Segment</name>
+        <group>Customer</group>
+        <collectionFactory class="Amasty\ExportCore\Export\Config\CustomEntity\CollectionFactory">
+            <arguments>
+                <argument name="tableName" xsi:type="string">magento_customersegment_customer</argument>
+                <argument name="idField" xsi:type="string">segment_id</argument>
+            </arguments>
+        </collectionFactory>
+        <enabledChecker class="Amasty\ExportCore\Export\Config\IsModuleEnabled">
+            <arguments>
+                <argument name="moduleName" xsi:type="string">Magento_CustomerSegment</argument>
+            </arguments>
+        </enabledChecker>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+            <fields>
+                <field name="segment_id">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Magento\CustomerSegment\Model\ResourceModel\Segment\Collection</class>
+                        </options>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="customer_segment_relation_customer">
+        <parent_entity>customer_segment_relation</parent_entity>
+        <child_entity>customer_entity</child_entity>
+        <sub_entity_field_name>customer_entity</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">customer_id</argument>
+            <argument name="child_field_name" xsi:type="string">entity_id</argument>
+        </arguments>
+    </relation>
+    <relation code="customer_customer_segment_relation">
+        <parent_entity>customer_entity</parent_entity>
+        <child_entity>customer_segment_relation</child_entity>
+        <sub_entity_field_name>customer_segment_relation</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">customer_id</argument>
+        </arguments>
+    </relation>
+</config>

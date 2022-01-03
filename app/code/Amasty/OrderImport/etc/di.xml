@@ -1,0 +1,274 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderImport
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\OrderImport\Api\Data\ProfileInterface"
+                type="Amasty\OrderImport\Model\Profile\Profile"/>
+    <preference for="Amasty\OrderImport\Api\ProfileRepositoryInterface"
+                type="Amasty\OrderImport\Model\Profile\Repository"/>
+
+    <!-- Meta -->
+    <virtualType name="AmastyOrderImportGeneralMeta" type="Amasty\OrderImport\Import\Form\General">
+        <arguments>
+            <argument name="metaProviders" xsi:type="array">
+                <item name="batch_size" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="metaClass" xsi:type="object">Amasty\ImportPro\Import\Form\Batch</item>
+                    <item name="arguments" xsi:type="array">
+                        <item name="label" xsi:type="string"/>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="AmastyOrderImportFieldsMeta" type="Amasty\OrderImport\Import\Form\Fields">
+        <arguments>
+            <argument name="metaProviders" xsi:type="array">
+                <item name="template" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="metaClass" xsi:type="object">Amasty\ImportCore\Import\Form\FieldsAdvanced</item>
+                    <item name="arguments" xsi:type="array">
+                        <item name="label" xsi:type="string"/>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="AmastyOrderImportSourceMeta" type="Amasty\OrderImport\Import\Form\FileConfig">
+        <arguments>
+            <argument name="metaProviders" xsi:type="array">
+                <item name="filename" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="metaClass" xsi:type="object">Amasty\ImportCore\Import\Form\Source</item>
+                    <item name="arguments" xsi:type="array">
+                        <item name="label" xsi:type="string"/>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="AmastyOrderImportFileResolverMeta" type="Amasty\OrderImport\Import\Form\FileResolver">
+        <arguments>
+            <argument name="metaProviders" xsi:type="array">
+                <item name="template" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="metaClass" xsi:type="object">Amasty\ImportCore\Import\Form\FileResolver</item>
+                    <item name="arguments" xsi:type="array">
+                        <item name="label" xsi:type="string"/>
+                        <item name="fileSourceTypeDataScope" xsi:type="string">file_config.source_type</item>
+                        <item name="tokenCommentLink" xsi:type="string">https://amasty.com/docs/doku.php?id=magento_2:import_orders#import_source</item>
+                        <item name="keyCommentLink" xsi:type="string">https://amasty.com/docs/doku.php?id=magento_2:import_orders#import_source</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="AmastyOrderImportMeta" type="Amasty\ImportCore\Import\Form\CompositeForm">
+        <arguments>
+            <argument name="metaProviders" xsi:type="array">
+                <item name="general" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="metaClass" xsi:type="object">AmastyOrderImportGeneralMeta</item>
+                </item>
+                <item name="source" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="metaClass" xsi:type="object">AmastyOrderImportSourceMeta</item>
+                </item>
+                <item name="fileResolver" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="metaClass" xsi:type="object">AmastyOrderImportFileResolverMeta</item>
+                </item>
+                <item name="importSettings" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">40</item>
+                    <item name="metaClass" xsi:type="object">Amasty\OrderImport\Import\Form\ImportSettings</item>
+                    <item name="arguments" xsi:type="array">
+                        <item name="label" xsi:type="string">Import Settings</item>
+                        <item name="fieldsProvider" xsi:type="string">order_import_profile_form.areas.fields.fields.fieldsConfigAdvanced</item>
+                    </item>
+                </item>
+                <item name="fields" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">50</item>
+                    <item name="metaClass" xsi:type="object">AmastyOrderImportFieldsMeta</item>
+                </item>
+                <item name="event" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">60</item>
+                    <item name="metaClass" xsi:type="object">Amasty\ImportCore\Import\Form\Event</item>
+                </item>
+                <item name="notifications" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">70</item>
+                    <item name="metaClass" xsi:type="object">AmastyOrderImportNotificationsMeta</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="AmastyOrderImportNotificationsMeta" type="Amasty\ImportPro\Import\Form\AlertNotifications">
+        <arguments>
+            <argument name="metaProviders" xsi:type="array">
+                <item name="email_alert" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">0</item>
+                    <item name="metaClass" xsi:type="object">AmastyOrderImportEmailNotificationsMeta</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AmastyOrderImportEmailNotificationsMeta" type="Amasty\ImportPro\Import\Form\Notification\Email">
+        <arguments>
+            <argument name="emailTemplate" xsi:type="object">AmastyOrderImportDefaultEmailAlertTemplate</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AmastyOrderImportDefaultEmailAlertTemplate" type="Magento\Config\Model\Config\Source\Email\Template">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="path" xsi:type="string">amorderimport/admin_email/alert_template</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Amasty\ImportCore\Import\FormProvider">
+        <arguments>
+            <argument name="compositeForm" xsi:type="array">
+                <item name="order_import" xsi:type="object">AmastyOrderImportMeta</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- /Meta -->
+
+    <type name="Amasty\ImportCore\Import\Validation\CompositeValidationProvider">
+        <arguments>
+            <argument name="providersByEntityCode" xsi:type="array">
+                <item name="sales_order" xsi:type="string">Amasty\OrderImport\Import\Validation\ValidationProvider</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Order Actions -->
+    <virtualType name="AmastyImport" type="Amasty\ImportCore\Import\ImportStrategy">
+        <arguments>
+            <argument name="actionGroups" xsi:type="array">
+                <item name="importActions" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="actions" xsi:type="array">
+                        <item name="order_actions" xsi:type="array">
+                            <item name="class" xsi:type="string">Amasty\OrderImport\Import\Action\Import\Order\OrderActions</item>
+                            <item name="sortOrder" xsi:type="number">30</item>
+                            <item name="entities" xsi:type="array">
+                                <item name="sales_order_entity" xsi:type="string">sales_order</item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AmastyImportValidateAndImport" type="Amasty\ImportCore\Import\ImportStrategy">
+        <arguments>
+            <argument name="actionGroups" xsi:type="array">
+                <item name="importActions" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="actions" xsi:type="array">
+                        <item name="order_actions" xsi:type="array">
+                            <item name="class" xsi:type="string">Amasty\OrderImport\Import\Action\Import\Order\OrderActions</item>
+                            <item name="sortOrder" xsi:type="number">30</item>
+                            <item name="entities" xsi:type="array">
+                                <item name="sales_order_entity" xsi:type="string">sales_order</item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Amasty\OrderImport\Import\Action\Import\Order\OrderActionsProvider">
+        <arguments>
+            <argument name="actions" xsi:type="array">
+                <item name="change_status" xsi:type="array">
+                    <item name="action" xsi:type="object">Amasty\OrderImport\Import\Action\Import\Order\OrderActions\ChangeOrderStatusAction\Proxy</item>
+                    <item name="sortOrder" xsi:type="string">10</item>
+                </item>
+                <item name="invoice_order" xsi:type="array">
+                    <item name="action" xsi:type="object">Amasty\OrderImport\Import\Action\Import\Order\OrderActions\InvoiceOrderAction\Proxy</item>
+                    <item name="sortOrder" xsi:type="string">15</item>
+                </item>
+                <item name="ship_order" xsi:type="array">
+                    <item name="action" xsi:type="object">Amasty\OrderImport\Import\Action\Import\Order\OrderActions\ShipOrderAction\Proxy</item>
+                    <item name="sortOrder" xsi:type="string">20</item>
+                </item>
+                <item name="memo_order" xsi:type="array">
+                    <item name="action" xsi:type="object">Amasty\OrderImport\Import\Action\Import\Order\OrderActions\CreditmemoOrderAction\Proxy</item>
+                    <item name="sortOrder" xsi:type="string">25</item>
+                </item>
+                <item name="cancel_order" xsi:type="array">
+                    <item name="action" xsi:type="object">Amasty\OrderImport\Import\Action\Import\Order\OrderActions\CancelOrderAction\Proxy</item>
+                    <item name="sortOrder" xsi:type="string">30</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Amasty\OrderImport\Import\Action\Import\Order\OrderActions\InvoiceOrderAction">
+        <arguments>
+            <argument name="notifyCustomerInvoice" xsi:type="object">Amasty\OrderImport\Import\Action\Import\Order\OrderActions\NotifyCustomerInvoice\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Amasty\OrderImport\Import\Action\Import\Order\OrderActions\ShipOrderAction">
+        <arguments>
+            <argument name="notifyCustomerShipment" xsi:type="object">Amasty\OrderImport\Import\Action\Import\Order\OrderActions\NotifyCustomerShipment\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Amasty\OrderImport\Import\Action\Import\Order\OrderActions\CreditmemoOrderAction">
+        <arguments>
+            <argument name="notifyCustomerCreditmemo" xsi:type="object">Amasty\OrderImport\Import\Action\Import\Order\OrderActions\NotifyCustomerCreditmemo\Proxy</argument>
+        </arguments>
+    </type>
+    <!-- /Order Actions -->
+
+    <!-- Customer Actions -->
+    <virtualType name="AmastyImport" type="Amasty\ImportCore\Import\ImportStrategy">
+        <arguments>
+            <argument name="actionGroups" xsi:type="array">
+                <item name="importActions" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="actions" xsi:type="array">
+                        <item name="order_customer_actions" xsi:type="array">
+                            <item name="class" xsi:type="string">Amasty\OrderImport\Import\Action\Import\Customer\CustomerActions</item>
+                            <item name="sortOrder" xsi:type="number">15</item>
+                            <item name="entities" xsi:type="array">
+                                <item name="sales_order_entity" xsi:type="string">sales_order</item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AmastyImportValidateAndImport" type="Amasty\ImportCore\Import\ImportStrategy">
+        <arguments>
+            <argument name="actionGroups" xsi:type="array">
+                <item name="importActions" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="actions" xsi:type="array">
+                        <item name="order_customer_actions" xsi:type="array">
+                            <item name="class" xsi:type="string">Amasty\OrderImport\Import\Action\Import\Customer\CustomerActions</item>
+                            <item name="sortOrder" xsi:type="number">15</item>
+                            <item name="entities" xsi:type="array">
+                                <item name="sales_order_entity" xsi:type="string">sales_order</item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!-- /Customer Actions -->
+</config>

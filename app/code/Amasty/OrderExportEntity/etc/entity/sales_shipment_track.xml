@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderExportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="sales_shipment_track">
+        <name>Shipment Track</name>
+        <group>Sales</group>
+        <collectionFactory class="Magento\Sales\Model\ResourceModel\Order\Shipment\Track\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+            <fields>
+                <field name="entity_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="parent_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="order_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="track_number">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="carrier_code">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="shipment_shipment_track">
+        <parent_entity>sales_shipment</parent_entity>
+        <child_entity>sales_shipment_track</child_entity>
+        <sub_entity_field_name>sales_shipment_track</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">parent_id</argument>
+        </arguments>
+    </relation>
+    <relation code="shipment_track_shipment">
+        <parent_entity>sales_shipment_track</parent_entity>
+        <child_entity>sales_shipment</child_entity>
+        <sub_entity_field_name>sales_shipment</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">parent_id</argument>
+            <argument name="child_field_name" xsi:type="string">entity_id</argument>
+        </arguments>
+    </relation>
+</config>

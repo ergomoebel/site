@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductExport
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Amasty_ProductExport::product_export"
+             title="Export Products"
+             translate="title"
+             module="Amasty_ProductExport"
+             parent="Magento_Backend::system"
+             dependsOnModule="Amasty_ProductExport"
+             sortOrder="15"
+             resource="Amasty_ProductExport::product_export"
+        />
+        <add id="Amasty_ProductExport::product_export_profiles"
+             title="Profiles"
+             translate="title"
+             module="Amasty_ProductExport"
+             parent="Amasty_ProductExport::product_export"
+             dependsOnModule="Amasty_ProductExport"
+             action="amproductexport/profile/index"
+             sortOrder="10"
+             resource="Amasty_ProductExport::product_export_profiles"
+        />
+        <add id="Amasty_ProductExport::product_export_history"
+             title="History"
+             translate="title"
+             module="Amasty_ProductExport"
+             parent="Amasty_ProductExport::product_export"
+             dependsOnModule="Amasty_ProductExport"
+             action="amproductexport/history/index"
+             sortOrder="20"
+             resource="Amasty_ProductExport::product_export_history"
+        />
+        <add id="Amasty_ProductExport::product_export_connections"
+             title="3rd Party Connections"
+             translate="title"
+             module="Amasty_ProductExport"
+             parent="Amasty_ProductExport::product_export"
+             dependsOnModule="Amasty_ProductExport"
+             action="amproductexport/connection/index"
+             sortOrder="30"
+             resource="Amasty_ProductExport::product_export_connections"
+        />
+    </menu>
+</config>

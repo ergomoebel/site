@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderExportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\OrderExportEntity\Export\Filter\Type\CustomOption\ConfigInterface" type="Amasty\OrderExportEntity\Export\Filter\Type\CustomOption\Config" />
+    <preference for="Amasty\OrderExportEntity\Export\Filter\Type\CustomOption\ValueItemInterface" type="Amasty\OrderExportEntity\Export\Filter\Type\CustomOption\ValueItem" />
+
+    <virtualType name="Amasty\OrderExportEntity\Export\FieldsClass\OrderAttribute" type="Amasty\ExportCore\Export\FieldsClass\EavAttribute">
+        <arguments>
+            <argument name="eavEntityTypeCode" xsi:type="string">amasty_checkout</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="AmastyExport" type="Amasty\ExportCore\Export\ExportStrategy">
+        <arguments>
+            <argument name="actionGroups" xsi:type="array">
+                <item name="export" xsi:type="array">
+                    <item name="actions" xsi:type="array">
+                        <item name="get_currency_action" xsi:type="array">
+                            <item name="class" xsi:type="string">Amasty\OrderExportEntity\Export\Action\Export\CurrencyAction</item>
+                            <item name="entities" xsi:type="array">
+                                <item name="sales_order_entity" xsi:type="string">sales_order</item>
+                            </item>
+                            <item name="sortOrder" xsi:type="number">18</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

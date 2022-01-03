@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderExportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="amasty_amcheckout_order_custom_fields">
+        <name>Amasty One Step Checkout</name>
+        <collectionFactory class="Amasty\Checkout\Model\ResourceModel\OrderCustomFields\CollectionFactory"/>
+        <enabledChecker class="Amasty\ExportCore\Export\Config\IsModuleEnabled">
+            <arguments>
+                <argument name="moduleName" xsi:type="string">Amasty_Checkout</argument>
+            </arguments>
+        </enabledChecker>
+        <isHidden>true</isHidden>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+        </fieldsConfig>
+    </entity>
+    <relation code="order_osc">
+        <parent_entity>sales_order</parent_entity>
+        <child_entity>amasty_amcheckout_order_custom_fields</child_entity>
+        <sub_entity_field_name>osc</sub_entity_field_name>
+        <type>one_to_many</type><!--one_to_one mb-->
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">order_id</argument>
+        </arguments>
+    </relation>
+</config>

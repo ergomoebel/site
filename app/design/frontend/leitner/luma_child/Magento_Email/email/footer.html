@@ -1,0 +1,76 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Footer"}} @-->
+<!--@vars {
+"var store.getFrontendName()":"Store Name"
+} @-->
+
+                    <!-- End Content -->
+                   <!--</td>
+                </tr>
+                <tr>
+                    <td class="footer">
+                        <table>
+						<tr>
+							<td class="address">
+							<p>
+								LEITNER ERGOMÖBEL GmbH | Burgwegerstraße 57 | 4923 Lohnsburg | AUSTRIA
+								<br />
+								UID: ATU 61668519 | Tel: +43 (0)7754 3137-0 | Fax: +43 (0)7754 3137-15
+								<br />
+								<a href="mailto:office@ergomoebel.at"> office(at)ergomoebel.at</a> | <a href="https://www.ergomoebel.at">www.ergomoebel.at</a>
+							</p></td>
+							<td class="social">
+							<table>
+								<tr>
+									<td id="social_leitbetrieb"><a href="https://www.ergomoebel.at/service/leitner-service/"><img src="{{skin url="images/leitbetrieb_a_sw.png" _area=''frontend''}}" /></a></td>
+									<td id="social_facebook"><a href="https://www.facebook.com/leitner.ergomoebel?fref=ts"><img src="{{skin url="images/facebook.png" _area=''frontend''}}" /></a></td>
+									<td id="social_youtube"><a href="https://www.youtube.com/channel/UCBByUHqNMEph5ajRB1gKy1Q"><img src="{{skin url="images/youtube.png" _area=''frontend''}}" /></a></td
+								</tr>
+							</table></td>
+						</tr>
+                            <tr>
+                            <tr>
+                                <td>
+                                    {{depend url_about_us}}
+                                    <p>
+                                        {{trans '<a href=%url_about_us>About Us</a>' url_about_us=$url_about_us |raw}}
+                                    </p>
+                                    {{/depend}}
+                                    {{depend url_customer_service}}
+                                    <p>
+                                        {{trans '<a href=url_customer_service>Customer Service</a>' url_customer_service=$url_customer_service |raw}}
+                                    </p>
+                                    {{/depend}}
+                                </td>
+                                <td>
+                                    {{depend store_phone}}
+                                        <p class="phone">
+                                            {{trans '<a href="tel:%store_phone">%store_phone</a>' store_phone=$store_phone |raw}}
+                                        </p>
+                                    {{/depend}}
+                                    {{depend store_hours}}
+                                        <p class="hours">
+                                            {{trans 'Hours of Operation:<br /><span class="no-link">%store_hours</span>.' store_hours=$store_hours |raw}}
+                                        </p>
+                                    {{/depend}}
+                                </td>
+                                <td>
+                                    <p class="address">
+                                        {{var store.getFormattedAddress()|raw}}
+                                    </p>
+                                </td>
+                            </tr>-->
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<!-- End wrapper table -->
+</body>

@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="catalog_product_custom_option_value">
+        <name>Product Custom Option Value</name>
+        <group>Product</group>
+        <description>Product Custom Option Value Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">catalog_product_option_type_value</argument>
+                </arguments>
+            </fieldsClass>
+            <rowValidation class="Amasty\ProductImportEntity\Import\Validation\RowValidator\Product\CustomOption\CustomOptionValueValidator">
+                <excludeBehaviors>
+                    <deleteDirect/>
+                </excludeBehaviors>
+            </rowValidation>
+            <fields>
+                <field name="option_type_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="option_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="store_id"/>
+                <field name="title"/>
+                <field name="price"/>
+                <field name="price_type"/>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name="option_type_id">1</field>
+                    <field name="option_id">1</field>
+                    <field name="title">Gold</field>
+                    <field name="sku"/>
+                    <field name="price">10.00</field>
+                    <field name="price_type">fixed</field>
+                    <field name="sort_order">1</field>
+                </row>
+                <row>
+                    <field name="option_type_id">2</field>
+                    <field name="option_id">1</field>
+                    <field name="title">Silver</field>
+                    <field name="sku"/>
+                    <field name="price">10.00</field>
+                    <field name="price_type">fixed</field>
+                    <field name="sort_order">2</field>
+                </row>
+                <row>
+                    <field name="option_type_id">3</field>
+                    <field name="option_id">1</field>
+                    <field name="title">Platinum</field>
+                    <field name="sku">yoga3sku</field>
+                    <field name="price">10.00</field>
+                    <field name="price_type">fixed</field>
+                    <field name="sort_order">3</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <custom class="Amasty\ProductImportEntity\Import\Behavior\Product\Save\CustomOption\CustomOptionValue"
+                    code="save_custom_option_value"
+                    name="Add/Update">
+                <executeOnParent>
+                    <addDirect/>
+                    <addUpdateDirect/>
+                    <updateDirect/>
+                </executeOnParent>
+            </custom>
+            <deleteDirect name="Delete">
+                <tableName>catalog_product_option</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="catalog_product_entity_custom_option_value">
+        <parent_entity>catalog_product_custom_option</parent_entity>
+        <child_entity>catalog_product_custom_option_value</child_entity>
+        <sub_entity_field_name>catalog_product_custom_option_value</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">option_id</argument>
+            <argument name="child_field_name" xsi:type="string">option_id</argument>
+        </arguments>
+    </relation>
+</config>

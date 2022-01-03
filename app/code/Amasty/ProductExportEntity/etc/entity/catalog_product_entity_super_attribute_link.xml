@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductExportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="catalog_product_entity_super_attribute_link">
+        <name>Configurable Product Super Attribute Link</name>
+        <isHidden>true</isHidden>
+        <collectionFactory class="Amasty\ProductExportEntity\Model\ResourceModel\Product\Type\Configurable\Link\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+            <fields>
+                <field name="sku">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="catalog_product_entity_super_attribute_link">
+        <parent_entity>catalog_product_entity_super_attribute</parent_entity>
+        <child_entity>catalog_product_entity_super_attribute_link</child_entity>
+        <sub_entity_field_name>catalog_product_super_attribute_link</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">product_id</argument>
+            <argument name="child_field_name" xsi:type="string">parent_id</argument>
+        </arguments>
+    </relation>
+</config>

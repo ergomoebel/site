@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="sales_shipment_item">
+        <name>Order Shipment Item</name>
+        <group>Sales</group>
+        <description>Order Shipment Item Import Entity</description>
+        <fieldsConfig>
+            <!-- This is an initial fields config -->
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">sales_shipment_item</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="entity_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty>
+                            <excludeBehaviors>
+                                <addDirect/>
+                            </excludeBehaviors>
+                        </notEmpty>
+                    </validation>
+                </field>
+                <field name="parent_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <tableRowExists tableName="sales_shipment"
+                                        idFieldName="entity_id"
+                                        rootOnly="true"
+                                        error="Shipment with specified 'entity_id' doesn't exist">
+                            <excludeBehaviors>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </tableRowExists>
+                    </validation>
+                </field>
+                <field name="order_item_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name='entity_id'>4</field>
+                    <field name='parent_id'>4</field>
+                    <field name='product_id'>2032</field>
+                    <field name='order_item_id'>13</field>
+                    <field name='name'>Erika Running Short-28-Purple</field>
+                    <field name='sku'>WSH12-28-Purple</field>
+                    <field name='row_total'></field>
+                    <field name='price'>45.0000</field>
+                    <field name='weight'>1.0000</field>
+                    <field name='qty'>1.0000</field>
+                    <field name='additional_data'/>
+                    <field name='description'/>
+                </row>
+                <row>
+                    <field name='entity_id'>5</field>
+                    <field name='parent_id'>4</field>
+                    <field name='product_id'>2033</field>
+                    <field name='order_item_id'>14</field>
+                    <field name='name'>Erika Running Short-28-Red</field>
+                    <field name='sku'>WSH12-28-Red</field>
+                    <field name='row_total'/>
+                    <field name='price'>45.0000</field>
+                    <field name='weight'>1.0000</field>
+                    <field name='qty'>1.0000</field>
+                    <field name='additional_data'/>
+                    <field name='description'/>
+                </row>
+                <row>
+                    <field name='entity_id'>6</field>
+                    <field name='parent_id'>4</field>
+                    <field name='product_id'>2034</field>
+                    <field name='order_item_id'>15</field>
+                    <field name='name'>Erika Running Short-29-Green</field>
+                    <field name='sku'>WSH12-29-Green</field>
+                    <field name='row_total'/>
+                    <field name='price'>45.0000</field>
+                    <field name='weight'>1.0000</field>
+                    <field name='qty'>1.0000</field>
+                    <field name='additional_data'/>
+                    <field name='description'/>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <addUpdateDirect>
+                <tableName>sales_shipment_item</tableName>
+            </addUpdateDirect>
+            <addDirect>
+                <tableName>sales_shipment_item</tableName>
+            </addDirect>
+            <updateDirect>
+                <tableName>sales_shipment_item</tableName>
+            </updateDirect>
+            <deleteDirect>
+                <tableName>sales_shipment_item</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="sales_shipment_item">
+        <parent_entity>sales_shipment</parent_entity>
+        <child_entity>sales_shipment_item</child_entity>
+        <sub_entity_field_name>sales_shipment_item</sub_entity_field_name>
+        <type>one_to_many</type>
+        <validation class="Amasty\OrderImportEntity\Import\Validation\RelationValidator\ShipmentItemValidator">
+            <excludeBehaviors>
+                <delete/>
+            </excludeBehaviors>
+        </validation>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">parent_id</argument>
+        </arguments>
+    </relation>
+</config>

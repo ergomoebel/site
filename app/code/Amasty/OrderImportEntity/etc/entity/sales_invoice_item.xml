@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="sales_invoice_item">
+        <name>Order Invoice Item</name>
+        <group>Sales</group>
+        <description>Order Invoice Item Import Entity</description>
+        <fieldsConfig>
+            <!-- This is an initial fields config -->
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">sales_invoice_item</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="entity_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty>
+                            <excludeBehaviors>
+                                <addDirect/>
+                            </excludeBehaviors>
+                        </notEmpty>
+                    </validation>
+                </field>
+                <field name="parent_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <tableRowExists tableName="sales_invoice"
+                                        idFieldName="entity_id"
+                                        rootOnly="true"
+                                        error="Invoice with specified 'entity_id' doesn't exist">
+                            <excludeBehaviors>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </tableRowExists>
+                    </validation>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name='entity_id'>5</field>
+                    <field name='parent_id'>5</field>
+                    <field name='product_id'>2032</field>
+                    <field name='order_item_id'>13</field>
+                    <field name='sku'>WSH12-28-Purple</field>
+                    <field name='name'>Erika Running Short-28-Purple</field>
+                    <field name='base_price'>45.0000</field>
+                    <field name='tax_amount'>3.7100</field>
+                    <field name='base_row_total'>45.0000</field>
+                    <field name='discount_amount'/>
+                    <field name='row_total'>45.0000</field>
+                    <field name='base_discount_amount'/>
+                    <field name='price_incl_tax'>48.7100</field>
+                    <field name='base_tax_amount'>3.7100</field>
+                    <field name='base_price_incl_tax'>48.7100</field>
+                    <field name='qty'>1.0000</field>
+                    <field name='base_cost'/>
+                    <field name='price'>45.0000</field>
+                    <field name='base_row_total_incl_tax'>48.7100</field>
+                    <field name='row_total_incl_tax'>48.7100</field>
+                    <field name='additional_data'/>
+                    <field name='description'/>
+                    <field name='discount_tax_compensation_amount'>0.0000</field>
+                    <field name='base_discount_tax_compensation_amount'>0.0000</field>
+                    <field name='tax_ratio'/>
+                    <field name='weee_tax_applied'>[]</field>
+                    <field name='weee_tax_applied_amount'/>
+                    <field name='weee_tax_applied_row_amount'>0.0000</field>
+                    <field name='weee_tax_disposition'/>
+                    <field name='weee_tax_row_disposition'>0.0000</field>
+                    <field name='base_weee_tax_applied_amount'/>
+                    <field name='base_weee_tax_applied_row_amnt'/>
+                    <field name='base_weee_tax_disposition'/>
+                    <field name='base_weee_tax_row_disposition'>0.0000</field>
+                </row>
+                <row>
+                    <field name='entity_id'>6</field>
+                    <field name='parent_id'>5</field>
+                    <field name='product_id'>2033</field>
+                    <field name='order_item_id'>14</field>
+                    <field name='sku'>WSH12-28-Red</field>
+                    <field name='name'>Erika Running Short-28-Red</field>
+                    <field name='base_price'>45.0000</field>
+                    <field name='tax_amount'>3.7200</field>
+                    <field name='base_row_total'>45.0000</field>
+                    <field name='discount_amount'/>
+                    <field name='row_total'>45.0000</field>
+                    <field name='base_discount_amount'/>
+                    <field name='price_incl_tax'>48.7200</field>
+                    <field name='base_tax_amount'>3.7200</field>
+                    <field name='base_price_incl_tax'>48.7200</field>
+                    <field name='qty'>1.0000</field>
+                    <field name='base_cost'/>
+                    <field name='price'>45.0000</field>
+                    <field name='base_row_total_incl_tax'>48.7200</field>
+                    <field name='row_total_incl_tax'>48.7200</field>
+                    <field name='additional_data'/>
+                    <field name='description'/>
+                    <field name='discount_tax_compensation_amount'>0.0000</field>
+                    <field name='base_discount_tax_compensation_amount'>0.0000</field>
+                    <field name='tax_ratio'/>
+                    <field name='weee_tax_applied'>[]</field>
+                    <field name='weee_tax_applied_amount'/>
+                    <field name='weee_tax_applied_row_amount'>0.0000</field>
+                    <field name='weee_tax_disposition'/>
+                    <field name='weee_tax_row_disposition'>0.0000</field>
+                    <field name='base_weee_tax_applied_amount'/>
+                    <field name='base_weee_tax_applied_row_amnt'/>
+                    <field name='base_weee_tax_disposition'/>
+                    <field name='base_weee_tax_row_disposition'>0.0000</field>
+                </row>
+                <row>
+                    <field name='entity_id'>7</field>
+                    <field name='parent_id'>5</field>
+                    <field name='product_id'>2034</field>
+                    <field name='order_item_id'>15</field>
+                    <field name='sku'>WSH12-29-Green</field>
+                    <field name='name'>Erika Running Short-29-Green</field>
+                    <field name='base_price'>45.0000</field>
+                    <field name='tax_amount'>3.7100</field>
+                    <field name='base_row_total'>45.0000</field>
+                    <field name='discount_amount'/>
+                    <field name='row_total'>45.0000</field>
+                    <field name='base_discount_amount'/>
+                    <field name='price_incl_tax'>48.7100</field>
+                    <field name='base_tax_amount'>3.7100</field>
+                    <field name='base_price_incl_tax'>48.7100</field>
+                    <field name='qty'>1.0000</field>
+                    <field name='base_cost'/>
+                    <field name='price'>45.0000</field>
+                    <field name='base_row_total_incl_tax'>48.7100</field>
+                    <field name='row_total_incl_tax'>48.7100</field>
+                    <field name='additional_data'/>
+                    <field name='description'/>
+                    <field name='discount_tax_compensation_amount'>0.0000</field>
+                    <field name='base_discount_tax_compensation_amount'>0.0000</field>
+                    <field name='tax_ratio'/>
+                    <field name='weee_tax_applied'>[]</field>
+                    <field name='weee_tax_applied_amount'/>
+                    <field name='weee_tax_applied_row_amount'>0.0000</field>
+                    <field name='weee_tax_disposition'/>
+                    <field name='weee_tax_row_disposition'>0.0000</field>
+                    <field name='base_weee_tax_applied_amount'/>
+                    <field name='base_weee_tax_applied_row_amnt'/>
+                    <field name='base_weee_tax_disposition'/>
+                    <field name='base_weee_tax_row_disposition'>0.0000</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <addUpdateDirect>
+                <tableName>sales_invoice_item</tableName>
+            </addUpdateDirect>
+            <addDirect>
+                <tableName>sales_invoice_item</tableName>
+            </addDirect>
+            <updateDirect>
+                <tableName>sales_invoice_item</tableName>
+            </updateDirect>
+            <deleteDirect>
+                <tableName>sales_invoice_item</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="sales_invoice_item">
+        <parent_entity>sales_invoice</parent_entity>
+        <child_entity>sales_invoice_item</child_entity>
+        <sub_entity_field_name>sales_invoice_item</sub_entity_field_name>
+        <type>one_to_many</type>
+        <validation class="Amasty\OrderImportEntity\Import\Validation\RelationValidator\InvoiceItemValidator">
+            <excludeBehaviors>
+                <delete/>
+            </excludeBehaviors>
+        </validation>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">parent_id</argument>
+        </arguments>
+    </relation>
+</config>

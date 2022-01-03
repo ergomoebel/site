@@ -1,0 +1,15 @@
+<!--@subject {{trans "%subject" subject=$subject}} @-->
+<!--@vars {
+"var date":"Date",
+"var profile_name":"Profile name"
+} @-->
+
+<table>
+    <tr class="email-intro">
+        <td valign="top">
+            <p>{{trans "The profile '%name' was successfully executed on %date. The export file is attached to this email."
+                date=$date name=$profile_name}}</p>
+        </td>
+    </tr>
+</table>
+

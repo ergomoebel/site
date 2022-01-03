@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <move element="page.main.title" destination="product.info.main" before="-"/>
+        <move element="product.info.review" destination="product.info.main" before="alert.urls"/>
+		<move element="catalog.product.related" destination="product.info.main" before="product.info.addtocart"/>
+		 <referenceBlock name="product.info.details">
+			<referenceBlock name="product.info.description" >
+				<arguments>
+					<argument name="title" translate="true" xsi:type="string">Description</argument>
+				</arguments>
+			</referenceBlock>
+			<block class="Magento\Catalog\Block\Product\View\Description" name="referenzen" template="Magento_Catalog::product/view/referenzen.phtml" group="detailed_info" after="product.attributes">
+				<arguments>
+					<argument name="at_call" xsi:type="string">getRefernzen</argument>
+					<argument name="at_code" xsi:type="string">referenzen</argument>
+					<argument name="css_class" xsi:type="string">referenzen</argument>
+					<argument name="at_label" xsi:type="string">referenzen</argument>	
+					<argument name="add_attribute" xsi:type="string">itemprop="referenzen"</argument>
+					<argument name="title" translate="true" xsi:type="string">referenzen</argument>
+					<argument name="sort_order" xsi:type="string">22</argument>
+				</arguments>
+			</block>
+			<block class="Magento\Catalog\Block\Product\View\Description" name="downloads" template="Magento_Catalog::product/view/downloads.phtml" group="detailed_info" after="product.attributes">
+				<arguments>
+					<argument name="at_call" xsi:type="string">getDownloads</argument>
+					<argument name="at_code" xsi:type="string">downloads</argument>
+					<argument name="css_class" xsi:type="string">downloads</argument>
+					<argument name="at_label" xsi:type="string">downloads</argument>	
+					<argument name="add_attribute" xsi:type="string">itemprop="downloads"</argument>
+					<argument name="title" translate="true" xsi:type="string">downloads</argument>
+					<argument name="sort_order" xsi:type="string">24</argument>
+				</arguments>
+			</block>
+			<block class="Magento\Catalog\Block\Product\View\Description" name="videoinstructional" template="Magento_Catalog::product/view/videoinstructional.phtml" group="detailed_info" after="product.attributes">
+				<arguments>
+					<argument name="at_call" xsi:type="string">videoinstructional</argument>
+					<argument name="at_code" xsi:type="string">videoinstructional</argument>
+					<argument name="css_class" xsi:type="string">videoinstructional</argument>
+					<argument name="at_label" xsi:type="string">videoinstructional</argument>	
+					<argument name="add_attribute" xsi:type="string">itemprop="videoinstructional"</argument>
+					<argument name="title" translate="true" xsi:type="string">videoinstructional</argument>
+					<argument name="sort_order" xsi:type="string">28</argument>
+				</arguments>
+			</block>
+			<block class="Magento\Catalog\Block\Product\View\Description" name="videouser" template="Magento_Catalog::product/view/videouser.phtml" group="detailed_info" after="product.attributes">
+				<arguments>
+					<argument name="at_call" xsi:type="string">videouser</argument>
+					<argument name="at_code" xsi:type="string">videouser</argument>
+					<argument name="css_class" xsi:type="string">videouser</argument>
+					<argument name="at_label" xsi:type="string">videouser</argument>	
+					<argument name="add_attribute" xsi:type="string">itemprop="videouser"</argument>
+					<argument name="title" translate="true" xsi:type="string">videouser</argument>
+					<argument name="sort_order" xsi:type="string">27</argument>
+				</arguments>
+			</block>
+     </referenceBlock>
+		
+    </body>
+</page>

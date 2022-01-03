@@ -1,0 +1,12 @@
+<!-- ko if: $row().messages -->
+<div class="messages" style="margin: 20px 0">
+    <!-- ko foreach: $row().messages() -->
+    <div class="message" data-bind="text: $data.message,
+                css: {
+                     'message-error error': $data.type === 40 || $data.type === 50,
+                     'message-warning warning': $data.type === 30
+                     }">
+    </div>
+    <!-- /ko -->
+</div>
+<!-- /ko -->

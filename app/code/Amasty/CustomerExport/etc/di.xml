@@ -1,0 +1,237 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerExport
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\CustomerExport\Api\Data\ProfileInterface"
+                type="Amasty\CustomerExport\Model\Profile\Profile"/>
+    <preference for="Amasty\CustomerExport\Api\ProfileRepositoryInterface"
+                type="Amasty\CustomerExport\Model\Profile\Repository"/>
+    <preference for="Amasty\CustomerExport\Api\Data\ConnectionInterface"
+                type="Amasty\CustomerExport\Model\Connection\Connection"/>
+    <preference for="Amasty\CustomerExport\Api\ConnectionRepositoryInterface"
+                type="Amasty\CustomerExport\Model\Connection\Repository"/>
+
+    <!-- Meta -->
+    <virtualType name="AmastyCustomerExportMeta" type="Amasty\ExportCore\Export\Form\CompositeForm">
+        <arguments>
+            <argument name="metaProviders" xsi:type="array">
+                <item name="general" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="metaClass" xsi:type="object">AmastyCustomerExportGeneralMeta</item>
+                </item>
+                <item name="output_options" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="metaClass" xsi:type="object">AmastyCustomerExportOutputOptionsMeta</item>
+                </item>
+                <item name="templates" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="metaClass" xsi:type="object">AmastyCustomerExportTemplatesMeta</item>
+                </item>
+                <item name="fields" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">40</item>
+                    <item name="metaClass" xsi:type="object">AmastyCustomerExportFieldsMeta</item>
+                </item>
+                <item name="filters" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">50</item>
+                    <item name="metaClass" xsi:type="object">AmastyCustomerExportFiltersMeta</item>
+                </item>
+                <item name="notifications" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">60</item>
+                    <item name="metaClass" xsi:type="object">AmastyCustomerExportNotificationsMeta</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="AmastyCustomerExportGeneralMeta" type="Amasty\CustomerExport\Export\Form\General">
+        <arguments>
+            <argument name="metaProviders" xsi:type="array">
+                <item name="batch_size" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="metaClass" xsi:type="object">Amasty\ExportPro\Export\Form\Batch</item>
+                    <item name="arguments" xsi:type="array">
+                        <item name="label" xsi:type="string"/>
+                    </item>
+                </item>
+                <item name="export_new_entities" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="metaClass" xsi:type="object">Amasty\ExportPro\Export\Form\ExportNewEntities</item>
+                    <item name="arguments" xsi:type="array">
+                        <item name="label" xsi:type="string"/>
+                        <item name="description" xsi:type="string" translate="true">The previously exported customers will be skipped if the setting is enabled.</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="AmastyCustomerExportOutputOptionsMeta" type="Amasty\CustomerExport\Export\Form\OutputOptions">
+        <arguments>
+            <argument name="metaProviders" xsi:type="array">
+                <item name="filename" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="metaClass" xsi:type="object">Amasty\ExportCore\Export\Form\Filename</item>
+                    <item name="arguments" xsi:type="array">
+                        <item name="label" xsi:type="string"/>
+                    </item>
+                </item>
+                <item name="postProcessing" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="metaClass" xsi:type="object">Amasty\ExportCore\Export\Form\PostProcessing</item>
+                    <item name="arguments" xsi:type="array">
+                        <item name="label" xsi:type="string"/>
+                    </item>
+                </item>
+                <item name="fileDestination" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">40</item>
+                    <item name="metaClass" xsi:type="object">Amasty\ExportCore\Export\Form\FileDestination</item>
+                    <item name="arguments" xsi:type="array">
+                        <item name="label" xsi:type="string" translatable="true">Export File Storage</item>
+                        <item name="tokenCommentLink" xsi:type="string">https://amasty.com/docs/doku.php?id=magento_2:export_customers#export_file_storage</item>
+                        <item name="keyCommentLink" xsi:type="string">https://amasty.com/docs/doku.php?id=magento_2:export_customers#export_file_storage</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="AmastyCustomerExportTemplatesMeta" type="Amasty\CustomerExport\Export\Form\Templates">
+        <arguments>
+            <argument name="metaProviders" xsi:type="array">
+                <item name="template" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="metaClass" xsi:type="object">Amasty\ExportCore\Export\Form\Template</item>
+                    <item name="arguments" xsi:type="array">
+                        <item name="label" xsi:type="string"/>
+                        <item name="twigTemplates" xsi:type="array">
+                            <item name="test" xsi:type="object">Amasty\CustomerExport\Export\Form\Template\TwigTemplate\Example</item>
+                        </item>
+                        <item name="arguments" xsi:type="array">
+                            <item name="combineChildRowsImage" xsi:type="string">Amasty_CustomerExport::images/merge_rows.gif</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="AmastyCustomerExportFieldsMeta" type="Amasty\CustomerExport\Export\Form\Fields">
+        <arguments>
+            <argument name="metaProviders" xsi:type="array">
+                <item name="template" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="metaClass" xsi:type="object">Amasty\ExportPro\Export\Form\Fields</item>
+                    <item name="arguments" xsi:type="array">
+                        <item name="label" xsi:type="string"/>
+                        <item name="customPrefixTagNameImage" xsi:type="string">Amasty_CustomerExport::images/custom_prefix_tag_name.gif</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="AmastyCustomerExportFiltersMeta" type="Amasty\CustomerExport\Export\Form\Filters">
+        <arguments>
+            <argument name="metaProviders" xsi:type="array">
+                <item name="template" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="metaClass" xsi:type="object">Amasty\ExportCore\Export\Form\Filter</item>
+                    <item name="arguments" xsi:type="array">
+                        <item name="label" xsi:type="string"/>
+                        <item name="excludeParentImage" xsi:type="string">Amasty_CustomerExport::images/exclude_parent_entity_row_if_no_results_found.gif</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="AmastyCustomerExportNotificationsMeta" type="Amasty\ExportPro\Export\Form\AlertNotifications">
+        <arguments>
+            <argument name="metaProviders" xsi:type="array">
+                <item name="email_alert" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">0</item>
+                    <item name="metaClass" xsi:type="object">AmastyCustomerExportEmailNotificationsMeta</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Amasty\ExportCore\Export\FormProvider">
+        <arguments>
+            <argument name="compositeForm" xsi:type="array">
+                <item name="customer_export" xsi:type="object">AmastyCustomerExportMeta</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- /Meta -->
+
+    <virtualType name="AmastyCustomerExportEmailNotificationsMeta" type="Amasty\ExportPro\Export\Form\Notification\Email">
+        <arguments>
+            <argument name="emailTemplate" xsi:type="object">AmastyCustomerExportDefaultEmailAlertTemplate</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AmastyCustomerExportDefaultEmailAlertTemplate" type="Magento\Config\Model\Config\Source\Email\Template">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="path" xsi:type="string">amcustomerexport/admin_email/template</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Amasty\CustomerExport\Model\CustomerExportList">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="defaultOptions" xsi:type="array">
+                    <item name="cvs" xsi:type="array">
+                        <item name="value" xsi:type="string">csv</item>
+                        <item name="label" xsi:type="string" translate="true">CSV</item>
+                        <item name="url" xsi:type="string">mui/export/gridToCsv</item>
+                    </item>
+                    <item name="xml" xsi:type="array">
+                        <item name="value" xsi:type="string">xml</item>
+                        <item name="label" xsi:type="string" translate="true">Excel XML</item>
+                        <item name="url" xsi:type="string">mui/export/gridToXml</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\ExportCore\Export\Config\EntityConfigProvider">
+        <arguments>
+            <argument name="entitySources" xsi:type="array">
+                <item name="customer" xsi:type="object">Amasty\CustomerExport\Export\Config\EntitySource\ThirdPartyConnection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\ExportCore\Export\Config\RelationConfigProvider">
+        <arguments>
+            <argument name="relationSources" xsi:type="array">
+                <item name="customer" xsi:type="object">Amasty\CustomerExport\Export\Config\RelationSource\ThirdPartyConnection</item>
+            </argument>
+        </arguments>
+    </type>
+
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="customer_export_connection_form_data_source" xsi:type="string">Amasty\CustomerExport\Model\Connection\ResourceModel\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Amasty\CustomerExport\Model\Connection\ResourceModel\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">amasty_customer_export_connection</argument>
+            <argument name="resourceModel" xsi:type="string">Amasty\CustomerExport\Model\Connection\ResourceModel\Connection</argument>
+        </arguments>
+    </virtualType>
+</config>

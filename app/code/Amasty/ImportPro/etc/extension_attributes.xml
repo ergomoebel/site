@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ImportPro
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Amasty\ImportCore\Api\Config\ProfileConfigInterface">
+        <attribute code="ftp_file_resolver" type="Amasty\ImportPro\Import\FileResolver\Type\FtpFile\ConfigInterface" />
+        <attribute code="sftp_file_resolver" type="Amasty\ImportPro\Import\FileResolver\Type\SftpFile\ConfigInterface" />
+        <attribute code="google_sheet_file_resolver" type="Amasty\ImportPro\Import\FileResolver\Type\GoogleSheet\ConfigInterface" />
+        <attribute code="url_file_resolver" type="Amasty\ImportPro\Import\FileResolver\Type\UrlFile\ConfigInterface" />
+        <attribute code="rest_file_resolver" type="Amasty\ImportPro\Import\FileResolver\Type\Rest\ConfigInterface" />
+        <attribute code="dropbox_file_resolver" type="Amasty\ImportPro\Import\FileResolver\Type\Dropbox\ConfigInterface" />
+        <attribute code="drive_file_resolver" type="Amasty\ImportPro\Import\FileResolver\Type\GoogleDrive\ConfigInterface" />
+
+        <attribute code="ods_source" type="Amasty\ImportPro\Import\Source\Type\Ods\ConfigInterface" />
+        <attribute code="xlsx_source" type="Amasty\ImportPro\Import\Source\Type\Xlsx\ConfigInterface" />
+
+        <attribute code="email_notification_config" type="Amasty\ImportPro\Import\Notification\Type\Email\ConfigInterface" />
+
+        <attribute code="external_id" type="int" />
+        <attribute code="manual_run" type="boolean" />
+        <attribute code="name" type="string" />
+    </extension_attributes>
+
+    <extension_attributes for="Amasty\ImportPro\Import\FileResolver\Type\Rest\ConfigInterface">
+        <attribute code="bearer" type="Amasty\ImportPro\Import\FileResolver\Type\Rest\Auth\Bearer\ConfigInterface" />
+        <attribute code="basic" type="Amasty\ImportPro\Import\FileResolver\Type\Rest\Auth\Basic\ConfigInterface" />
+    </extension_attributes>
+</config>

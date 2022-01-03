@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderImport
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="amcron_run_order_import">
+        <observer instance="Amasty\OrderImport\Cron\RunJob" name="Amasty_OrderImport::run_job"/>
+    </event>
+    <event name="amimport_before_run">
+        <observer instance="Amasty\OrderImport\Observer\ImportRunBefore" name="Amasty_OrderImport::before_run_import" />
+    </event>
+    <event name="amimport_after_run">
+        <observer instance="Amasty\OrderImport\Observer\ImportRunAfter" name="Amasty_OrderImport::after_run_import" />
+    </event>
+</config>

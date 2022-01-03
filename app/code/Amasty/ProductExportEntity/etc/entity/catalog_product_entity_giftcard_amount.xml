@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductExportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="catalog_product_entity_giftcard_amount">
+        <name>Gift Card Amount</name>
+        <group>Product</group>
+        <enabledChecker class="Amasty\ExportCore\Export\Config\IsModuleEnabled">
+            <arguments>
+                <argument name="moduleName" xsi:type="string">Magento_GiftCard</argument>
+            </arguments>
+        </enabledChecker>
+        <collectionFactory class="Amasty\ExportCore\Export\Config\CustomEntity\CollectionFactory">
+            <arguments>
+                <argument name="tableName" xsi:type="string">magento_giftcard_amount</argument>
+                <argument name="idField" xsi:type="string">value_id</argument>
+            </arguments>
+        </collectionFactory>
+
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+            <fields>
+                <field name="value_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="attribute_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="row_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="website_id">
+                    <actions>
+                        <custom class="Amasty\ProductExportEntity\Export\DataHandling\FieldModifier\WebsiteId2WebsiteCode"/>
+                    </actions>
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Amasty\ProductExportEntity\Export\Product\SourceOption\WebsiteOptions</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="value">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="catalog_product_entity_giftcard_amount">
+        <parent_entity>catalog_product_entity</parent_entity>
+        <child_entity>catalog_product_entity_giftcard_amount</child_entity>
+        <sub_entity_field_name>giftcard_amounts</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_entity_name" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+            <argument name="child_entity_name" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+        </arguments>
+    </relation>
+    <relation code="giftcard_amount_catalog_product_entity">
+        <parent_entity>catalog_product_entity_giftcard_amount</parent_entity>
+        <child_entity>catalog_product_entity</child_entity>
+        <sub_entity_field_name>catalog_product_entity</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_entity_name" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+            <argument name="child_entity_name" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+        </arguments>
+    </relation>
+</config>

@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="catalog_product_entity_attribute_set">
+        <name>Product Attribute Set</name>
+        <group>Product</group>
+        <description>Product Attribute Set Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">eav_attribute_set</argument>
+                </arguments>
+            </fieldsClass>
+            <rowValidation class="Amasty\ProductImportEntity\Import\Validation\RowValidator\Product\AttributeSet\AttributeSetValidator">
+                <excludeBehaviors>
+                    <deleteDirect/>
+                    <updateDirect/>
+                    <addUpdateDirect/>
+                </excludeBehaviors>
+            </rowValidation>
+            <fields>
+                <field name="attribute_set_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="entity_type_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="attribute_set_name">
+                    <required/>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name='attribute_set_id'>4</field>
+                    <field name='entity_type_id'>4</field>
+                    <field name='attribute_set_name'>Bag</field>
+                    <field name='sort_order'>0</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <custom class="Amasty\ProductImportEntity\Import\Behavior\AttributeSet\Save\AttributeSet"
+                    code="saveAttributeSet"
+                    name="Add/Update">
+                <executeOnParent>
+                    <addDirect/>
+                    <addUpdateDirect/>
+                    <updateDirect/>
+                </executeOnParent>
+            </custom>
+            <custom class="Amasty\ProductImportEntity\Import\Behavior\AttributeSet\Delete\SafeDeleteDirect"
+                    name="Delete"
+                    code="delete_safe_direct">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">eav_attribute_set</argument>
+                </arguments>
+                <executeOnParent>
+                    <deleteDirect/>
+                </executeOnParent>
+            </custom>
+        </behaviors>
+    </entity>
+    <relation code="catalog_product_entity_attribute_set">
+        <parent_entity>catalog_product_entity</parent_entity>
+        <child_entity>catalog_product_entity_attribute_set</child_entity>
+        <sub_entity_field_name>catalog_product_attribute_set</sub_entity_field_name>
+        <skip_relation_fields_update>true</skip_relation_fields_update>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">attribute_set_id</argument>
+            <argument name="child_field_name" xsi:type="string">attribute_set_id</argument>
+        </arguments>
+    </relation>
+</config>

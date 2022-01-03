@@ -1,0 +1,121 @@
+"Are you sure you want to do this?","Are you sure you want to do this?"
+Delete,Delete
+History,History
+"Something went wrong. Please try again.","Something went wrong. Please try again."
+"History has been cleared.","History has been cleared."
+"Something went wrong.","Something went wrong."
+"Import History","Import History"
+"Error occurred while deleting History Record with ID %1. Error: %2","Error occurred while deleting History Record with ID %1. Error: %2"
+"%1 History Record(s) has been successfully deleted","%1 History Record(s) has been successfully deleted"
+"%1 History Record(s) has been failed to delete","%1 History Record(s) has been failed to delete"
+"You have successfully deleted the job","You have successfully deleted the job"
+"We can't delete item right now. Please review the log and try again.","We can't delete item right now. Please review the log and try again."
+"Edit Job","Edit Job"
+"This job no longer exists.","This job no longer exists."
+"New Import Job","New Import Job"
+"Import Cron Jobs","Import Cron Jobs"
+"Cron jobs was successfully removed.","Cron jobs was successfully removed."
+"New Import Cron Job","New Import Cron Job"
+"You saved the job.","You saved the job."
+"An error has occurred","An error has occurred"
+"Generated Access Token","Generated Access Token"
+"Please follow the <a href=""' . . '"" target=""_blank"">instructions</a> from the user guide to generate access token.","Please follow the <a href=""' . . '"" target=""_blank"">instructions</a> from the user guide to generate access token."
+"File Path","File Path"
+"PHP library <a href=""https://github.com/spatie/dropbox-api""  target=""_blank"">Spatie</a> is not installed. Please install the library to proceed with Dropbox storage.","PHP library <a href=""https://github.com/spatie/dropbox-api""  target=""_blank"">Spatie</a> is not installed. Please install the library to proceed with Dropbox storage."
+Host,Host
+"User Name","User Name"
+Password,Password
+"Passive Mode","Passive Mode"
+"Upload Service Account Key File","Upload Service Account Key File"
+"Select the File","Select the File"
+"Please follow the <a href=""' . . '"" target=""_blank"">instructions</a> from the user guide to create a service account key.","Please follow the <a href=""' . . '"" target=""_blank"">instructions</a> from the user guide to create a service account key."
+"<a href=""https://github.com/googleapis/google-api-php-client""  target=""_blank"">Google APIs Client Library</a> for PHP is not installed. Please install the library to proceed with Google Drive storage.","<a href=""https://github.com/googleapis/google-api-php-client""  target=""_blank"">Google APIs Client Library</a> for PHP is not installed. Please install the library to proceed with Google Drive storage."
+"File can not be saved to the destination folder.","File can not be saved to the destination folder."
+URL,URL
+Username,Username
+Token,Token
+"Rest Api Endpoint","Rest Api Endpoint"
+"Ex.: https://magento.instance/rest/all/V1/some/endpoint","Ex.: https://magento.instance/rest/all/V1/some/endpoint"
+Auth,Auth
+"No Auth","No Auth"
+name,name
+"Basic Authentication Username","Basic Authentication Username"
+"Basic Authentication Password","Basic Authentication Password"
+"Batch Size","Batch Size"
+"Email Alert for Import Error","Email Alert for Import Error"
+"Enable Email Alert","Enable Email Alert"
+"Emails will be sent to recipients when an error happens in import.","Emails will be sent to recipients when an error happens in import."
+"Email Sender","Email Sender"
+"Email Recipients","Email Recipients"
+"Email Template","Email Template"
+"Rows Merged into One","Rows Merged into One"
+"Please enable the setting if you have data from multiple rows merged into one cell.","Please enable the setting if you have data from multiple rows merged into one cell."
+"Merged Rows Data Delimiter","Merged Rows Data Delimiter"
+"The character that delimits each field of the child rows.","The character that delimits each field of the child rows."
+"Prefix/Tag Delimiter","Prefix/Tag Delimiter"
+"The character that separates the prefix/tag from the column name.","The character that separates the prefix/tag from the column name."
+"PHP library <a href=""https://github.com/box/spout"" target=""_blank"">Spout</a> is not installed. Please install the library to proceed with %1 format.","PHP library <a href=""https://github.com/box/spout"" target=""_blank"">Spout</a> is not installed. Please install the library to proceed with %1 format."
+"Created: %1, Updated: %2, Deleted: %3","Created: %1, Updated: %2, Deleted: %3"
+"Unable to save history with ID %1. Error: %2","Unable to save history with ID %1. Error: %2"
+"Unable to save new history. Error: %1","Unable to save new history. Error: %1"
+"History with specified ID ""%1"" not found.","History with specified ID ""%1"" not found."
+"Unable to remove history with ID %1. Error: %2","Unable to remove history with ID %1. Error: %2"
+"Unable to remove history. Error: %1","Unable to remove history. Error: %1"
+"Unexpected situation","Unexpected situation"
+"Unable to save job with ID %1. Error: %2","Unable to save job with ID %1. Error: %2"
+"Unable to save new job. Error: %1","Unable to save new job. Error: %1"
+"Job with specified ID ""%1"" not found.","Job with specified ID ""%1"" not found."
+"Unable to remove job with ID %1. Error: %2","Unable to remove job with ID %1. Error: %2"
+"Unable to remove job. Error: %1","Unable to remove job. Error: %1"
+"'Import: Unable to send notification. Error is: ' .","'Import: Unable to send notification. Error is: ' ."
+Failed,Failed
+Success,Success
+Disabled,Disabled
+Enabled,Enabled
+"Bad credentials or host info","Bad credentials or host info"
+"Show Log","Show Log"
+"Please wait...","Please wait..."
+"Step 1","Step 1"
+"Step 2","Step 2"
+"Step 3","Step 3"
+"Import Finished","Import Finished"
+"Validation Finished","Validation Finished"
+"Import History Delete","Import History Delete"
+"Cron Jobs","Cron Jobs"
+FTP,FTP
+SFTP,SFTP
+"Google Sheets","Google Sheets"
+"REST API Endpoint","REST API Endpoint"
+Dropbox,Dropbox
+"Google Drive","Google Drive"
+Bearer,Bearer
+Basic,Basic
+ODS,ODS
+XLSX,XLSX
+"Clear History","Clear History"
+"Delete History","Delete History"
+"Are you sure you want to delete selected history items?","Are you sure you want to delete selected history items?"
+"History ID","History ID"
+"Profile Name","Profile Name"
+"Profile ID","Profile ID"
+Status,Status
+"Imported At","Imported At"
+Log,Log
+Summary,Summary
+"Profile Import Log","Profile Import Log"
+Close,Close
+Import,Import
+Back,Back
+"Save Job","Save Job"
+"Save and Continue Edit","Save and Continue Edit"
+"Import Settings","Import Settings"
+"Select Entity","Select Entity"
+"Cron Job Title","Cron Job Title"
+Schedule,Schedule
+"Delete Jobs","Delete Jobs"
+"Are you sure you want to delete selected jobs?","Are you sure you want to delete selected jobs?"
+ID,ID
+"Job Title","Job Title"
+"Entity Type","Entity Type"
+Edit,Edit
+"Job Settings","Job Settings"

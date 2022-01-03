@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="customer_log">
+        <name>Customer Log</name>
+        <group>Customer</group>
+        <description>Customer Log Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">customer_log</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="log_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty>
+                            <excludeBehaviors>
+                                <addDirect/>
+                            </excludeBehaviors>
+                        </notEmpty>
+                    </validation>
+                </field>
+                <field name="customer_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <notEmpty/>
+                        <nonNegative/>
+                        <customerExists>
+                            <includeBehaviors>
+                                <updateDirect/>
+                            </includeBehaviors>
+                        </customerExists>
+                    </validation>
+                </field>
+                <field name="last_login_at">
+                    <validation>
+                        <dateFormat/>
+                    </validation>
+                </field>
+                <field name="last_logout_at">
+                    <validation>
+                        <dateFormat/>
+                    </validation>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name="log_id">1</field>
+                    <field name="customer_id">1</field>
+                    <field name="last_login_at">2021-03-13 13:18:19</field>
+                    <field name="last_logout_at">2021-03-13 13:18:52</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <addUpdateDirect name="Add/Update" indexerMethod="update">
+                <tableName>customer_log</tableName>
+            </addUpdateDirect>
+            <addDirect name="Only add" indexerMethod="update">
+                <tableName>customer_log</tableName>
+            </addDirect>
+            <updateDirect name="Only update" indexerMethod="update">
+                <tableName>customer_log</tableName>
+            </updateDirect>
+            <deleteDirect name="Delete" indexerMethod="delete">
+                <tableName>customer_log</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="customer_log">
+        <parent_entity>customer_entity</parent_entity>
+        <child_entity>customer_log</child_entity>
+        <sub_entity_field_name>customer_log</sub_entity_field_name>
+        <type>one_to_one</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">customer_id</argument>
+        </arguments>
+    </relation>
+</config>

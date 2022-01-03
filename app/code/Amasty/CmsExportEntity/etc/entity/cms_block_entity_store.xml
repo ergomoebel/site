@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CmsExportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="cms_block_entity_store">
+        <name>Block Store</name>
+        <isHidden>true</isHidden>
+        <collectionFactory class="Amasty\CmsExportEntity\Model\ResourceModel\Block\Store\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+            <fields>
+                <field name="store_id">
+                    <actions>
+                        <storeId2StoreCode/>
+                    </actions>
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Magento\Cms\Ui\Component\Listing\Column\Cms\Options</class>
+                        </options>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="cms_block_entity_store">
+        <parent_entity>cms_block_entity</parent_entity>
+        <child_entity>cms_block_entity_store</child_entity>
+        <sub_entity_field_name>cms_block_store</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_entity_name" xsi:type="string">Magento\Cms\Api\Data\BlockInterface</argument>
+            <argument name="child_entity_name" xsi:type="string">Magento\Cms\Api\Data\BlockInterface</argument>
+        </arguments>
+    </relation>
+    <relation code="store_cms_block_entity">
+        <parent_entity>cms_block_entity_store</parent_entity>
+        <child_entity>cms_block_entity</child_entity>
+        <sub_entity_field_name>cms_block_entity</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_entity_name" xsi:type="string">Magento\Cms\Api\Data\BlockInterface</argument>
+            <argument name="child_entity_name" xsi:type="string">Magento\Cms\Api\Data\BlockInterface</argument>
+        </arguments>
+    </relation>
+</config>

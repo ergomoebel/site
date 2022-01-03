@@ -1,0 +1,9 @@
+<!-- ko if: $row().status == 1 -->
+<span class="grid-severity-notice"><span data-bind="i18n:'Success'"></span></span>
+<!-- /ko -->
+<!-- ko if: $row().status == 0 -->
+<span class="grid-severity-critical"><span data-bind="i18n:'Failed'"></span></span>
+<!-- /ko -->
+<!-- ko if: $row().status == -1 -->
+<span class="grid-severity-minor"><span data-bind="i18n:'Processing'"></span></span>
+<!-- /ko -->

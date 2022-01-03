@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderExportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <include path="Amasty_OrderExportEntity::entity/sales_order.xml"/>
+    <include path="Amasty_OrderExportEntity::entity/order_attribute.xml"/>
+
+    <include path="Amasty_OrderExportEntity::entity/sales_order_item.xml"/>
+    <include path="Amasty_OrderExportEntity::entity/sales_order_item_attribute.xml"/>
+    <include path="Amasty_OrderExportEntity::entity/sales_order_item_custom_option.xml"/>
+    <include path="Amasty_OrderExportEntity::entity/sales_order_grid.xml"/>
+    <include path="Amasty_OrderExportEntity::entity/sales_order_shipping_address.xml"/>
+    <include path="Amasty_OrderExportEntity::entity/sales_order_billing_address.xml"/>
+    <include path="Amasty_OrderExportEntity::entity/sales_order_tax.xml"/>
+    <include path="Amasty_OrderExportEntity::entity/sales_order_tax_item.xml"/>
+    <include path="Amasty_OrderExportEntity::entity/sales_order_payment.xml"/>
+    <include path="Amasty_OrderExportEntity::entity/osc.xml"/>
+    <include path="Amasty_OrderExportEntity::entity/gift_message.xml"/>
+
+    <include path="Amasty_OrderExportEntity::entity/sales_shipment.xml"/>
+    <include path="Amasty_OrderExportEntity::entity/sales_shipment_item.xml"/>
+    <include path="Amasty_OrderExportEntity::entity/sales_shipment_track.xml"/>
+    <include path="Amasty_OrderExportEntity::entity/sales_shipment_grid.xml"/>
+
+    <include path="Amasty_OrderExportEntity::entity/sales_creditmemo.xml"/>
+    <include path="Amasty_OrderExportEntity::entity/sales_creditmemo_item.xml"/>
+    <include path="Amasty_OrderExportEntity::entity/sales_creditmemo_grid.xml"/>
+
+    <include path="Amasty_OrderExportEntity::entity/sales_invoice.xml"/>
+    <include path="Amasty_OrderExportEntity::entity/sales_invoice_item.xml"/>
+    <include path="Amasty_OrderExportEntity::entity/sales_invoice_grid.xml"/>
+</config>

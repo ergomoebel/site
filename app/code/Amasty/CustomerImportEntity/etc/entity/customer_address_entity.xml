@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="customer_address_entity">
+        <name>Customer Address</name>
+        <group>Customer</group>
+        <description>Customer Address Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">customer_address_entity</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="entity_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty>
+                            <excludeBehaviors>
+                                <addDirect/>
+                            </excludeBehaviors>
+                        </notEmpty>
+                    </validation>
+                    <synchronization>
+                        <item>
+                            <entityName>customer_entity</entityName>
+                            <fieldName>default_billing</fieldName>
+                        </item>
+                        <item>
+                            <entityName>customer_entity</entityName>
+                            <fieldName>default_shipping</fieldName>
+                        </item>
+                    </synchronization>
+                </field>
+                <field name="parent_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <notEmpty/>
+                        <nonNegative/>
+                        <customerExists>
+                            <includeBehaviors>
+                                <updateDirect/>
+                            </includeBehaviors>
+                        </customerExists>
+                    </validation>
+                </field>
+                <field name="created_at">
+                    <validation>
+                        <dateFormat/>
+                    </validation>
+                </field>
+                <field name="updated_at">
+                    <validation>
+                        <dateFormat/>
+                    </validation>
+                </field>
+                <field name="is_active">
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="region_id">
+                    <validation>
+                        <custom class="Amasty\CustomerImportEntity\Import\Validation\EntityValidator\Region" error="The specified %1 doesn't exist."/>
+                    </validation>
+                </field>
+                <field name="country_id">
+                    <validation>
+                        <custom class="Amasty\CustomerImportEntity\Import\Validation\EntityValidator\Country" error="The specified %1 doesn't exist."/>
+                    </validation>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name="entity_id">1</field>
+                    <field name="parent_id">1</field>
+                    <field name='created_at'>2020-01-20 07:37:49</field>
+                    <field name='updated_at'>2020-01-20 07:37:49</field>
+                    <field name='is_active'>1</field>
+                    <field name='city'>Calder</field>
+                    <field name='country_id'>US</field>
+                    <field name='firstname'>Veronica</field>
+                    <field name='lastname'>Costello</field>
+                    <field name='postcode'>49628-7978</field>
+                    <field name='region'>Michigan</field>
+                    <field name='region_id'>33</field>
+                    <field name='street'>6146 Honey Bluff Parkway</field>
+                    <field name='telephone'>(555) 229-3326</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <addUpdateDirect name="Add/Update" indexerMethod="update">
+                <tableName>customer_address_entity</tableName>
+            </addUpdateDirect>
+            <addDirect name="Only add" indexerMethod="update">
+                <tableName>customer_address_entity</tableName>
+            </addDirect>
+            <updateDirect name="Only update" indexerMethod="update">
+                <tableName>customer_address_entity</tableName>
+            </updateDirect>
+            <deleteDirect name="Delete" indexerMethod="delete">
+                <tableName>customer_address_entity</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="customer_address_entity">
+        <parent_entity>customer_entity</parent_entity>
+        <child_entity>customer_address_entity</child_entity>
+        <sub_entity_field_name>customer_address_entity</sub_entity_field_name>
+        <type>one_to_many</type>
+        <validation class="Amasty\CustomerImportEntity\Import\Validation\RelationValidator\CustomerAddressValidator"/>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">parent_id</argument>
+        </arguments>
+    </relation>
+</config>

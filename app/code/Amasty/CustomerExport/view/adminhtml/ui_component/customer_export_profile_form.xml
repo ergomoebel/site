@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerExport
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">customer_export_profile_form.customer_export_profile_form_data_source</item>
+            <item name="ajaxSave" xsi:type="boolean">true</item>
+            <item name="component" xsi:type="string">Amasty_ExportPro/js/form</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Profile Set Up Steps</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="save_and_run" class="Amasty\CustomerExport\Block\Adminhtml\Edit\Button\SaveAndRun"/>
+            <button name="save_and_continue" class="Amasty\CustomerExport\Block\Adminhtml\Edit\Button\SaveAndContinueButton"/>
+            <button name="save" class="Amasty\CustomerExport\Block\Adminhtml\Edit\Button\SaveButton"/>
+            <button name="reset" class="Amasty\CustomerExport\Block\Adminhtml\Edit\Button\ResetButton"/>
+            <button name="duplicate" class="Amasty\CustomerExport\Block\Adminhtml\Edit\Button\Duplicate"/>
+            <button name="back" class="Amasty\CustomerExport\Block\Adminhtml\Edit\Button\BackButton"/>
+            <button name="delete" class="Amasty\CustomerExport\Block\Adminhtml\Edit\Button\DeleteButton"/>
+        </buttons>
+        <layout>
+            <navContainerName>left</navContainerName>
+            <type>tabs</type>
+        </layout>
+        <namespace>customer_export_profile_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>customer_export_profile_form.customer_export_profile_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="customer_export_profile_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Amasty_ExportCore/js/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="amcustomerexport/profile/save"/>
+        </settings>
+        <dataProvider class="Amasty\CustomerExport\Ui\DataProvider\Profile\Form" name="customer_export_profile_form_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="general">
+        <settings>
+            <label translate="true">General Configuration</label>
+        </settings>
+        <fieldset name="configuration">
+            <settings>
+                <label translate="true">General Configuration</label>
+                <additionalClasses>
+                    <class name="amcustomerexport-general-title">true</class>
+                </additionalClasses>
+                <dataScope/>
+            </settings>
+            <field name="id" formElement="input">
+                <settings>
+                    <dataType>text</dataType>
+                    <visible>false</visible>
+                </settings>
+            </field>
+            <field name="name" formElement="input">
+                <settings>
+                    <label translate="true">Profile Name</label>
+                    <dataType>text</dataType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                </settings>
+            </field>
+        </fieldset>
+        <container name="run" component="Amasty_ExportPro/js/run/run">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="idField" xsi:type="string">id</item>
+                    <item name="requestIdField" xsi:type="string">profile_id</item>
+                </item>
+            </argument>
+            <container name="modal">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="componentType" xsi:type="string">modal</item>
+                        <item name="component" xsi:type="string">Magento_Ui/js/modal/modal-component</item>
+                        <item name="options" xsi:type="array">
+                            <item name="type" xsi:type="string">popup</item>
+                            <item name="modalClass" xsi:type="string">amexportpro-modal-container</item>
+                            <item name="title" xsi:type="string" translate="true">Generate Profile</item>
+                        </item>
+                    </item>
+                </argument>
+                <container name="export-process">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="componentType" xsi:type="string">container</item>
+                            <item name="startUrl" xsi:type="url" path="*/*/export"/>
+                            <item name="statusUrl" xsi:type="url" path="amexport/export/status"/>
+                            <item name="downloadUrl" xsi:type="url" path="amexport/export/download/processIdentity/_process_identity_"/>
+                            <item name="template" xsi:type="string">Amasty_ExportPro/run/export-process</item>
+                            <item name="component" xsi:type="string">Amasty_ExportPro/js/run/export-process</item>
+                        </item>
+                    </argument>
+                </container>
+            </container>
+        </container>
+    </fieldset>
+    <fieldset name="output_options">
+        <settings>
+            <label translate="true">Output Options</label>
+        </settings>
+    </fieldset>
+    <fieldset name="templates">
+        <settings>
+            <label translate="true">File Settings</label>
+        </settings>
+    </fieldset>
+    <fieldset name="fields">
+        <settings>
+            <label translate="true">Fields Configuration</label>
+            <additionalClasses>
+                <class name="amcustomerexport-fields-configuration">true</class>
+            </additionalClasses>
+        </settings>
+        <container name="container_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="template" xsi:type="string">ui/form/components/complex</item>
+                    <item name="label" xsi:type="string"></item>
+                    <item name="additionalClasses" xsi:type="string">sample-additional-class</item>
+                    <item name="text" xsi:type="string" translate="true">Here we have a tree structure with root entity and its subentities. Each subenity has its own fields to be added into the export file.</item>
+                </item>
+            </argument>
+        </container>
+    </fieldset>
+    <fieldset name="conditions">
+        <settings>
+            <label translate="true">Export Filters</label>
+        </settings>
+    </fieldset>
+    <fieldset name="automatic_export">
+        <settings>
+            <label translate="true">Automatic Export</label>
+        </settings>
+        <container name="schedule_container">
+            <argument name="data" xsi:type="array">
+                <item name="dataScope" xsi:type="string" />
+                <item name="type" xsi:type="string">group</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Schedule</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                </item>
+            </argument>
+        </container>
+        <field name="enable_run_by_event">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Run Profile by Event</item>
+                    <item name="tooltip" xsi:type="array">
+                        <item name="description" xsi:type="string" translate="true">The export will be initiated directly after an appropriate event being dispatched in Magento if enabled.</item>
+                    </item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataScope" xsi:type="string">enable_event</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="sortOrder" xsi:type="string">50</item>
+                    <item name="switcherConfig" xsi:type="array">
+                        <item name="enabled" xsi:type="boolean">true</item>
+                        <item name="rules" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="value" xsi:type="number">0</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">index = export_events</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                </item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="value" xsi:type="number">1</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">index = export_events</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+            </item>
+            </argument>
+        </field>
+        <field name="export_events">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Amasty\CustomerExport\Model\OptionSource\ExportEvents</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Export Event</item>
+                    <item name="notice" xsi:type="string" translate="true">The appropriately selected event(s) here will initiate the export directly.</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="additionalClasses" xsi:type="string">amcustomerexport-multiselect</item>
+                    <item name="dataScope" xsi:type="string">export_events</item>
+                    <item name="dataType" xsi:type="string">multiselect</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="sortOrder" xsi:type="number">60</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="alert_notifications">
+        <settings>
+            <label translate="true">Alert Notifications</label>
+            <additionalClasses>
+                <class name="amcustomerexport-general-title">true</class>
+            </additionalClasses>
+        </settings>
+    </fieldset>
+    <fieldset name="export_history" class="Amasty\CustomerExport\Ui\Component\Form\ExportHistoryFieldset">
+        <settings>
+            <label translate="true">Export History</label>
+            <additionalClasses>
+                <class name="amcustomerexport-grid-fieldset">true</class>
+            </additionalClasses>
+        </settings>
+        <insertListing name="history_grid" component="Amasty_CustomerExport/js/insert-history-listing">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <!--Avoid admin__scope-old cssclass assign -->
+                    <item name="cssclass" xsi:type="string">history-grid-insert-listing</item>
+                    <item name="autoRender" xsi:type="boolean">true</item>
+                    <item name="externalProvider" xsi:type="string">customer_export_history_listing.customer_export_history_listing_data_source</item>
+                    <item name="ns" xsi:type="string">customer_export_history_listing</item>
+                    <item name="jobType" xsi:type="string">customer_export</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="jobId" xsi:type="string">${ $.provider }:data.id</item>
+                    </item>
+                    <item name="exports" xsi:type="array">
+                        <item name="jobId" xsi:type="string">${ $.externalProvider }:params.job_id</item>
+                        <item name="jobType" xsi:type="string">${ $.externalProvider }:params.job_type</item>
+                    </item>
+                </item>
+            </argument>
+        </insertListing>
+    </fieldset>
+</form>

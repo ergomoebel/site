@@ -1,0 +1,17 @@
+<!--@subject Export Orders: Export failed @-->
+<!--@vars {
+"var date":"Date",
+"var profile_name":"Profile name",
+"var error_text":"Error text"
+} @-->
+
+<table>
+    <tr class="email-intro">
+        <td valign="top">
+            <p>{{trans "The profile '%name' failed to export on %date due to the following error: "
+                date=$date
+                name=$profile_name}}
+                {{var error_text|escape}}</p>
+        </td>
+    </tr>
+</table>

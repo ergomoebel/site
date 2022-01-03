@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="catalog_product_custom_option">
+        <name>Product Custom Option</name>
+        <group>Product</group>
+        <description>Product Custom Option Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">catalog_product_option</argument>
+                </arguments>
+            </fieldsClass>
+            <rowValidation class="Amasty\ProductImportEntity\Import\Validation\RowValidator\Product\CustomOption\CustomOptionValidator">
+                <excludeBehaviors>
+                    <deleteDirect/>
+                </excludeBehaviors>
+            </rowValidation>
+            <fields>
+                <field name="option_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="product_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="type"/>
+                <field name="store_id"/>
+                <field name="title"/>
+                <field name="price"/>
+                <field name="price_type"/>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name="option_id">1</field>
+                    <field name="product_id">1</field>
+                    <field name="type">drop_down</field>
+                    <field name="is_require">0</field>
+                    <field name="sort_order">1</field>
+                    <field name="title">Custom Yoga Option</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <custom class="Amasty\ProductImportEntity\Import\Behavior\Product\Save\CustomOption\CustomOption"
+                    code="save_custom_option"
+                    name="Add/Update">
+                <executeOnParent>
+                    <addDirect/>
+                    <addUpdateDirect/>
+                    <updateDirect/>
+                </executeOnParent>
+            </custom>
+            <deleteDirect name="Delete">
+                <tableName>catalog_product_option</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="catalog_product_entity_custom_option">
+        <parent_entity>catalog_product_entity</parent_entity>
+        <child_entity>catalog_product_custom_option</child_entity>
+        <sub_entity_field_name>catalog_product_custom_option</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_entity_name" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+            <argument name="child_field_name" xsi:type="string">product_id</argument>
+        </arguments>
+    </relation>
+</config>

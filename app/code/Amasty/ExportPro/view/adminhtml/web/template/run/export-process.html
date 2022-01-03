@@ -1,0 +1,23 @@
+<div class="amsteps-container">
+    <ul class="amsteps-icons-wrapper">
+        <!-- ko foreach: $data.steps -->
+        <li class="amsteps-icon"
+            data-bind="
+                css: {'-active': $parent.currentStep() == $data.code, '-done': $parent.isDoneStep($data.code)}"></li>
+        <!-- /ko -->
+    </ul>
+    <ul class="amsteps-titles-wrapper">
+        <!-- ko foreach: $data.steps -->
+        <li class="amsteps-title"
+            data-bind="
+                text: $parent.currentStep() === $data.code && $data.activeStateText ? $data.activeStateText : $data.title,
+                css: {'-active': $parent.currentStep() == $data.code, '-done': $parent.isDoneStep($data.code)}">
+        </li>
+        <!-- /ko -->
+    </ul>
+</div>
+<!-- ko foreach: $data.steps -->
+    <!-- ko if: ($parent.currentStep() == $data.code) && ($data.template) -->
+        <!--ko template: $data.template--><!-- /ko -->
+    <!-- /ko -->
+<!-- /ko -->

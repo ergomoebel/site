@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderExport
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="amcron_run_order_export">
+        <observer instance="Amasty\OrderExport\Cron\RunJob" name="Amasty_OrderExport::run_job"/>
+    </event>
+    <event name="amexport_after_run">
+        <observer instance="Amasty\OrderExport\Observer\ExportRunAfter" name="Amasty_OrderExport::after_run_job_export" />
+    </event>
+    <event name="amexport_before_run">
+        <observer instance="Amasty\OrderExport\Observer\ExportRunBefore" name="Amasty_OrderExport::before_run_export" />
+    </event>
+    <event name="sales_order_place_after">
+        <observer instance="Amasty\OrderExport\Observer\RunExportProfile" name="Amasty_OrderExport::after_place_order" />
+    </event>
+    <event name="sales_order_invoice_save_after">
+        <observer instance="Amasty\OrderExport\Observer\RunExportProfile" name="Amasty_OrderExport::after_save_invoice" />
+    </event>
+    <event name="sales_order_shipment_save_after">
+        <observer instance="Amasty\OrderExport\Observer\RunExportProfile" name="Amasty_OrderExport::after_save_shipment" />
+    </event>
+    <event name="sales_order_creditmemo_save_after">
+        <observer instance="Amasty\OrderExport\Observer\RunExportProfile" name="Amasty_OrderExport::after_save_creditmemo" />
+    </event>
+</config>

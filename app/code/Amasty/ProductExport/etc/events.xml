@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductExport
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="amcron_run_product_export">
+        <observer instance="Amasty\ProductExport\Cron\RunJob" name="Amasty_ProductExport::run_job"/>
+    </event>
+    <event name="amexport_after_run">
+        <observer instance="Amasty\ProductExport\Observer\ExportRunAfter" name="Amasty_ProductExport::after_run_job_export" />
+    </event>
+    <event name="amexport_before_run">
+        <observer instance="Amasty\ProductExport\Observer\ExportRunBefore" name="Amasty_ProductExport::before_run_export" />
+    </event>
+    <event name="catalog_product_save_after">
+        <observer instance="Amasty\ProductExport\Observer\RunExportProfile" name="Amasty_ProductExport::after_save_product" />
+    </event>
+</config>

@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="customer_segment">
+        <name>Magento Customer Segment</name>
+        <group>Customer</group>
+        <description>Customer Segment Import Entity</description>
+        <enabledChecker class="Amasty\ImportCore\Import\Config\IsModuleEnabled">
+            <arguments>
+                <argument name="moduleName" xsi:type="string">Magento_CustomerSegment</argument>
+            </arguments>
+        </enabledChecker>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">magento_customersegment_segment</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="segment_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty>
+                            <excludeBehaviors>
+                                <addDirect/>
+                            </excludeBehaviors>
+                        </notEmpty>
+                    </validation>
+                </field>
+                <field name="is_active">
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="conditions_serialized">
+                    <actions>
+                        <unserialize/>
+                    </actions>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name="segment_id">1</field>
+                    <field name="name">Test Segment</field>
+                    <field name="description">Test Segment Description</field>
+                    <field name='is_active'>1</field>
+                    <field name='conditions_serialized'>{"type":"Magento\\CustomerSegment\\Model\\Segment\\Condition\\Combine\\Root","attribute":null,"operator":null,"value":true,"is_value_processed":null,"aggregator":"all"}</field>
+                    <field name='processing_frequency'>1</field>
+                    <field name='condition_sql'>SELECT 1 FROM `pref_customer_entity` AS `root`</field>
+                    <field name='apply_to'>0</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <addUpdateDirect name="Add/Update" indexerMethod="update">
+                <tableName>magento_customersegment_segment</tableName>
+                <idField>segment_id</idField>
+            </addUpdateDirect>
+            <addDirect name="Only add" indexerMethod="update">
+                <tableName>magento_customersegment_segment</tableName>
+                <idField>segment_id</idField>
+            </addDirect>
+            <updateDirect name="Only update" indexerMethod="update">
+                <tableName>magento_customersegment_segment</tableName>
+                <idField>segment_id</idField>
+            </updateDirect>
+            <deleteDirect name="Delete" indexerMethod="delete">
+                <tableName>magento_customersegment_segment</tableName>
+                <idField>segment_id</idField>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="customer_segment_relation">
+        <parent_entity>customer_entity</parent_entity>
+        <child_entity>customer_segment</child_entity>
+        <sub_entity_field_name>customer_segment</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">segment_id</argument>
+            <argument name="child_field_name" xsi:type="string">segment_id</argument>
+        </arguments>
+    </relation>
+</config>

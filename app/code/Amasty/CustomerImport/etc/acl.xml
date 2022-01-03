@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerImport
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Amasty_CustomerImport::config" title="Amasty Import Customers Settings" sortOrder="091317" />
+                        </resource>
+                    </resource>
+                </resource>
+                <resource id="Magento_Backend::system">
+                    <resource id="Amasty_CustomerImport::customer_import" translate="title" title="Amasty Import Customers" sortOrder="091317">
+                        <resource id="Amasty_CustomerImport::customer_import_profiles" translate="title" title="Amasty Import Customers Profiles" sortOrder="10"/>
+                        <resource id="Amasty_CustomerImport::customer_import_history" translate="title" title="Amasty Import Customers History" sortOrder="15"/>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

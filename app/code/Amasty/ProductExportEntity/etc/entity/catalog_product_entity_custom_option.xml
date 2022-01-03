@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductExportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="catalog_product_entity_custom_option">
+        <name>Product Custom Option</name>
+        <group>Product</group>
+        <collectionFactory class="Amasty\ProductExportEntity\Model\ResourceModel\CustomOption\CollectionFactory"/>
+        <fieldsConfig>
+            <fields>
+                <field name="option_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="store_id">
+                    <actions>
+                        <storeId2StoreCode/>
+                    </actions>
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Magento\Cms\Ui\Component\Listing\Column\Cms\Options</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="product_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="type">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="is_require">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+                <field name="sku">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="max_characters">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="file_extension">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="image_size_x">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="image_size_y">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="sort_order">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="title">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="price">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="price_type">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="catalog_product_entity_custom_option">
+        <parent_entity>catalog_product_entity</parent_entity>
+        <child_entity>catalog_product_entity_custom_option</child_entity>
+        <sub_entity_field_name>catalog_product_custom_option</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_entity_name" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+            <argument name="child_field_name" xsi:type="string">product_id</argument>
+        </arguments>
+    </relation>
+    <relation code="custom_option_catalog_product_entity">
+        <parent_entity>catalog_product_entity_custom_option</parent_entity>
+        <child_entity>catalog_product_entity</child_entity>
+        <sub_entity_field_name>catalog_product_entity</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">product_id</argument>
+            <argument name="child_entity_name" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+        </arguments>
+    </relation>
+</config>

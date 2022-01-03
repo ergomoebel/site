@@ -1,0 +1,17 @@
+<!--@subject Import Orders: Error happened @-->
+<!--@vars {
+"var date":"Date",
+"var profile_name":"Profile name",
+"var error_text":"Error text"
+} @-->
+
+<table>
+    <tr class="email-intro">
+        <td valign="top">
+            <p>{{trans "On %date in running the profile '%name' the following error happened: "
+                date=$date
+                name=$profile_name}}
+                {{var error_text|escape}}</p>
+        </td>
+    </tr>
+</table>

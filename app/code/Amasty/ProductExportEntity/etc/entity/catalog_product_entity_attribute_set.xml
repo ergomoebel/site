@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductExportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="catalog_product_entity_attribute_set">
+        <name>Product Attribute Set</name>
+        <group>Product</group>
+        <collectionFactory class="Magento\Eav\Model\ResourceModel\Entity\Attribute\Set\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+        </fieldsConfig>
+    </entity>
+    <relation code="catalog_product_entity_attribute_set">
+        <parent_entity>catalog_product_entity</parent_entity>
+        <child_entity>catalog_product_entity_attribute_set</child_entity>
+        <sub_entity_field_name>catalog_product_attribute_set</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">attribute_set_id</argument>
+            <argument name="child_field_name" xsi:type="string">attribute_set_id</argument>
+        </arguments>
+    </relation>
+    <relation code="attribute_set_catalog_product_entity">
+        <parent_entity>catalog_product_entity_attribute_set</parent_entity>
+        <child_entity>catalog_product_entity</child_entity>
+        <sub_entity_field_name>catalog_product_entity</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">attribute_set_id</argument>
+            <argument name="child_field_name" xsi:type="string">attribute_set_id</argument>
+        </arguments>
+    </relation>
+</config>

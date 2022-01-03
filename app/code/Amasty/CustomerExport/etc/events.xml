@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerExport
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="amcron_run_customer_export">
+        <observer instance="Amasty\CustomerExport\Cron\RunJob" name="Amasty_CustomerExport::run_job"/>
+    </event>
+    <event name="amexport_after_run">
+        <observer instance="Amasty\CustomerExport\Observer\ExportRunAfter" name="Amasty_CustomerExport::after_run_job_export" />
+    </event>
+    <event name="amexport_before_run">
+        <observer instance="Amasty\CustomerExport\Observer\ExportRunBefore" name="Amasty_CustomerExport::before_run_export" />
+    </event>
+    <event name="customer_register_success">
+        <observer instance="Amasty\CustomerExport\Observer\RunExportProfile" name="Amasty_CustomerExport::customer_register" />
+    </event>
+</config>

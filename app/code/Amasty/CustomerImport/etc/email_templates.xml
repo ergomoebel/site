@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerImport
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="amcustomerimport_admin_email_alert_template"
+              label="Amasty Import Customers: Error happened"
+              file="amcustomerimport_email_alert_template.html"
+              type="html"
+              module="Amasty_CustomerImport"
+              area="adminhtml"
+    />
+</config>

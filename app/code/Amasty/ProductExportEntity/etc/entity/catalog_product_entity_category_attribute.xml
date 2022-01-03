@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductExportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="catalog_product_entity_category_attribute">
+        <name>Product Category Attribute</name>
+        <isHidden>true</isHidden>
+        <collectionFactory class="Amasty\ProductExportEntity\Model\ResourceModel\CategoryAttribute\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ProductExportEntity\Export\FieldsClass\CategoryAttribute">
+                <arguments>
+                    <argument name="entityType" xsi:type="string">Magento\Catalog\Api\Data\CategoryInterface</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="store_id">
+                    <actions>
+                        <storeId2StoreCode/>
+                    </actions>
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Magento\Cms\Ui\Component\Listing\Column\Cms\Options</class>
+                        </options>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="catalog_product_entity_category_attribute">
+        <parent_entity>catalog_product_entity_category</parent_entity>
+        <child_entity>catalog_product_entity_category_attribute</child_entity>
+        <sub_entity_field_name>catalog_category_attribute</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_entity_name" xsi:type="string">Magento\Catalog\Api\Data\CategoryInterface</argument>
+            <argument name="child_entity_name" xsi:type="string">Magento\Catalog\Api\Data\CategoryInterface</argument>
+        </arguments>
+    </relation>
+</config>

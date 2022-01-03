@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductImportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="catalog_product_entity_inventory_stock_status">
+        <name>Catalog Inventory Stock Status</name>
+        <group>Product</group>
+        <description>Catalog Inventory Stock Status</description>
+        <fieldsConfig>
+            <fields>
+                <field name="product_id">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                    <synchronization>
+                        <item>
+                            <entityName>catalog_product_entity</entityName>
+                            <fieldName>entity_id</fieldName>
+                        </item>
+                    </synchronization>
+                </field>
+                <field name="website_id">
+                    <actions>
+                        <trim/>
+                        <websiteCode2WebsiteId/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="stock_id">
+                    <actions>
+                        <trim/>
+                        <custom class="Amasty\ProductImportEntity\Import\DataHandling\FieldModifier\CatalogInventory\StockName2StockId"
+                                apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <tableRowExists tableName="cataloginventory_stock"
+                                        idFieldName="stock_id"
+                                        error="Catalog Inventory Stock with specified 'stock_id' doesn't exist.">
+                            <excludeBehaviors>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </tableRowExists>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="qty">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="stock_status">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                    </validation>
+                    <required/>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name='product_id'>1</field>
+                    <field name='website_id'>0</field>
+                    <field name='stock_id'>1</field>
+                    <field name='qty'>100</field>
+                    <field name='stock_status'>1</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <addUpdateDirect name="Add/Update">
+                <tableName>cataloginventory_stock_status</tableName>
+                <idField>product_id</idField>
+            </addUpdateDirect>
+            <addDirect name="Only add">
+                <tableName>cataloginventory_stock_status</tableName>
+                <idField>product_id</idField>
+            </addDirect>
+            <updateDirect name="Only update">
+                <tableName>cataloginventory_stock_status</tableName>
+                <idField>product_id</idField>
+            </updateDirect>
+            <deleteDirect name="Delete">
+                <tableName>cataloginventory_stock_status</tableName>
+                <idField>product_id</idField>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="catalog_product_entity_inventory_stock_status">
+        <parent_entity>catalog_product_entity</parent_entity>
+        <child_entity>catalog_product_entity_inventory_stock_status</child_entity>
+        <sub_entity_field_name>inventory_stock_status</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_entity_name" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+            <argument name="child_field_name" xsi:type="string">product_id</argument>
+        </arguments>
+    </relation>
+</config>

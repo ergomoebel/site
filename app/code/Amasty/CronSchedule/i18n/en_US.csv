@@ -1,0 +1,22 @@
+"Cron Schedule dataprovider ""%1"" is not exist","Cron Schedule dataprovider ""%1"" is not exist"
+"Cron Schedule ""%1"" is not implement DataProviderInterface","Cron Schedule ""%1"" is not implement DataProviderInterface"
+Enabled,Enabled
+Frequency,Frequency
+Schedule,Schedule
+"Read more about cron expressions - <a href=""https://en.wikipedia.org/wiki/Cron"" target=""_blank"" title=""here"">here</a>","Read more about cron expressions - <a href=""https://en.wikipedia.org/wiki/Cron"" target=""_blank"" title=""here"">here</a>"
+Minutes,Minutes
+Hours,Hours
+Days,Days
+Month,Month
+"Days Of Week","Days Of Week"
+"If enabled, the export will be initiated automatically by cron according to the schedule specified.","If enabled, the export will be initiated automatically by cron according to the schedule specified."
+Custom,Custom
+"Every Minute","Every Minute"
+"Every Hour","Every Hour"
+"Every Day at 4 am","Every Day at 4 am"
+"Every Monday at 4 am","Every Monday at 4 am"
+"Every 1st Day of Month at 4am","Every 1st Day of Month at 4am"
+"Unable to save schedule with ID %1. Error: %2","Unable to save schedule with ID %1. Error: %2"
+"Unable to save new schedule. Error: %1","Unable to save new schedule. Error: %1"
+"Unable to remove schedule with ID %1. Error: %2","Unable to remove schedule with ID %1. Error: %2"
+"Unable to remove schedule. Error: %1","Unable to remove schedule. Error: %1"

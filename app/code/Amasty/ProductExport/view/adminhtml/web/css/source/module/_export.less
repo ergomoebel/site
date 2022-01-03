@@ -1,0 +1,30 @@
+//
+//  Amasty Product Export styles
+//  ____________________________________________
+
+//
+//  Common
+//  --------------------------------------------
+
+& when (@media-common = true) {
+    .catalog-product-index .amproductexport-exports-container {
+       & {
+           overflow-y: auto;
+           max-height: 210px;
+       }
+
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        &::-webkit-scrollbar-track {
+            width: 5px;
+            background: #a79d95;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            background: #e3e3e3;
+        }
+    }
+}

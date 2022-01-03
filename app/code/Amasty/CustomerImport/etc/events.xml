@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerImport
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="amcron_run_customer_import">
+        <observer instance="Amasty\CustomerImport\Cron\RunJob" name="Amasty_CustomerImport::run_job"/>
+    </event>
+    <event name="amimport_after_run">
+        <observer instance="Amasty\CustomerImport\Observer\ImportRunAfter" name="Amasty_CustomerImport::after_run_import" />
+    </event>
+</config>

@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="customer_balance">
+        <name>Customer Balance</name>
+        <group>Customer</group>
+        <description>Customer Balance Import Entity</description>
+        <enabledChecker class="Amasty\ImportCore\Import\Config\IsModuleEnabled">
+            <arguments>
+                <argument name="moduleName" xsi:type="string">Magento_CustomerBalance</argument>
+            </arguments>
+        </enabledChecker>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">magento_customerbalance</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="balance_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty>
+                            <excludeBehaviors>
+                                <addDirect/>
+                            </excludeBehaviors>
+                        </notEmpty>
+                    </validation>
+                </field>
+                <field name="customer_id">
+                    <validation>
+                        <customerExists>
+                            <includeBehaviors>
+                                <updateDirect/>
+                            </includeBehaviors>
+                        </customerExists>
+                    </validation>
+                </field>
+                <field name="website_id">
+                    <validation>
+                        <websiteExists>
+                            <excludeBehaviors>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </websiteExists>
+                    </validation>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name="balance_id">1</field>
+                    <field name="customer_id">1</field>
+                    <field name='website_id'>1</field>
+                    <field name='amount'>100</field>
+                    <field name='base_currency_code'>USD</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <addUpdateDirect name="Add/Update" indexerMethod="update">
+                <tableName>magento_customerbalance</tableName>
+            </addUpdateDirect>
+            <addDirect name="Only add" indexerMethod="update">
+                <tableName>magento_customerbalance</tableName>
+            </addDirect>
+            <updateDirect name="Only update" indexerMethod="update">
+                <tableName>magento_customerbalance</tableName>
+            </updateDirect>
+            <deleteDirect name="Delete" indexerMethod="delete">
+                <tableName>magento_customerbalance</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="customer_balance">
+        <parent_entity>customer_entity</parent_entity>
+        <child_entity>customer_balance</child_entity>
+        <sub_entity_field_name>customer_balance</sub_entity_field_name>
+        <type>one_to_one</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">customer_id</argument>
+        </arguments>
+    </relation>
+</config>

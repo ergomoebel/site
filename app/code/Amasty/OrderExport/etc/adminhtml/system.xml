@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderExport
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="amorderexport" translate="label" type="text" sortOrder="052417" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Export Orders</label>
+            <tab>amasty</tab>
+            <resource>Amasty_OrderExport::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General Settings</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable module</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="batch_size" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Export Batch Size</label>
+                    <comment>The number of orders that will be processed in an iteration.</comment>
+                </field>
+                <field id="log_cleaning" translate="label tooltip" type="select" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Log Auto-Cleaning</label>
+                    <tooltip>The records will be automatically removed from Export History after the period specified below.</tooltip>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="log_period" translate="label tooltip" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Log Auto-Cleaning Period (Days)</label>
+                    <tooltip>The records will be automatically removed from Export History after the period you specified in the field.</tooltip>
+                    <validate>required-entry validate-greater-than-zero</validate>
+                    <depends>
+                        <field id="log_cleaning">1</field>
+                    </depends>
+                </field>
+                <field id="export_files" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Export Files Auto-Cleaning</label>
+                    <tooltip>The generated export files will be automatically removed from the server after the period specified below.</tooltip>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="files_period" translate="label tooltip" type="text" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Export Files Auto-Cleaning Period (Days)</label>
+                    <tooltip>The generated export files will be automatically removed from the server after the period you specified in the field.</tooltip>
+                    <validate>required-entry validate-greater-than-zero</validate>
+                    <depends>
+                        <field id="export_files">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="multi_process" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Multi-Process Export</label>
+                <field id="enabled" translate="label tooltip" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Enable Multi-Process Export</label>
+                    <tooltip><![CDATA[The 'Multi-Process Export' feature requires the PHP extension 'pcntl' to be installed on the server. If you enable the feature and no performance boost happens, please ask your hoster/system administrator to check if the 'pcntl' extension is installed.]]></tooltip>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="max_process_count" translate="label tooltip" type="text" sortOrder="20" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Number of Parallel Processes</label>
+                    <tooltip>The more parallel processes are set, the faster the export process goes, but the higher the server loads.</tooltip>
+                    <validate>validate-greater-than-zero</validate>
+                    <depends>
+                        <field id="*/*/enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

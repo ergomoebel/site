@@ -1,0 +1,75 @@
+//
+//  Amasty Order Export Profile styles
+//  ____________________________________________
+
+//
+//  Common
+//  --------------------------------------------
+
+& when (@media-common = true) {
+    .amorderexport-select-field .admin__control-select,
+    .amorderexport-textarea-field .admin__control-textarea,
+    .amorderexport-profile-edit .amorderexport-multiselect .admin__control-multiselect,
+    .amorderexport-profile-edit .admin__field-control .admin__control-text,
+    .amorderexport-profile-edit .admin__field-control .admin__control-select,
+    .amorderexport-profile-edit .admin__field-control .admin__field-note {
+        width: ~'calc(100% - 45px - 4px)';
+    }
+
+    .amorderexport-profile-edit .admin__fieldset-wrapper-content .admin__field.amexport_output_notice .admin__field-label {
+        width: ~'calc( ((100%) * 0.25 - 30px) / 2)';
+    }
+
+    .amorderexport-profile-edit .admin__fieldset-wrapper-content .file-uploader-area.amexportpro-file-uploader {
+        margin-top: auto;
+    }
+
+    .amorderexport-profile-edit .admin__dynamic-rows .admin__control-text {
+        width: 100%;
+    }
+
+    .amorderexport-profile-edit .amorderexport-general-title {
+        .admin__collapsible-title {
+            padding-top: 10px;
+            font-size: 20px;
+            font-weight: 400;
+        }
+
+        > .fieldset-wrapper-title {
+            display: none;
+        }
+    }
+
+    .amorderexport-profile-edit .amorderexport-tooltip {
+        padding-top: 30px;
+    }
+
+    .amorderexport-fields-configuration .admin__fieldset-wrapper-content .admin__fieldset {
+        padding-top: 0;
+    }
+
+    .amorderexport-fieldset-withtooltip > .fieldset-wrapper-title > .admin__collapsible-title {
+        & {
+            display: flex;
+            align-items: center;
+        }
+
+        > .admin__field-tooltip {
+            margin: 0 5px 0;
+        }
+
+        > .admin__field-tooltip > .admin__field-tooltip-content {
+            left: -25px;
+        }
+
+        > .admin__field-tooltip > .admin__field-tooltip-content:before,
+        > .admin__field-tooltip > .admin__field-tooltip-content:after {
+            left: 20px;
+        }
+    }
+
+    .amorderexport-grid-fieldset .sticky-header {
+        display: flex;
+        justify-content: flex-end;
+    }
+}

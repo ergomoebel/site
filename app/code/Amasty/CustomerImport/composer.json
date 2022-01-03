@@ -1,0 +1,24 @@
+{
+    "name": "amasty/module-customer-import",
+    "description": "Import Customers by Amasty",
+    "require": {
+        "php": "^7.1.0",
+        "amasty/base": "*",
+        "amasty/module-customer-import-entity": "*",
+        "amasty/module-import-pro": ">=1.4.0",
+        "amasty/cron-schedule-list": "*"
+    },
+    "type": "magento2-module",
+    "version": "1.3.1",
+    "license": [
+        "Commercial"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\CustomerImport\\": ""
+        }
+    }
+}

@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="customer_address_entity_attribute">
+        <name>Customer Address Attribute</name>
+        <group>Customer</group>
+        <description>Customer Address Attribute Import Entity</description>
+        <enabledChecker class="Amasty\ImportCore\Import\Config\IsModuleEnabled">
+            <arguments>
+                <argument name="moduleName" xsi:type="string">Magento_CustomerCustomAttributes</argument>
+            </arguments>
+        </enabledChecker>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\EavAttribute">
+                <arguments>
+                    <argument name="entityType" xsi:type="string">customer_address</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="entity_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty>
+                            <excludeBehaviors>
+                                <addDirect/>
+                            </excludeBehaviors>
+                        </notEmpty>
+                    </validation>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name="entity_id">1</field>
+                    <field name='country_id'>US</field>
+                    <field name="prefix"/>
+                    <field name='firstname'>Veronica</field>
+                    <field name="middlename"/>
+                    <field name='lastname'>Costello</field>
+                    <field name="suffix"/>
+                    <field name='street'>6146 Honey Bluff Parkway</field>
+                    <field name='city'>Calder</field>
+                    <field name='region'>Michigan</field>
+                    <field name='region_id'>33</field>
+                    <field name='postcode'>49628-7978</field>
+                    <field name='telephone'>(555) 229-3326</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <updateEavDirect>
+                <entityTable>customer_address_entity</entityTable>
+                <eavEntityType>customer_address</eavEntityType>
+                <executeOnParent>
+                    <addDirect/>
+                    <addUpdateDirect/>
+                    <updateDirect/>
+                </executeOnParent>
+            </updateEavDirect>
+            <deleteEavDirect>
+                <entityTable>customer_address_entity</entityTable>
+                <eavEntityType>customer_address</eavEntityType>
+                <executeOnParent>
+                    <deleteDirect/>
+                </executeOnParent>
+            </deleteEavDirect>
+        </behaviors>
+    </entity>
+    <relation code="customer_address_entity_attribute">
+        <parent_entity>customer_address_entity</parent_entity>
+        <child_entity>customer_address_entity_attribute</child_entity>
+        <sub_entity_field_name>customer_address_entity_attribute</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">entity_id</argument>
+        </arguments>
+    </relation>
+</config>

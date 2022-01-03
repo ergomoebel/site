@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductImportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="catalog_product_entity_super_links">
+        <name>Grouped Product Link</name>
+        <group>Product</group>
+        <description>Grouped Product Link Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">catalog_product_link</argument>
+                </arguments>
+            </fieldsClass>
+            <fields rowActionClass="Amasty\ProductImportEntity\Import\DataHandling\RowModifier\Product\Link\SuperLink">
+                <field name="link_id">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="product_id">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty/>
+                        <custom class="Amasty\ProductImportEntity\Import\Validation\EntityValidator\Product\LinkField"
+                                error="Product entity with specified 'product_id' doesn't exist"
+                                rootOnly="true"/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="linked_product_id">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty/>
+                        <tableRowExists tableName="catalog_product_entity"
+                                        idFieldName="entity_id"
+                                        error="Product entity with specified 'linked_product_id' doesn't exist">
+                            <excludeBehaviors>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </tableRowExists>
+                    </validation>
+                </field>
+                <field name="link_type_id">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty/>
+                    </validation>
+                    <required/> <!-- todo: set auto value -->
+                </field>
+                <field name="position">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="qty">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="sku">
+                    <validation>
+                        <notEmpty/>
+                        <custom class="Amasty\ProductImportEntity\Import\Validation\EntityValidator\Product\Sku"
+                                error="The specified product sku doesn't exist."/>
+                    </validation>
+                    <required/>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name="product_id">5</field>
+                    <field name="link_type_id">3</field> <!-- will be eliminated after auto resolve -->
+                    <field name="sku">24-WG085</field>
+                    <field name="position">0</field>
+                </row>
+                <row>
+                    <field name="product_id">5</field>
+                    <field name="link_type_id">3</field> <!-- will be eliminated after auto resolve -->
+                    <field name="sku">24-WG086</field>
+                    <field name="position">1</field>
+                </row>
+                <row>
+                    <field name="product_id">5</field>
+                    <field name="link_type_id">3</field> <!-- will be eliminated after auto resolve -->
+                    <field name="sku">24-WG087</field>
+                    <field name="position">2</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <custom class="Amasty\ProductImportEntity\Import\Behavior\Product\Save\Link\SuperLink"
+                    code="save_super_link"
+                    name="Add/Update">
+                <executeOnParent>
+                    <addDirect/>
+                    <addUpdateDirect/>
+                    <updateDirect/>
+                </executeOnParent>
+            </custom>
+            <custom class="Amasty\ProductImportEntity\Import\Behavior\Product\Delete\Link\SuperLink"
+                    code="delete_super_link"
+                    name="Delete">
+                <executeOnParent>
+                    <deleteDirect/>
+                </executeOnParent>
+            </custom>
+        </behaviors>
+    </entity>
+    <relation code="catalog_product_entity_super_links">
+        <parent_entity>catalog_product_entity</parent_entity>
+        <child_entity>catalog_product_entity_super_links</child_entity>
+        <sub_entity_field_name>catalog_product_grouped_link</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_entity_name" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+            <argument name="child_field_name" xsi:type="string">product_id</argument>
+        </arguments>
+    </relation>
+</config>

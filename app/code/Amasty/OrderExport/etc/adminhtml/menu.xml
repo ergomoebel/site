@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderExport
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Amasty_OrderExport::order_export"
+             title="Export Orders"
+             translate="title"
+             module="Amasty_OrderExport"
+             parent="Magento_Backend::system"
+             dependsOnModule="Amasty_OrderExport"
+             sortOrder="15"
+             resource="Amasty_OrderExport::order_export"
+        />
+        <add id="Amasty_OrderExport::order_export_profiles"
+             title="Profiles"
+             translate="title"
+             module="Amasty_OrderExport"
+             parent="Amasty_OrderExport::order_export"
+             dependsOnModule="Amasty_OrderExport"
+             action="amorderexport/profile/index"
+             sortOrder="10"
+             resource="Amasty_OrderExport::order_export_profiles"
+        />
+        <add id="Amasty_OrderExport::order_export_history"
+             title="History"
+             translate="title"
+             module="Amasty_OrderExport"
+             parent="Amasty_OrderExport::order_export"
+             dependsOnModule="Amasty_OrderExport"
+             action="amorderexport/history/index"
+             sortOrder="20"
+             resource="Amasty_OrderExport::order_export_history"
+        />
+        <add id="Amasty_OrderExport::order_export_connections"
+             title="3rd Party Connections"
+             translate="title"
+             module="Amasty_OrderExport"
+             parent="Amasty_OrderExport::order_export"
+             dependsOnModule="Amasty_OrderExport"
+             action="amorderexport/connection/index"
+             sortOrder="30"
+             resource="Amasty_OrderExport::order_export_connections"
+        />
+    </menu>
+</config>

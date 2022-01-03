@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderExportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="sales_order_billing_address">
+        <name>Sales Order Billing Address</name>
+        <group>Sales</group>
+        <collectionFactory class="Magento\Sales\Model\ResourceModel\Order\Address\CollectionFactory"/>
+        <collectionModifier class="Amasty\OrderExportEntity\Export\Address\AddressCollectionModifier">
+            <arguments>
+                <argument name="address_type" xsi:type="string">billing</argument>
+            </arguments>
+        </collectionModifier>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+        </fieldsConfig>
+    </entity>
+    <relation code="order_order_billing_address">
+        <parent_entity>sales_order</parent_entity>
+        <child_entity>sales_order_billing_address</child_entity>
+        <sub_entity_field_name>sales_order_billing_address</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">parent_id</argument>
+        </arguments>
+    </relation>
+    <relation code="order_billing_address_order">
+        <parent_entity>sales_order_billing_address</parent_entity>
+        <child_entity>sales_order</child_entity>
+        <sub_entity_field_name>sales_order</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">parent_id</argument>
+            <argument name="child_field_name" xsi:type="string">entity_id</argument>
+        </arguments>
+    </relation>
+</config>

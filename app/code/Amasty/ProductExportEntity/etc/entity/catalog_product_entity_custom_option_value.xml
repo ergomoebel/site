@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductExportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="catalog_product_entity_custom_option_value">
+        <name>Product Custom Option Value</name>
+        <isHidden>true</isHidden>
+        <collectionFactory class="Amasty\ProductExportEntity\Model\ResourceModel\CustomOption\Value\CollectionFactory"/>
+        <fieldsConfig>
+            <fields>
+                <field name="option_type_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="option_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="store_id">
+                    <actions>
+                        <storeId2StoreCode/>
+                    </actions>
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Magento\Cms\Ui\Component\Listing\Column\Cms\Options</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="sku">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="sort_order">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="title">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="price">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="price_type">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="catalog_product_entity_custom_option_value">
+        <parent_entity>catalog_product_entity_custom_option</parent_entity>
+        <child_entity>catalog_product_entity_custom_option_value</child_entity>
+        <sub_entity_field_name>catalog_product_custom_option_value</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">option_id</argument>
+            <argument name="child_field_name" xsi:type="string">option_id</argument>
+        </arguments>
+    </relation>
+</config>

@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="sales_order_payment">
+        <name>Order Payment</name>
+        <group>Sales</group>
+        <description>Order Payment Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">sales_order_payment</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="entity_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty>
+                            <excludeBehaviors>
+                                <addDirect/>
+                            </excludeBehaviors>
+                        </notEmpty>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="parent_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <notEmpty/>
+                        <nonNegative/>
+                        <tableRowExists tableName="sales_order"
+                                        idFieldName="entity_id"
+                                        rootOnly="true"
+                                        error="Order entity with specified 'entity_id' doesn't exist">
+                            <excludeBehaviors>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </tableRowExists>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="method">
+                    <validation>
+                        <custom class="Amasty\OrderImportEntity\Import\Validation\EntityValidator\PaymentMethod" error="The specified %1 doesn't exist."/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="base_amount_ordered">
+                    <required/>
+                </field>
+                <field name="amount_ordered">
+                    <required/>
+                </field>
+                <field name="additional_information">
+                    <actions>
+                        <unserialize/>
+                    </actions>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name='entity_id'>12</field>
+                    <field name='parent_id'>14</field>
+                    <field name='method'>checkmo</field>
+                    <field name='base_shipping_captured'>15.0000</field>
+                    <field name='shipping_captured'>15.0000</field>
+                    <field name='amount_refunded'/>
+                    <field name='base_amount_paid'>161.1400</field>
+                    <field name='amount_canceled'/>
+                    <field name='base_amount_authorized'/>
+                    <field name='base_amount_paid_online'/>
+                    <field name='base_amount_refunded_online'/>
+                    <field name='base_shipping_amount'>15.0000</field>
+                    <field name='shipping_amount'>15.0000</field>
+                    <field name='amount_paid'>161.1400</field>
+                    <field name='amount_authorized'/>
+                    <field name='base_amount_ordered'>161.1400</field>
+                    <field name='base_shipping_refunded'/>
+                    <field name='shipping_refunded'/>
+                    <field name='base_amount_refunded'/>
+                    <field name='amount_ordered'>161.1400</field>
+                    <field name='base_amount_canceled'/>
+                    <field name='quote_payment_id'/>
+                    <field name='additional_data'/>
+                    <field name='cc_exp_month'/>
+                    <field name='cc_ss_start_year'>0</field>
+                    <field name='echeck_bank_name'/>
+                    <field name='cc_debug_request_body'/>
+                    <field name='cc_secure_verify'/>
+                    <field name='protection_eligibility'/>
+                    <field name='cc_approval'/>
+                    <field name='cc_last_4'/>
+                    <field name='cc_status_description'/>
+                    <field name='echeck_type'/>
+                    <field name='cc_debug_response_serialized'/>
+                    <field name='cc_ss_start_month'>0</field>
+                    <field name='echeck_account_type'/>
+                    <field name='last_trans_id'/>
+                    <field name='cc_cid_status'/>
+                    <field name='cc_owner'/>
+                    <field name='cc_type'/>
+                    <field name='po_number'/>
+                    <field name='cc_exp_year'>0</field>
+                    <field name='cc_status'/>
+                    <field name='echeck_routing_number'/>
+                    <field name='account_status'/>
+                    <field name='anet_trans_method'/>
+                    <field name='cc_debug_response_body'/>
+                    <field name='cc_ss_issue'/>
+                    <field name='echeck_account_name'/>
+                    <field name='cc_avs_status'/>
+                    <field name='cc_number_enc'/>
+                    <field name='cc_trans_id'/>
+                    <field name='address_status'/>
+                    <field name='additional_information'>{"method_title":"Check \/ Money order"}</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <addUpdateDirect>
+                <tableName>sales_order_payment</tableName>
+            </addUpdateDirect>
+            <addDirect>
+                <tableName>sales_order_payment</tableName>
+            </addDirect>
+            <updateDirect>
+                <tableName>sales_order_payment</tableName>
+            </updateDirect>
+            <deleteDirect>
+                <tableName>sales_order_payment</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="sales_order_payment">
+        <parent_entity>sales_order</parent_entity>
+        <child_entity>sales_order_payment</child_entity>
+        <sub_entity_field_name>sales_order_payment</sub_entity_field_name>
+        <type>one_to_many</type>
+        <required>
+            <includeBehaviors>
+                <addDirect/>
+                <addUpdateDirect/>
+            </includeBehaviors>
+        </required>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">parent_id</argument>
+        </arguments>
+    </relation>
+</config>

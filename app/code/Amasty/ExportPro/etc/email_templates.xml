@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ExportPro
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="amexportpro_run_export_notification_template"
+              label="Export Run Notification"
+              file="amexportpro_run_export_notification_template.html"
+              type="html"
+              module="Amasty_ExportPro"
+              area="adminhtml"
+    />
+</config>

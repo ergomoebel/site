@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ExportPro
+ */
+-->
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">export_job_form.export_job_form_data_source</item>
+            <item name="deps" xsi:type="string">export_job_form.export_job_form_data_source</item>
+            <item name="ajaxSave" xsi:type="boolean">true</item>
+            <item name="component" xsi:type="string">Amasty_ExportPro/js/form</item>
+        </item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">export_job_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Export</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="array">
+                <item name="name" xsi:type="string">back</item>
+                <item name="label" xsi:type="string" translate="true">Back</item>
+                <item name="class" xsi:type="string">back</item>
+                <item name="url" xsi:type="string">*/*/</item>
+            </item>
+            <item name="delete" xsi:type="string">Amasty\ExportPro\Block\Adminhtml\Job\Edit\DeleteButton</item>
+            <item name="history" xsi:type="string">Amasty\ExportPro\Block\Adminhtml\Job\Edit\HistoryButton</item>
+            <item name="save_and_run" xsi:type="string">Amasty\ExportPro\Block\Adminhtml\Job\Edit\SaveAndRun</item>
+            <item name="save_and_continue" xsi:type="array">
+                <item name="name" xsi:type="string">save_and_continue</item>
+                <item name="label" xsi:type="string" translate="true">Save and Continue Edit</item>
+                <item name="class" xsi:type="string">save_and_continue</item>
+            </item>
+            <item name="save" xsi:type="array">
+                <item name="name" xsi:type="string">save</item>
+                <item name="label" xsi:type="string" translate="true">Save Job</item>
+                <item name="class" xsi:type="string">save primary</item>
+            </item>
+        </item>
+    </argument>
+    <dataSource name="export_job_form.export_job_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Amasty\ExportPro\Model\Job\DataProvider\Form</argument>
+            <argument name="name" xsi:type="string">export_job_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">job_id</argument>
+            <argument name="requestFieldName" xsi:type="string">job_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="*/*/save"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Amasty_ExportCore/js/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <fieldset name="general">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Export Settings</item>
+            </item>
+        </argument>
+        <field name="entity_code">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Select Entity</item>
+                    <item name="component" xsi:type="string">Amasty_ExportCore/js/entity-select</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">entity_code</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="sortOrder" xsi:type="string">20</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="title">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Cron Job Title</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="sortOrder" xsi:type="string">30</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <container name="schedule_container">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="componentType" xsi:type="string">container</item>
+                    <item name="label" xsi:type="string" translate="true">Schedule</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                </item>
+            </argument>
+        </container>
+    </fieldset>
+    <container name="modal">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="componentType" xsi:type="string">modal</item>
+                <item name="component" xsi:type="string">Magento_Ui/js/modal/modal-component</item>
+                <item name="options" xsi:type="array">
+                    <item name="type" xsi:type="string">slide</item>
+                    <item name="title" xsi:type="string" translate="true">Export History</item>
+                    <item name="buttons" xsi:type="array">
+                        <item name="0" xsi:type="array">
+                            <item name="text" xsi:type="string" translate="true">Close</item>
+                            <item name="actions" xsi:type="array">
+                                <item name="0" xsi:type="string">closeModal</item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </item>
+        </argument>
+        <insertListing name="history_grid">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <!--Avoid admin__scope-old cssclass assign -->
+                    <item name="cssclass" xsi:type="string">history-grid-insert-listing</item>
+                    <item name="autoRender" xsi:type="boolean">false</item>
+                    <item name="externalProvider" xsi:type="string">export_history_listing.export_history_listing_data_source</item>
+                    <item name="ns" xsi:type="string">export_history_listing</item>
+                    <item name="jobType" xsi:type="string">export</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="jobId" xsi:type="string">${ $.provider }:data.job_id</item>
+                    </item>
+                    <item name="exports" xsi:type="array">
+                        <item name="jobId" xsi:type="string">${ $.externalProvider }:params.job_id</item>
+                        <item name="jobType" xsi:type="string">${ $.externalProvider }:params.job_type</item>
+                    </item>
+                </item>
+            </argument>
+        </insertListing>
+    </container>
+    <container name="run" component="Amasty_ExportPro/js/run/run">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="idField" xsi:type="string">job_id</item>
+            </item>
+        </argument>
+        <container name="modal">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="componentType" xsi:type="string">modal</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/modal/modal-component</item>
+                    <item name="options" xsi:type="array">
+                        <item name="type" xsi:type="string">popup</item>
+                        <item name="modalClass" xsi:type="string">amexportpro-modal-container</item>
+                        <item name="title" xsi:type="string" translate="true">Export</item>
+                    </item>
+                </item>
+            </argument>
+            <container name="export-process">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="componentType" xsi:type="string">container</item>
+                        <item name="startUrl" xsi:type="url" path="*/*/export"/>
+                        <item name="statusUrl" xsi:type="url" path="amexport/export/status"/>
+                        <item name="downloadUrl" xsi:type="url" path="amexport/export/download/processIdentity/_process_identity_"/>
+                        <item name="template" xsi:type="string">Amasty_ExportPro/run/export-process</item>
+                        <item name="component" xsi:type="string">Amasty_ExportPro/js/run/export-process</item>
+                    </item>
+                </argument>
+            </container>
+        </container>
+    </container>
+</form>

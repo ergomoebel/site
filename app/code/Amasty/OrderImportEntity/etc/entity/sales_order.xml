@@ -1,0 +1,363 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="sales_order">
+        <name>Order</name>
+        <group>Sales</group>
+        <description>Order Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">sales_order</argument>
+                </arguments>
+            </fieldsClass>
+            <rowValidation class="Amasty\OrderImportEntity\Import\Validation\RowValidator\OrderRowValidator">
+                <excludeBehaviors>
+                    <deleteDirect/>
+                    <updateDirect/>
+                    <addUpdateDirect/>
+                </excludeBehaviors>
+            </rowValidation>
+            <fields>
+                <field name="entity_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty>
+                            <excludeBehaviors>
+                                <addDirect/>
+                            </excludeBehaviors>
+                        </notEmpty>
+                    </validation>
+                    <identifier>
+                        <label>Order Entity ID</label>
+                    </identifier>
+                </field>
+                <field name="state">
+                    <validation>
+                        <notEmpty/>
+                        <custom class="Amasty\OrderImportEntity\Import\Validation\EntityValidator\State" error="The specified %1 doesn't exist."/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="status">
+                    <validation>
+                        <notEmpty/>
+                        <custom class="Amasty\OrderImportEntity\Import\Validation\EntityValidator\Status" error="The specified %1 doesn't exist."/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="is_virtual">
+                    <validation>
+                        <boolean/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="store_id">
+                    <validation>
+                        <storeExists/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="customer_id">
+                    <validation>
+                        <customerExists/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="customer_firstname">
+                    <required/>
+                </field>
+                <field name="customer_lastname">
+                    <required/>
+                </field>
+                <field name="base_grand_total">
+                    <required/>
+                </field>
+                <field name="base_shipping_amount">
+                    <required/>
+                </field>
+                <field name="base_subtotal">
+                    <required/>
+                </field>
+                <field name="base_tax_amount">
+                    <required/>
+                </field>
+                <field name="grand_total">
+                    <required/>
+                </field>
+                <field name="shipping_amount">
+                    <required/>
+                </field>
+                <field name="subtotal">
+                    <required/>
+                </field>
+                <field name="tax_amount">
+                    <required/>
+                </field>
+                <field name="base_to_global_rate">
+                    <required/>
+                </field>
+                <field name="base_to_order_rate">
+                    <required/>
+                </field>
+                <field name="total_qty_ordered">
+                    <required/>
+                </field>
+                <field name="base_total_refunded">
+                    <actions>
+                        <defaultValue value="0"/>
+                    </actions>
+                </field>
+                <field name="total_refunded">
+                    <actions>
+                        <defaultValue value="0"/>
+                    </actions>
+                </field>
+                <field name="shipping_address_id">
+                    <required/>
+                </field>
+                <field name="billing_address_id">
+                    <required/>
+                </field>
+                <field name="customer_group_id">
+                    <validation>
+                        <customerGroupExists/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="quote_id">
+                    <required/>
+                </field>
+                <field name="increment_id">
+                    <required/>
+                    <identifier>
+                        <label>Order Increment ID</label>
+                    </identifier>
+                </field>
+                <field name="customer_email">
+                    <validation>
+                        <notEmpty/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="can_ship_partially">
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="can_ship_partially_item">
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="customer_is_guest">
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="customer_note_notify">
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="customer_dob">
+                    <validation>
+                        <dateFormat/>
+                    </validation>
+                </field>
+                <field name="created_at">
+                    <validation>
+                        <dateFormat/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="updated_at">
+                    <validation>
+                        <dateFormat/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="adjustment_negative">
+                    <actions>
+                        <defaultValue value="0"/>
+                    </actions>
+                </field>
+                <field name="shipping_method">
+                    <validation>
+                        <custom class="Amasty\OrderImportEntity\Import\Validation\EntityValidator\ShippingMethod" error="The specified %1 doesn't exist."/>
+                    </validation>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name='entity_id'>14</field>
+                    <field name='state'>complete</field>
+                    <field name='status'>complete</field>
+                    <field name='customer_id'>6</field>
+                    <field name='customer_group_id'>1</field>
+                    <field name='customer_is_guest'>0</field>
+                    <field name='order_currency_code'>USD</field>
+                    <field name='shipping_method'>flatrate_flatrate</field>
+                    <field name='is_virtual'>0</field>
+                    <field name='store_id'>1</field>
+                    <field name='coupon_code'/>
+                    <field name='protect_code'>63706a125226a0e0757e56f7ab0a0241</field>
+                    <field name='shipping_description'>Flat Rate - Fixed</field>
+                    <field name='base_discount_amount'>0.0000</field>
+                    <field name='base_discount_canceled'/>
+                    <field name='base_discount_invoiced'>0.0000</field>
+                    <field name='base_discount_refunded'/>
+                    <field name='base_grand_total'>161.1400</field>
+                    <field name='base_shipping_amount'>15.0000</field>
+                    <field name='base_shipping_canceled'/>
+                    <field name='base_shipping_invoiced'>15.0000</field>
+                    <field name='base_shipping_refunded'/>
+                    <field name='base_shipping_tax_amount'>0.0000</field>
+                    <field name='base_shipping_tax_refunded'/>
+                    <field name='base_subtotal'>135.0000</field>
+                    <field name='base_subtotal_canceled'/>
+                    <field name='base_subtotal_invoiced'>135.0000</field>
+                    <field name='base_subtotal_refunded'/>
+                    <field name='base_tax_amount'>11.1400</field>
+                    <field name='base_tax_canceled'/>
+                    <field name='base_tax_invoiced'>11.1400</field>
+                    <field name='base_tax_refunded'/>
+                    <field name='base_to_global_rate'>1.0000</field>
+                    <field name='base_to_order_rate'>1.0000</field>
+                    <field name='base_total_canceled'/>
+                    <field name='base_total_invoiced'>161.1400</field>
+                    <field name='base_total_invoiced_cost'>0.0000</field>
+                    <field name='base_total_offline_refunded'/>
+                    <field name='base_total_online_refunded'/>
+                    <field name='base_total_paid'>161.1400</field>
+                    <field name='base_total_qty_ordered'/>
+                    <field name='base_total_refunded'/>
+                    <field name='discount_amount'>0.0000</field>
+                    <field name='discount_canceled'/>
+                    <field name='discount_invoiced'>0.0000</field>
+                    <field name='discount_refunded'/>
+                    <field name='grand_total'>161.1400</field>
+                    <field name='shipping_amount'>15.0000</field>
+                    <field name='shipping_canceled'/>
+                    <field name='shipping_invoiced'>15.0000</field>
+                    <field name='shipping_refunded'/>
+                    <field name='shipping_tax_amount'>0.0000</field>
+                    <field name='shipping_tax_refunded'/>
+                    <field name='store_to_base_rate'>0.0000</field>
+                    <field name='store_to_order_rate'>0.0000</field>
+                    <field name='subtotal'>135.0000</field>
+                    <field name='subtotal_canceled'/>
+                    <field name='subtotal_invoiced'>135.0000</field>
+                    <field name='subtotal_refunded'/>
+                    <field name='tax_amount'>11.1400</field>
+                    <field name='tax_canceled'/>
+                    <field name='tax_invoiced'>11.1400</field>
+                    <field name='tax_refunded'/>
+                    <field name='total_canceled'/>
+                    <field name='total_invoiced'>161.1400</field>
+                    <field name='total_offline_refunded'/>
+                    <field name='total_online_refunded'/>
+                    <field name='total_paid'>161.1400</field>
+                    <field name='total_qty_ordered'>3.0000</field>
+                    <field name='total_refunded'/>
+                    <field name='can_ship_partially'/>
+                    <field name='can_ship_partially_item'/>
+                    <field name='customer_note_notify'>0</field>
+                    <field name='billing_address_id'>24</field>
+                    <field name='edit_increment'/>
+                    <field name='email_sent'>1</field>
+                    <field name='send_email'>1</field>
+                    <field name='forced_shipment_with_invoice'/>
+                    <field name='payment_auth_expiration'/>
+                    <field name='quote_address_id'/>
+                    <field name='quote_id'>18</field>
+                    <field name='shipping_address_id'>23</field>
+                    <field name='adjustment_negative'/>
+                    <field name='adjustment_positive'/>
+                    <field name='base_adjustment_negative'/>
+                    <field name='base_adjustment_positive'/>
+                    <field name='base_shipping_discount_amount'>0.0000</field>
+                    <field name='base_subtotal_incl_tax'>146.1400</field>
+                    <field name='base_total_due'>0.0000</field>
+                    <field name='payment_authorization_amount'/>
+                    <field name='shipping_discount_amount'>0.0000</field>
+                    <field name='subtotal_incl_tax'>146.1400</field>
+                    <field name='total_due'>0.0000</field>
+                    <field name='weight'>3.0000</field>
+                    <field name='customer_dob'/>
+                    <field name='increment_id'>000000012</field>
+                    <field name='applied_rule_ids'>2</field>
+                    <field name='base_currency_code'>USD</field>
+                    <field name='customer_email'>jane@willow.com</field>
+                    <field name='customer_firstname'>Jane</field>
+                    <field name='customer_lastname'>Willow</field>
+                    <field name='customer_middlename'/>
+                    <field name='customer_prefix'/>
+                    <field name='customer_suffix'/>
+                    <field name='customer_taxvat'/>
+                    <field name='discount_description'/>
+                    <field name='ext_customer_id'/>
+                    <field name='ext_order_id'/>
+                    <field name='global_currency_code'>USD</field>
+                    <field name='hold_before_state'/>
+                    <field name='hold_before_status'/>
+                    <field name='original_increment_id'/>
+                    <field name='relation_child_id'/>
+                    <field name='relation_child_real_id'/>
+                    <field name='relation_parent_id'/>
+                    <field name='relation_parent_real_id'/>
+                    <field name='remote_ip'/>
+                    <field name='store_currency_code'>USD</field>
+                    <field name='store_name'>Main Website
+                        Main Website Store
+                        Default Store View</field>
+                    <field name='x_forwarded_for'/>
+                    <field name='customer_note'/>
+                    <field name='created_at'>2020-08-16 20:58:17</field>
+                    <field name='updated_at'>2020-08-16 20:58:38</field>
+                    <field name='total_item_count'>3</field>
+                    <field name='customer_gender'>0</field>
+                    <field name='discount_tax_compensation_amount'>0.0000</field>
+                    <field name='base_discount_tax_compensation_amount'>0.0000</field>
+                    <field name='shipping_discount_tax_compensation_amount'>0.0000</field>
+                    <field name='base_shipping_discount_tax_compensation_amnt'>0.0000</field>
+                    <field name='discount_tax_compensation_invoiced'>0.0000</field>
+                    <field name='base_discount_tax_compensation_invoiced'>0.0000</field>
+                    <field name='discount_tax_compensation_refunded'/>
+                    <field name='base_discount_tax_compensation_refunded'/>
+                    <field name='shipping_incl_tax'>15.0000</field>
+                    <field name='base_shipping_incl_tax'>15.0000</field>
+                    <field name='coupon_rule_name'/>
+                    <field name='gift_message_id'/>
+                    <field name='paypal_ipn_customer_notified'>0</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <indexer class="Amasty\OrderImportEntity\Model\ResourceModel\Order\GridIndexer" apply="entity" />
+        <behaviors>
+            <addUpdateDirect name="Add/Update" indexerMethod="update">
+                <tableName>sales_order</tableName>
+            </addUpdateDirect>
+            <addDirect name="Only add" indexerMethod="update">
+                <tableName>sales_order</tableName>
+            </addDirect>
+            <updateDirect name="Only update" indexerMethod="update">
+                <tableName>sales_order</tableName>
+            </updateDirect>
+            <deleteDirect name="Delete" indexerMethod="delete">
+                <tableName>sales_order</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+</config>

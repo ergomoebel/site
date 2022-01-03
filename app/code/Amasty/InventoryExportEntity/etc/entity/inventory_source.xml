@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_InventoryExportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="inventory_source">
+        <name>MSI Inventory Source</name>
+        <group>Inventory</group>
+        <enabledChecker class="Amasty\ExportCore\Export\Config\IsModuleEnabled">
+            <arguments>
+                <argument name="moduleName" xsi:type="string">Magento_Inventory</argument>
+            </arguments>
+        </enabledChecker>
+        <collectionFactory class="Magento\Inventory\Model\ResourceModel\Source\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe">
+                <arguments>
+                    <argument name="strict" xsi:type="boolean">true</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="enabled">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+                <field name="use_default_carrier_config">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+                <field name="is_pickup_location_active">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+</config>

@@ -1,0 +1,24 @@
+{
+    "name": "amasty/module-product-import",
+    "description": "Import Products by Amasty",
+    "require": {
+        "php": "^7.1.0",
+        "amasty/base": "*",
+        "amasty/module-product-import-entity": "*",
+        "amasty/module-import-pro": ">=1.4.0",
+        "amasty/cron-schedule-list": "*"
+    },
+    "type": "magento2-module",
+    "version": "1.1.1",
+    "license": [
+        "Commercial"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\ProductImport\\": ""
+        }
+    }
+}

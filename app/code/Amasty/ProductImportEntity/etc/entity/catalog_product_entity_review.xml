@@ -1,0 +1,215 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductImportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="catalog_product_entity_review">
+        <name>Customer Review</name>
+        <group>Product</group>
+        <description>Customer Review Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">review</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <!-- Review Fields -->
+                <field name="review_id">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="created_at">
+                    <validation>
+                        <dateFormat/>
+                    </validation>
+                </field>
+                <field name="entity_id">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="entity_pk_value">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <tableRowExists tableName="catalog_product_entity"
+                                        idFieldName="entity_id"
+                                        error="Product entity with specified 'entity_pk_value' doesn't exist"
+                                        rootOnly="true">
+                            <excludeBehaviors>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </tableRowExists>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="product_sku">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <notEmpty/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="status_id">
+                    <actions>
+                        <custom class="Amasty\ProductImportEntity\Import\DataHandling\FieldModifier\Review\StatusCode2StatusId"
+                                apply="beforeValidate"
+                        />
+                    </actions>
+                </field>
+                <!-- Review Fields End -->
+
+                <!-- Review Detail Entity Fields Start -->
+                <field name="store_id">
+                    <validation>
+                        <storeExists/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="title">
+                    <actions>
+                        <trim/>
+                    </actions>
+                </field>
+                <field name="detail">
+                    <actions>
+                        <trim/>
+                    </actions>
+                </field>
+                <field name="nickname">
+                    <actions>
+                        <trim/>
+                    </actions>
+                </field>
+                <field name="customer_id">
+                    <actions>
+                        <trim/>
+                        <emptyToNull/>
+                    </actions>
+                    <validation>
+                        <customerExists/>
+                    </validation>
+                </field>
+                <!-- Review Detail Entity Fields End -->
+
+                <!-- Customer Entity Unnecessary Fields -->
+                <field name="email">
+                    <remove>true</remove>
+                </field>
+                <field name="firstname">
+                    <remove>true</remove>
+                </field>
+                <field name="lastname">
+                    <remove>true</remove>
+                </field>
+                <!-- Customer Entity Unnecessary Fields End -->
+            </fields>
+            <sampleData>
+                <row>
+                    <field name="title">I prefer more compartments</field>
+                    <field name="detail">I prefer more compartments. If you don't mind putting everything in one space, it's fine. Good for the gym.</field>
+                    <field name="nickname">Chi</field>
+                    <field name="email"/>
+                    <field name="firstname"/>
+                    <field name="lastname"/>
+                    <field name="customer_id"/>
+                    <field name="store_id">1</field>
+                    <field name="status_id">Approved</field>
+                    <field name="created_at">2021-01-26 19:19:46</field>
+                    <field name="review_id">1</field>
+                    <field name="entity_id">1</field>
+                    <field name="entity_pk_value">1</field>
+                </row>
+                <row>
+                    <field name="title">I use it a lot</field>
+                    <field name="detail">It's a good size and I use it a lot. My only issue with it was I wanted the handles to be longer so I can wear it on my back.</field>
+                    <field name="nickname">Filiberto</field>
+                    <field name="email"/>
+                    <field name="firstname"/>
+                    <field name="lastname"/>
+                    <field name="customer_id"/>
+                    <field name="store_id">1</field>
+                    <field name="status_id">Approved</field>
+                    <field name="created_at">2021-01-26 19:19:46</field>
+                    <field name="review_id">2</field>
+                    <field name="entity_id">1</field>
+                    <field name="entity_pk_value">1</field>
+                </row>
+                <row>
+                    <field name="title">Screwed up my back</field>
+                    <field name="detail">I've had this thing for a really long time and it barely shows any signs of wear and tear. It's really big, too! I've taken it on day trips as well as short vacations and usually have no trouble finding room for my stuff.</field>
+                    <field name="nickname">Herb</field>
+                    <field name="email"/>
+                    <field name="firstname"/>
+                    <field name="lastname"/>
+                    <field name="customer_id"/>
+                    <field name="store_id">1</field>
+                    <field name="status_id">Approved</field>
+                    <field name="created_at">2021-02-09 19:55:47</field>
+                    <field name="review_id">3</field>
+                    <field name="entity_id">1</field>
+                    <field name="entity_pk_value">3</field>
+                </row>
+                <row>
+                    <field name="title">I bought this backpack for my son</field>
+                    <field name="detail">I bought this backpack for my son to take to school, but he carries it like a suitcase now! It's also really good for airplane travel.</field>
+                    <field name="nickname">Kennith</field>
+                    <field name="email"/>
+                    <field name="firstname"/>
+                    <field name="lastname"/>
+                    <field name="customer_id"/>
+                    <field name="store_id">1</field>
+                    <field name="status_id">Approved</field>
+                    <field name="created_at">2021-02-09 19:55:47</field>
+                    <field name="review_id">4</field>
+                    <field name="entity_id">1</field>
+                    <field name="entity_pk_value">4</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <custom class="Amasty\ProductImportEntity\Import\Behavior\Review\Save\Review"
+                    code="save_review"
+                    name="Add/Update">
+                <executeOnParent>
+                    <addDirect/>
+                    <addUpdateDirect/>
+                    <updateDirect/>
+                </executeOnParent>
+            </custom>
+            <deleteDirect name="Delete">
+                <tableName>review</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="catalog_product_entity_review">
+        <parent_entity>catalog_product_entity</parent_entity>
+        <child_entity>catalog_product_entity_review</child_entity>
+        <sub_entity_field_name>catalog_product_review</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">entity_pk_value</argument>
+        </arguments>
+    </relation>
+</config>

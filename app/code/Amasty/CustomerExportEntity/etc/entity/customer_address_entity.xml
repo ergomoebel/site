@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerExportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="customer_address_entity">
+        <name>Customer Address</name>
+        <group>Customer</group>
+        <collectionFactory class="Amasty\CustomerExportEntity\Model\ResourceModel\Address\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+            <fields>
+                <field name="parent_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="is_active">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+                <field name="country_id">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Magento\Directory\Model\Config\Source\Country</class>
+                        </options>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="customer_address">
+        <parent_entity>customer_entity</parent_entity>
+        <child_entity>customer_address_entity</child_entity>
+        <sub_entity_field_name>customer_address_entity</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">parent_id</argument>
+        </arguments>
+    </relation>
+    <relation code="address_customer">
+        <parent_entity>customer_address_entity</parent_entity>
+        <child_entity>customer_entity</child_entity>
+        <sub_entity_field_name>customer_entity</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">parent_id</argument>
+            <argument name="child_field_name" xsi:type="string">entity_id</argument>
+        </arguments>
+    </relation>
+</config>

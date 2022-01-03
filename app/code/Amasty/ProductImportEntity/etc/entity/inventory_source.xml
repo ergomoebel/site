@@ -1,0 +1,220 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductImportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="inventory_source">
+        <name>MSI Inventory Source</name>
+        <group>Product</group>
+        <description>MSI Inventory Source Import Entity</description>
+        <enabledChecker class="Amasty\ImportCore\Import\Config\IsModuleEnabled">
+            <arguments>
+                <argument name="moduleName" xsi:type="string">Magento_Inventory</argument>
+            </arguments>
+        </enabledChecker>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">inventory_source</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="source_code">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <notEmpty/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="name">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <notEmpty/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="enabled">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="description">
+                    <actions>
+                        <trim/>
+                        <emptyToNull/>
+                    </actions>
+                </field>
+                <field name="latitude">
+                    <actions>
+                        <trim/>
+                        <emptyToNull/>
+                    </actions>
+                </field>
+                <field name="longitude">
+                    <actions>
+                        <trim/>
+                        <emptyToNull/>
+                    </actions>
+                </field>
+                <field name="country_id">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <notEmpty/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="region_id">
+                    <actions>
+                        <trim/>
+                        <emptyToNull/>
+                    </actions>
+                </field>
+                <field name="region">
+                    <actions>
+                        <trim/>
+                        <emptyToNull/>
+                    </actions>
+                </field>
+                <field name="city">
+                    <actions>
+                        <trim/>
+                        <emptyToNull/>
+                    </actions>
+                </field>
+                <field name="street">
+                    <actions>
+                        <trim/>
+                        <emptyToNull/>
+                    </actions>
+                </field>
+                <field name="postcode">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <notEmpty/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="contact_name">
+                    <actions>
+                        <trim/>
+                        <emptyToNull/>
+                    </actions>
+                </field>
+                <field name="email">
+                    <actions>
+                        <trim/>
+                        <emptyToNull/>
+                    </actions>
+                </field>
+                <field name="phone">
+                    <actions>
+                        <trim/>
+                        <emptyToNull/>
+                    </actions>
+                </field>
+                <field name="fax">
+                    <actions>
+                        <trim/>
+                        <emptyToNull/>
+                    </actions>
+                </field>
+                <field name="use_default_carrier_config">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="is_pickup_location_active">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="frontend_name">
+                    <actions>
+                        <trim/>
+                    </actions>
+                </field>
+                <field name="frontend_description">
+                    <actions>
+                        <trim/>
+                        <emptyToNull/>
+                    </actions>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name='source_code'>default</field>
+                    <field name='name'>Default Source</field>
+                    <field name='enabled'>1</field>
+                    <field name='description'>Default Source Description</field>
+                    <field name='latitude'>34.05358</field>
+                    <field name='longitude'>-118.24546</field>
+                    <field name='country_id'>US</field>
+                    <field name='region_id'>12</field>
+                    <field name='region'>California</field>
+                    <field name='city'>Los Angeles</field>
+                    <field name='street'>137 S Broadway, Los Angeles</field>
+                    <field name='postcode'>90012</field>
+                    <field name='contact_name'>Ehnore Winchester</field>
+                    <field name='email'>ehnore.winchester@example.com</field>
+                    <field name='phone'>(916) 572-4441</field>
+                    <field name='fax'>(916) 572-4441</field>
+                    <field name='use_default_carrier_config'>1</field>
+                    <field name='is_pickup_location_active'>0</field>
+                    <field name='frontend_name'></field>
+                    <field name='frontend_description'></field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <custom class="Amasty\ProductImportEntity\Import\Behavior\Inventory\Save\Source"
+                    code="save_inventory_source"
+                    name="Add/Update">
+                <executeOnParent>
+                    <addDirect/>
+                    <addUpdateDirect/>
+                    <updateDirect/>
+                    <custom code="save_inventory_source_item"/>
+                </executeOnParent>
+            </custom>
+            <deleteDirect name="Delete">
+                <tableName>inventory_source</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="inventory_source_source_item">
+        <parent_entity>inventory_source</parent_entity>
+        <child_entity>inventory_source_item</child_entity>
+        <sub_entity_field_name>inventory_source_item</sub_entity_field_name>
+        <skip_relation_fields_update>true</skip_relation_fields_update>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">source_code</argument>
+            <argument name="child_field_name" xsi:type="string">source_code</argument>
+        </arguments>
+    </relation>
+</config>

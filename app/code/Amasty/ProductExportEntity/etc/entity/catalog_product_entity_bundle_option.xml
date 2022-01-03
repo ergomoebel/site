@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductExportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="catalog_product_entity_bundle_option">
+        <name>Bundle Option</name>
+        <group>Product</group>
+        <collectionFactory class="Magento\Bundle\Model\ResourceModel\Option\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+            <fields>
+                <field name="required">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+                <field name="type">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Magento\Bundle\Model\Source\Option\Type</class>
+                        </options>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="catalog_product_entity_bundle_option">
+        <parent_entity>catalog_product_entity</parent_entity>
+        <child_entity>catalog_product_entity_bundle_option</child_entity>
+        <sub_entity_field_name>catalog_product_bundle_option</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_entity_name" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+            <argument name="child_field_name" xsi:type="string">parent_id</argument>
+        </arguments>
+    </relation>
+    <relation code="bundle_option_catalog_product_entity">
+        <parent_entity>catalog_product_entity_bundle_option</parent_entity>
+        <child_entity>catalog_product_entity</child_entity>
+        <sub_entity_field_name>catalog_product_entity</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">parent_id</argument>
+            <argument name="child_entity_name" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+        </arguments>
+    </relation>
+</config>

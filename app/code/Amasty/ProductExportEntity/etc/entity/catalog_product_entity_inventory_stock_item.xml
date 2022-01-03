@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductExportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="catalog_product_entity_inventory_stock_item">
+        <name>Catalog Inventory Stock Item</name>
+        <group>Product</group>
+        <collectionFactory class="Amasty\ProductExportEntity\Model\ResourceModel\CatalogInventory\Stock\Item\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+            <fields>
+                <field name="stock_id">
+                    <actions>
+                        <custom class="Amasty\ProductExportEntity\Export\DataHandling\FieldModifier\CatalogInventory\StockId2StockName"/>
+                    </actions>
+                </field>
+                <field name="manage_stock">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+                <field name="use_config_manage_stock">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+                <field name="use_config_min_qty">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+                <field name="is_qty_decimal">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+                <field name="is_decimal_divided">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+                <field name="enable_qty_increments">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+                <field name="use_config_enable_qty_inc">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+                <field name="is_in_stock">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Magento\CatalogInventory\Model\Source\Stock</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="backorders">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Magento\CatalogInventory\Model\Source\Backorders</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="use_config_backorders">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+                <field name="use_config_min_sale_qty">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+                <field name="use_config_max_sale_qty">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+                <field name="use_config_notify_stock_qty">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+                <field name="use_config_qty_increments">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+                <field name="website_id">
+                    <actions>
+                        <custom class="Amasty\ProductExportEntity\Export\DataHandling\FieldModifier\WebsiteId2WebsiteCode"/>
+                    </actions>
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Amasty\ProductExportEntity\Export\Product\SourceOption\WebsiteOptions</class>
+                        </options>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="catalog_product_entity_inventory_stock_item">
+        <parent_entity>catalog_product_entity</parent_entity>
+        <child_entity>catalog_product_entity_inventory_stock_item</child_entity>
+        <sub_entity_field_name>inventory_stock_item</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_entity_name" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+            <argument name="child_field_name" xsi:type="string">product_id</argument>
+        </arguments>
+    </relation>
+    <relation code="inventory_stock_item_catalog_product_entity">
+        <parent_entity>catalog_product_entity_inventory_stock_item</parent_entity>
+        <child_entity>catalog_product_entity</child_entity>
+        <sub_entity_field_name>catalog_product_entity</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">product_id</argument>
+            <argument name="child_entity_name" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+        </arguments>
+    </relation>
+</config>

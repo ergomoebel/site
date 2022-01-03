@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="catalog_product_entity_giftcard_amount">
+        <name>Gift Card Amount</name>
+        <group>Product</group>
+        <description>Gift Card Amount</description>
+        <enabledChecker class="Amasty\ImportCore\Import\Config\IsModuleEnabled">
+            <arguments>
+                <argument name="moduleName" xsi:type="string">Magento_GiftCard</argument>
+            </arguments>
+        </enabledChecker>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">magento_giftcard_amount</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="value_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty>
+                            <excludeBehaviors>
+                                <addDirect/>
+                            </excludeBehaviors>
+                        </notEmpty>
+                    </validation>
+                </field>
+                <field name="website_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                        <websiteCode2WebsiteId/>
+                    </actions>
+                </field>
+                <field name="value">
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="attribute_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <notEmpty/>
+                        <eavAttributeExists/>
+                    </validation>
+                </field>
+                <field name="row_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty/>
+                    </validation>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name="value_id">1</field>
+                    <field name="website_id">0</field>
+                    <field name="value">10</field>
+                    <field name="attribute_id">135</field>
+                    <field name="row_id">1</field>
+                </row>
+                <row>
+                    <field name="value_id">2</field>
+                    <field name="website_id">0</field>
+                    <field name="value">20</field>
+                    <field name="attribute_id">135</field>
+                    <field name="row_id">2</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <addUpdateDirect name="Add/Update">
+                <tableName>magento_giftcard_amount</tableName>
+            </addUpdateDirect>
+            <addDirect name="Only add">
+                <tableName>magento_giftcard_amount</tableName>
+            </addDirect>
+            <updateDirect name="Only update">
+                <tableName>magento_giftcard_amount</tableName>
+            </updateDirect>
+            <deleteDirect name="Delete">
+                <tableName>magento_giftcard_amount</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="catalog_product_entity_giftcard_amount">
+        <parent_entity>catalog_product_entity</parent_entity>
+        <child_entity>catalog_product_entity_giftcard_amount</child_entity>
+        <sub_entity_field_name>giftcard_amounts</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">row_id</argument>
+        </arguments>
+    </relation>
+</config>

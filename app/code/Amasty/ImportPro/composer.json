@@ -1,0 +1,25 @@
+{
+    "name": "amasty/module-import-pro",
+    "description": "Import Pro by Amasty",
+    "require": {
+        "php": "^7.1.0",
+        "amasty/module-import-core": ">=1.2.0",
+        "amasty/module-cron-schedule": "*",
+        "amasty/base": "*",
+        "spatie/dropbox-api": "*",
+        "google/apiclient": "^2.0"
+    },
+    "type": "magento2-module",
+    "version": "1.4.0",
+    "license": [
+        "Commercial"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\ImportPro\\": ""
+        }
+    }
+}

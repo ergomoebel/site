@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductImport
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Amasty_ProductImport::product_import"
+             title="Import Products"
+             translate="title"
+             module="Amasty_ProductImport"
+             parent="Magento_Backend::system"
+             dependsOnModule="Amasty_ProductImport"
+             sortOrder="10"
+             resource="Amasty_ProductImport::product_import"
+        />
+        <add id="Amasty_ProductImport::product_import_profiles"
+             title="Profiles"
+             translate="title"
+             module="Amasty_ProductImport"
+             parent="Amasty_ProductImport::product_import"
+             dependsOnModule="Amasty_ProductImport"
+             action="amproductimport/profile/index"
+             sortOrder="15"
+             resource="Amasty_ProductImport::product_import_profiles"
+        />
+        <add id="Amasty_ProductImport::product_import_history"
+             title="History"
+             translate="title"
+             module="Amasty_ProductImport"
+             parent="Amasty_ProductImport::product_import"
+             dependsOnModule="Amasty_ProductImport"
+             action="amproductimport/history/index"
+             sortOrder="20"
+             resource="Amasty_ProductImport::product_import_history"
+        />
+    </menu>
+</config>

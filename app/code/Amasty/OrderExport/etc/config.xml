@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderExport
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <amorderexport>
+            <general>
+                <enabled>1</enabled>
+                <batch_size>500</batch_size>
+                <log_cleaning>1</log_cleaning>
+                <log_period>90</log_period>
+                <export_files>1</export_files>
+                <files_period>5</files_period>
+            </general>
+            <multi_process>
+                <enabled>0</enabled>
+                <max_process_count>4</max_process_count>
+            </multi_process>
+            <admin_email>
+                <enable_notify>1</enable_notify>
+                <send_to>general</send_to>
+            </admin_email>
+        </amorderexport>
+    </default>
+</config>

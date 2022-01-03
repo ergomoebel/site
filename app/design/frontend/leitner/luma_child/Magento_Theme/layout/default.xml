@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="header.panel">
+            <block class="Magento\Framework\View\Element\Html\Links" name="header.links">
+                <arguments>
+                    <argument name="css_class" xsi:type="string">header links</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="logo">
+            <arguments>
+                <argument name="logo_img_width" xsi:type="number">148</argument>
+                <argument name="logo_img_height" xsi:type="number">43</argument>
+            </arguments>
+        </referenceBlock>
+        <!--<referenceContainer name="footer">
+            <block class="Magento\Store\Block\Switcher" name="store_switcher" as="store_switcher" after="footer_links" template="Magento_Store::switch/stores.phtml"/>
+        </referenceContainer>-->
+        <block class="Magento\Framework\View\Element\Template" name="topnav.additional" template="Magento_Theme::html/topnav_additional.phtml" />
+        <move element="top.search" destination="topnav.additional" after="-" />
+        <move element="minicart" destination="topnav.additional" after="-" />
+		<referenceBlock name="form.subscribe" remove="true"/>
+        <referenceContainer name="header">
+            <block class="Magento\Store\Block\Switcher" name="store_switcher_header" as="store_switcher_header" after="-" template="Magento_Store::switch/stores.phtml"/>
+    ^   </referenceContainer>
+        <referenceBlock name="report.bugs" remove="true"/>
+        <referenceBlock name="footer_links" remove="true"/>
+        <referenceBlock name="store_switcher" remove="true"/>
+        <referenceBlock name="mageplaza_productslider" remove="true"/>
+        <referenceBlock name="trustedshops_trustedshops.shopreview" remove="true"/>
+        <move element="copyright" destination="before.body.end"/>
+    </body>
+</page>

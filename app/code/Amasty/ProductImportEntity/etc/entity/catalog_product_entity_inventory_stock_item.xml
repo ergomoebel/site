@@ -1,0 +1,316 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductImportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="catalog_product_entity_inventory_stock_item">
+        <name>Catalog Inventory Stock Item</name>
+        <group>Product</group>
+        <description>Catalog Inventory Stock Item</description>
+        <fieldsConfig>
+            <fields>
+                <field name="item_id">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="product_id">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <custom class="Amasty\ProductImportEntity\Import\Validation\EntityValidator\Product\LinkField"
+                                error="Product entity with specified 'product_id' doesn't exist"
+                                rootOnly="true">
+                            <excludeBehaviors>
+                                <addDirect/>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </custom>
+                    </validation>
+                    <synchronization>
+                        <item>
+                            <entityName>catalog_product_entity</entityName>
+                            <fieldName>entity_id</fieldName>
+                        </item>
+                    </synchronization>
+                </field>
+                <field name="stock_id">
+                    <actions>
+                        <trim/>
+                        <custom class="Amasty\ProductImportEntity\Import\DataHandling\FieldModifier\CatalogInventory\StockName2StockId"
+                                apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <tableRowExists tableName="cataloginventory_stock"
+                                        idFieldName="stock_id"
+                                        error="Catalog Inventory Stock with specified 'stock_id' doesn't exist.">
+                            <excludeBehaviors>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </tableRowExists>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="qty">
+                    <actions>
+                        <trim/>
+                        <emptyToNull/>
+                    </actions>
+                </field>
+                <field name="min_qty">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="use_config_min_qty">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="is_qty_decimal">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="backorders">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="use_config_backorders">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="min_sale_qty">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="use_config_min_sale_qty">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="max_sale_qty">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="use_config_max_sale_qty">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="is_in_stock">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="low_stock_date">
+                    <actions>
+                        <trim/>
+                        <emptyToNull/>
+                    </actions>
+                </field>
+                <field name="notify_stock_qty">
+                    <actions>
+                        <trim/>
+                        <emptyToNull/>
+                    </actions>
+                </field>
+                <field name="use_config_notify_stock_qty">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="manage_stock">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="use_config_manage_stock">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="stock_status_changed_auto">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="use_config_qty_increments">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="qty_increments">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="use_config_enable_qty_inc">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="enable_qty_increments">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="is_decimal_divided">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="website_id">
+                    <actions>
+                        <trim/>
+                        <websiteCode2WebsiteId/>
+                    </actions>
+                </field>
+                <field name="deferred_stock_update">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="use_config_deferred_stock_update">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name='item_id'>1</field>
+                    <field name='product_id'>1</field>
+                    <field name='stock_id'>1</field>
+                    <field name='qty'>100</field>
+                    <field name='min_qty'>0</field>
+                    <field name='use_config_min_qty'>1</field>
+                    <field name='is_qty_decimal'>0</field>
+                    <field name='backorders'>0</field>
+                    <field name='use_config_backorders'>1</field>
+                    <field name='min_sale_qty'>1</field>
+                    <field name='use_config_min_sale_qty'>1</field>
+                    <field name='max_sale_qty'>0</field>
+                    <field name='use_config_max_sale_qty'>1</field>
+                    <field name='is_in_stock'>1</field>
+                    <field name='low_stock_date'></field>
+                    <field name='notify_stock_qty'></field>
+                    <field name='use_config_notify_stock_qty'>1</field>
+                    <field name='manage_stock'>0</field>
+                    <field name='use_config_manage_stock'>1</field>
+                    <field name='stock_status_changed_auto'>0</field>
+                    <field name='use_config_qty_increments'>1</field>
+                    <field name='qty_increments'>0</field>
+                    <field name='use_config_enable_qty_inc'>1</field>
+                    <field name='enable_qty_increments'>0</field>
+                    <field name='is_decimal_divided'>0</field>
+                    <field name='website_id'>All Websites</field>
+                    <field name='deferred_stock_update'>0</field>
+                    <field name='use_config_deferred_stock_update'>1</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <addUpdateDirect name="Add/Update">
+                <tableName>cataloginventory_stock_item</tableName>
+            </addUpdateDirect>
+            <addDirect name="Only add">
+                <tableName>cataloginventory_stock_item</tableName>
+            </addDirect>
+            <updateDirect name="Only update">
+                <tableName>cataloginventory_stock_item</tableName>
+            </updateDirect>
+            <deleteDirect name="Delete">
+                <tableName>cataloginventory_stock_item</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="catalog_product_entity_inventory_stock_item">
+        <parent_entity>catalog_product_entity</parent_entity>
+        <child_entity>catalog_product_entity_inventory_stock_item</child_entity>
+        <sub_entity_field_name>inventory_stock_item</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_entity_name" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+            <argument name="child_field_name" xsi:type="string">product_id</argument>
+        </arguments>
+    </relation>
+</config>

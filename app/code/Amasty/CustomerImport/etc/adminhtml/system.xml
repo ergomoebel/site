@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerImport
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="amcustomerimport" translate="label" type="text" sortOrder="091317" showInDefault="1"
+                 showInWebsite="0" showInStore="0">
+            <label>Import Customers</label>
+            <tab>amasty</tab>
+            <resource>Amasty_CustomerImport::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General Settings</label>
+                <field id="batch_size" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Import Batch Size</label>
+                    <comment>The number of customers that will be processed in an iteration.</comment>
+                    <validate>required-entry validate-greater-than-zero</validate>
+                </field>
+                <field id="log_cleaning" translate="label tooltip" type="select" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Import History Auto-Cleaning</label>
+                    <tooltip>The records will be automatically removed from Import History after the period specified below.</tooltip>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="log_period" translate="label tooltip" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Auto-Cleaning Period (Days)</label>
+                    <tooltip>The records will be automatically removed from Import History after the period you specified in the field.</tooltip>
+                    <validate>required-entry validate-greater-than-zero</validate>
+                    <depends>
+                        <field id="log_cleaning">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="multi_process" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Multi-Process Import</label>
+                <field id="enabled" translate="label tooltip" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Enable Multi-Process Import</label>
+                    <tooltip><![CDATA[The 'Multi-Process Import' feature requires the PHP extension 'pcntl' to be installed on the server. If you enable the feature and no performance boost happens, please ask your hoster/system administrator to check if the 'pcntl' extension is installed.]]></tooltip>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="max_process_count" translate="label tooltip" type="text" sortOrder="20" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Number of Parallel Processes</label>
+                    <tooltip>The more parallel processes are set, the faster the import process goes, but the higher the server loads.</tooltip>
+                    <validate>validate-greater-than-zero</validate>
+                    <depends>
+                        <field id="*/*/enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

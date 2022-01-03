@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ImportPro
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Preferences  -->
+    <preference for="Amasty\ImportPro\Api\CronJobRepositoryInterface" type="Amasty\ImportPro\Model\Job\Repository"/>
+    <preference for="Amasty\ImportPro\Api\Data\CronJobInterface" type="Amasty\ImportPro\Model\Job\Job"/>
+
+    <preference for="Amasty\ImportPro\Api\HistoryRepositoryInterface" type="Amasty\ImportPro\Model\History\Repository"/>
+    <preference for="Amasty\ImportPro\Api\Data\HistoryInterface" type="Amasty\ImportPro\Model\History\History"/>
+
+    <preference for="Amasty\ImportPro\Import\FileResolver\Type\FtpFile\ConfigInterface" type="Amasty\ImportPro\Import\FileResolver\Type\FtpFile\Config"/>
+    <preference for="Amasty\ImportPro\Import\FileResolver\Type\GoogleSheet\ConfigInterface" type="Amasty\ImportPro\Import\FileResolver\Type\GoogleSheet\Config"/>
+    <preference for="Amasty\ImportPro\Import\FileResolver\Type\SftpFile\ConfigInterface" type="Amasty\ImportPro\Import\FileResolver\Type\SftpFile\Config"/>
+    <preference for="Amasty\ImportPro\Import\FileResolver\Type\UrlFile\ConfigInterface" type="Amasty\ImportPro\Import\FileResolver\Type\UrlFile\Config"/>
+    <preference for="Amasty\ImportPro\Import\FileResolver\Type\Rest\ConfigInterface" type="Amasty\ImportPro\Import\FileResolver\Type\Rest\Config"/>
+    <preference for="Amasty\ImportPro\Import\FileResolver\Type\Dropbox\ConfigInterface" type="Amasty\ImportPro\Import\FileResolver\Type\Dropbox\Config"/>
+    <preference for="Amasty\ImportPro\Import\FileResolver\Type\GoogleDrive\ConfigInterface" type="Amasty\ImportPro\Import\FileResolver\Type\GoogleDrive\Config"/>
+
+    <preference for="Amasty\ImportPro\Import\FileResolver\Type\Rest\Auth\Basic\ConfigInterface" type="Amasty\ImportPro\Import\FileResolver\Type\Rest\Auth\Basic\Config"/>
+    <preference for="Amasty\ImportPro\Import\FileResolver\Type\Rest\Auth\Bearer\ConfigInterface" type="Amasty\ImportPro\Import\FileResolver\Type\Rest\Auth\Bearer\Config"/>
+
+    <preference for="Amasty\ImportPro\Import\Notification\Type\Email\ConfigInterface" type="Amasty\ImportPro\Import\Notification\Type\Email\Config"/>
+
+    <preference for="Amasty\ImportPro\Import\Source\Type\Ods\ConfigInterface" type="Amasty\ImportPro\Import\Source\Type\Ods\Config" />
+    <preference for="Amasty\ImportPro\Import\Source\Type\Xlsx\ConfigInterface" type="Amasty\ImportPro\Import\Source\Type\Xlsx\Config" />
+    <!-- /Preferences -->
+
+    <type name="Magento\Framework\Api\SortOrderBuilder" shared="false"/>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="import_job_listing_data_source" xsi:type="string">Amasty\ImportPro\Model\Job\ResourceModel\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Amasty\ImportPro\Model\Job\ResourceModel\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">amasty_import_cron_job</argument>
+            <argument name="resourceModel" xsi:type="string">Amasty\ImportPro\Model\Job\ResourceModel\Job</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Amasty\ImportPro\Model\History\HistoryStrategies">
+        <arguments>
+            <argument name="strategies" xsi:type="array">
+                <item name="import" xsi:type="string">import</item>
+                <item name="validate_and_import" xsi:type="string">validate_and_import</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\ImportCore\Api\FileResolver\FileResolverConfigInterface">
+        <arguments>
+            <argument name="fileResolverConfig" xsi:type="array">
+                <item name="ftp" xsi:type="array">
+                    <item name="code" xsi:type="const">Amasty\ImportPro\Import\FileResolver\Type\FtpFile\Meta::TYPE_ID</item>
+                    <item name="fileResolverClass" xsi:type="string">Amasty\ImportPro\Import\FileResolver\Type\FtpFile\FileResolver</item>
+                    <item name="metaClass" xsi:type="string">Amasty\ImportPro\Import\FileResolver\Type\FtpFile\Meta</item>
+                    <item translatable="true" name="name" xsi:type="string">FTP</item>
+                </item>
+                <item name="sftp" xsi:type="array">
+                    <item name="code" xsi:type="const">Amasty\ImportPro\Import\FileResolver\Type\SftpFile\Meta::TYPE_ID</item>
+                    <item name="fileResolverClass" xsi:type="string">Amasty\ImportPro\Import\FileResolver\Type\SftpFile\FileResolver</item>
+                    <item name="metaClass" xsi:type="string">Amasty\ImportPro\Import\FileResolver\Type\SftpFile\Meta</item>
+                    <item translatable="true" name="name" xsi:type="string">SFTP</item>
+                </item>
+                <item name="url" xsi:type="array">
+                    <item name="code" xsi:type="const">Amasty\ImportPro\Import\FileResolver\Type\UrlFile\Meta::TYPE_ID</item>
+                    <item name="fileResolverClass" xsi:type="string">Amasty\ImportPro\Import\FileResolver\Type\UrlFile\FileResolver</item>
+                    <item name="metaClass" xsi:type="string">Amasty\ImportPro\Import\FileResolver\Type\UrlFile\Meta</item>
+                    <item translatable="true" name="name" xsi:type="string">URL</item>
+                </item>
+                <item name="google_sheet" xsi:type="array">
+                    <item name="code" xsi:type="const">Amasty\ImportPro\Import\FileResolver\Type\GoogleSheet\Meta::TYPE_ID</item>
+                    <item name="fileResolverClass" xsi:type="string">Amasty\ImportPro\Import\FileResolver\Type\GoogleSheet\FileResolver</item>
+                    <item name="metaClass" xsi:type="string">Amasty\ImportPro\Import\FileResolver\Type\GoogleSheet\Meta</item>
+                    <item translatable="true" name="name" xsi:type="string">Google Sheets</item>
+                </item>
+                <item name="rest" xsi:type="array">
+                    <item name="code" xsi:type="const">Amasty\ImportPro\Import\FileResolver\Type\Rest\Meta::TYPE_ID</item>
+                    <item name="fileResolverClass" xsi:type="string">Amasty\ImportPro\Import\FileResolver\Type\Rest\FileResolver</item>
+                    <item name="metaClass" xsi:type="string">Amasty\ImportPro\Import\FileResolver\Type\Rest\Meta</item>
+                    <item translatable="true" name="name" xsi:type="string">REST API Endpoint</item>
+                </item>
+                <item name="dropbox" xsi:type="array">
+                    <item name="code" xsi:type="const">Amasty\ImportPro\Import\FileResolver\Type\Dropbox\Meta::TYPE_ID</item>
+                    <item name="fileResolverClass" xsi:type="string">Amasty\ImportPro\Import\FileResolver\Type\Dropbox\FileResolver</item>
+                    <item name="metaClass" xsi:type="string">Amasty\ImportPro\Import\FileResolver\Type\Dropbox\Meta</item>
+                    <item translatable="true" name="name" xsi:type="string">Dropbox</item>
+                </item>
+                <item name="drive" xsi:type="array">
+                    <item name="code" xsi:type="const">Amasty\ImportPro\Import\FileResolver\Type\GoogleDrive\Meta::TYPE_ID</item>
+                    <item name="fileResolverClass" xsi:type="string">Amasty\ImportPro\Import\FileResolver\Type\GoogleDrive\FileResolver</item>
+                    <item name="metaClass" xsi:type="string">Amasty\ImportPro\Import\FileResolver\Type\GoogleDrive\Meta</item>
+                    <item translatable="true" name="name" xsi:type="string">Google Drive</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Amasty\ImportPro\Import\FileResolver\Type\Rest\Auth\AuthConfig">
+        <arguments>
+            <argument name="authConfig" xsi:type="array">
+                <item name="bearer" xsi:type="array">
+                    <item name="metaClass" xsi:type="string">Amasty\ImportPro\Import\FileResolver\Type\Rest\Auth\Bearer\Meta</item>
+                    <item name="authClass" xsi:type="string">Amasty\ImportPro\Import\FileResolver\Type\Rest\Auth\Bearer\Auth</item>
+                    <item name="code" xsi:type="const">Amasty\ImportPro\Import\FileResolver\Type\Rest\Auth\Bearer\Meta::CODE</item>
+                    <item translatable="true" name="name" xsi:type="string">Bearer</item>
+                </item>
+                <item name="basic" xsi:type="array">
+                    <item name="metaClass" xsi:type="string">Amasty\ImportPro\Import\FileResolver\Type\Rest\Auth\Basic\Meta</item>
+                    <item name="authClass" xsi:type="string">Amasty\ImportPro\Import\FileResolver\Type\Rest\Auth\Basic\Auth</item>
+                    <item name="code" xsi:type="const">Amasty\ImportPro\Import\FileResolver\Type\Rest\Auth\Basic\Meta::CODE</item>
+                    <item translatable="true" name="name" xsi:type="string">Basic</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\ImportCore\Api\Source\SourceConfigInterface">
+        <arguments>
+            <argument name="sourceConfig" xsi:type="array">
+                <item name="ods" xsi:type="array">
+                    <item name="code" xsi:type="const">Amasty\ImportPro\Import\Source\Type\Ods\Reader::TYPE_ID</item>
+                    <item name="readerClass" xsi:type="string">Amasty\ImportPro\Import\Source\Type\Ods\Reader</item>
+                    <item name="sampleFileGenerator" xsi:type="string">Amasty\ImportPro\Import\Source\Type\Ods\Generator</item>
+                    <item name="metaClass" xsi:type="string">Amasty\ImportPro\Import\Source\Type\Ods\Meta</item>
+                    <item translatable="true" name="name" xsi:type="string">ODS</item>
+                    <item name="mimeTypes" xsi:type="array">
+                        <item name="0" xsi:type="string">application/vnd.oasis.opendocument.spreadsheet</item>
+                    </item>
+                </item>
+                <item name="xlsx" xsi:type="array">
+                    <item name="code" xsi:type="const">Amasty\ImportPro\Import\Source\Type\Xlsx\Reader::TYPE_ID</item>
+                    <item name="readerClass" xsi:type="string">Amasty\ImportPro\Import\Source\Type\Xlsx\Reader</item>
+                    <item name="sampleFileGenerator" xsi:type="string">Amasty\ImportPro\Import\Source\Type\Xlsx\Generator</item>
+                    <item name="metaClass" xsi:type="string">Amasty\ImportPro\Import\Source\Type\Xlsx\Meta</item>
+                    <item translatable="true" name="name" xsi:type="string">XLSX</item>
+                    <item name="mimeTypes" xsi:type="array">
+                        <item name="0" xsi:type="string">vnd.openxmlformats-officedocument.spreadsheetml.sheet</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\ImportPro\Model\Notification\ImportAlertNotifier">
+        <arguments>
+            <argument name="notifiers" xsi:type="array">
+                <item name="email" xsi:type="object">Amasty\ImportPro\Import\Notification\Type\Email\Notifier\Proxy</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderExportEntity
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="left">
+            <referenceBlock name="attribute_edit_tabs">
+                <block
+                    class="Amasty\OrderExportEntity\Block\Adminhtml\Product\Attribute\Edit\Tab\Index"
+                    name="amasty_order_export_attribute_index" as="amasty_order_export_attribute_index"
+                />
+
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">amasty_order_export_attribute_index</argument>
+                    <argument name="block" xsi:type="string">amasty_order_export_attribute_index</argument>
+                </action>
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</page>

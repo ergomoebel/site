@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductExportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="catalog_product_entity">
+        <name>Product</name>
+        <group>Product</group>
+        <collectionFactory class="Magento\Catalog\Model\ResourceModel\Product\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+            <fields>
+                <field name="entity_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="attribute_set_id">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Magento\Catalog\Model\Product\AttributeSet\Options</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="type_id">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Magento\Catalog\Model\Product\Type</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="sku">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="has_options">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+                <field name="required_options">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+                <field name="created_at">
+                    <filter>
+                        <type>date</type>
+                    </filter>
+                </field>
+                <field name="updated_at">
+                    <filter>
+                        <type>date</type>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+</config>

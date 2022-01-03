@@ -1,0 +1,310 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderExportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="sales_creditmemo">
+        <name>Credit Memo</name>
+        <group>Sales</group>
+        <collectionFactory class="Magento\Sales\Model\ResourceModel\Order\Creditmemo\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe">
+                <arguments>
+                    <argument name="strict" xsi:type="boolean">true</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="entity_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="order_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="state">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Amasty\OrderExportEntity\Export\CreditMemo\SourceOption\CreditMemoStateOptions</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="store_id">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Magento\Cms\Ui\Component\Listing\Column\Cms\Options</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="order_currency_code">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Amasty\OrderExportEntity\Export\Order\SourceOption\CurrencyOptions</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="adjustment_positive">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_shipping_tax_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_discount_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="grand_total">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_adjustment_negative">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_subtotal_incl_tax">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="shipping_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="subtotal_incl_tax">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="adjustment_negative">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_shipping_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_adjustment">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_subtotal">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="discount_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="subtotal">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="adjustment">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_grand_total">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_adjustment_positive">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_tax_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="shipping_tax_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="tax_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="discount_tax_compensation_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_discount_tax_compensation_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="shipping_discount_tax_compensation_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_shipping_discount_tax_compensation_amnt">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="shipping_incl_tax">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_shipping_incl_tax">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_customer_balance_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="customer_balance_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="bs_customer_bal_total_refunded">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="customer_bal_total_refunded">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_gift_cards_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="gift_cards_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="gw_base_price">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="gw_price">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="gw_items_base_price">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="gw_items_price">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="gw_card_base_price">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="gw_card_price">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="gw_base_tax_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="gw_tax_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="gw_items_base_tax_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="gw_items_tax_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="gw_card_base_tax_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="gw_card_tax_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_reward_currency_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="reward_currency_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="order_creditmemo">
+        <parent_entity>sales_order</parent_entity>
+        <child_entity>sales_creditmemo</child_entity>
+        <sub_entity_field_name>sales_creditmemo</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">order_id</argument>
+        </arguments>
+    </relation>
+    <relation code="creditmemo_order">
+        <parent_entity>sales_creditmemo</parent_entity>
+        <child_entity>sales_order</child_entity>
+        <sub_entity_field_name>sales_order</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">order_id</argument>
+            <argument name="child_field_name" xsi:type="string">entity_id</argument>
+        </arguments>
+    </relation>
+</config>

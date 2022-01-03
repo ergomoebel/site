@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="catalog_product_entity_super_attribute_label">
+        <name>Configurable Product Super Attribute Label</name>
+        <isHidden>true</isHidden>
+        <description>Configurable Product Super Attribute Label Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">catalog_product_super_attribute_label</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="value_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="product_super_attribute_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="store_id"/>
+                <field name="use_default">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="value">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <required/>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name="value_id">200</field>
+                    <field name="product_super_attribute_id">100</field>
+                    <field name="use_default">0</field>
+                    <field name="value">Color</field>
+                </row>
+                <row>
+                    <field name="value_id">201</field>
+                    <field name="product_super_attribute_id">101</field>
+                    <field name="use_default">0</field>
+                    <field name="value">Size</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <custom class="Amasty\ProductImportEntity\Import\Behavior\Product\Save\SuperAttribute\SuperAttributeLabel"
+                    code="save_super_attribute_label"
+                    name="Add/Update">
+                <executeOnParent>
+                    <addDirect/>
+                    <addUpdateDirect/>
+                    <updateDirect/>
+                </executeOnParent>
+            </custom>
+            <deleteDirect name="Delete">
+                <tableName>catalog_product_super_attribute_label</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="catalog_product_entity_super_attribute_label">
+        <parent_entity>catalog_product_entity_super_attribute</parent_entity>
+        <child_entity>catalog_product_entity_super_attribute_label</child_entity>
+        <sub_entity_field_name>catalog_product_super_attribute_label</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">product_super_attribute_id</argument>
+            <argument name="child_field_name" xsi:type="string">product_super_attribute_id</argument>
+        </arguments>
+    </relation>
+</config>

@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="sales_shipment">
+        <name>Order Shipment</name>
+        <group>Sales</group>
+        <description>Order Shipment Import Entity</description>
+        <fieldsConfig>
+            <!-- This is an initial fields config -->
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">sales_shipment</argument>
+                </arguments>
+            </fieldsClass>
+            <rowValidation class="Amasty\OrderImportEntity\Import\Validation\RowValidator\ShipmentRowValidator">
+                <excludeBehaviors>
+                    <deleteDirect/>
+                    <updateDirect/>
+                    <addUpdateDirect/>
+                </excludeBehaviors>
+            </rowValidation>
+            <fields>
+                <field name="entity_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty>
+                            <excludeBehaviors>
+                                <addDirect/>
+                            </excludeBehaviors>
+                        </notEmpty>
+                    </validation>
+                </field>
+                <field name="order_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <tableRowExists tableName="sales_order"
+                                        idFieldName="entity_id"
+                                        rootOnly="true"
+                                        error="Order entity with specified 'entity_id' doesn't exist">
+                            <excludeBehaviors>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </tableRowExists>
+                    </validation>
+                </field>
+                <field name="store_id">
+                    <validation>
+                        <storeExists/>
+                    </validation>
+                </field>
+                <field name="created_at">
+                    <validation>
+                        <dateFormat/>
+                    </validation>
+                </field>
+                <field name="updated_at">
+                    <validation>
+                        <dateFormat/>
+                    </validation>
+                </field>
+                <field name="email_sent">
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="send_email">
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="customer_note_notify">
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="packages">
+                    <actions>
+                        <unserialize/>
+                    </actions>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name='entity_id'>4</field>
+                    <field name='order_id'>14</field>
+                    <field name='store_id'>1</field>
+                    <field name='customer_id'>6</field>
+                    <field name='total_weight'/>
+                    <field name='total_qty'>3.0000</field>
+                    <field name='email_sent'/>
+                    <field name='send_email'/>
+                    <field name='shipping_address_id'>23</field>
+                    <field name='billing_address_id'>24</field>
+                    <field name='shipment_status'/>
+                    <field name='increment_id'>000000004</field>
+                    <field name='created_at'>2020-08-16 20:58:38</field>
+                    <field name='updated_at'>2020-08-16 20:58:38</field>
+                    <field name='packages'>[]</field>
+                    <field name='shipping_label'/>
+                    <field name='customer_note'/>
+                    <field name='customer_note_notify'/>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <indexer class="ShipmentGridAggregator" apply="entity" />
+        <behaviors>
+            <addUpdateDirect name="Add/Update" indexerMethod="refresh">
+                <tableName>sales_shipment</tableName>
+            </addUpdateDirect>
+            <addDirect name="Only add" indexerMethod="refresh">
+                <tableName>sales_shipment</tableName>
+            </addDirect>
+            <updateDirect name="Only update" indexerMethod="refresh">
+                <tableName>sales_shipment</tableName>
+            </updateDirect>
+            <deleteDirect name="Delete" indexerMethod="purge">
+                <tableName>sales_shipment</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="sales_shipment">
+        <parent_entity>sales_order</parent_entity>
+        <child_entity>sales_shipment</child_entity>
+        <sub_entity_field_name>sales_shipment</sub_entity_field_name>
+        <type>one_to_many</type>
+        <validation class="Amasty\OrderImportEntity\Import\Validation\RelationValidator\ShipmentValidator">
+            <excludeBehaviors>
+                <delete/>
+            </excludeBehaviors>
+        </validation>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">order_id</argument>
+        </arguments>
+    </relation>
+</config>

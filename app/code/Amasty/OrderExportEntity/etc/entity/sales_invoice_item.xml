@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderExportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="sales_invoice_item">
+        <name>Order Invoice Item</name>
+        <group>Sales</group>
+        <collectionFactory class="Magento\Sales\Model\ResourceModel\Order\Invoice\Item\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe">
+                <arguments>
+                    <argument name="strict" xsi:type="boolean">true</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="entity_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="parent_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="product_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="order_item_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="sku">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="name">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="base_price">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="tax_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_row_total">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="discount_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="row_total">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_discount_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="price_incl_tax">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_tax_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_price_incl_tax">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_cost">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="price">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_row_total_incl_tax">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="row_total_incl_tax">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="discount_tax_compensation_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_discount_tax_compensation_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="weee_tax_applied_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="weee_tax_applied_row_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="weee_tax_disposition">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="weee_tax_row_disposition">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_weee_tax_applied_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_weee_tax_applied_row_amnt">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_weee_tax_disposition">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_weee_tax_row_disposition">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="invoice_invoice_item">
+        <parent_entity>sales_invoice</parent_entity>
+        <child_entity>sales_invoice_item</child_entity>
+        <sub_entity_field_name>sales_invoice_item</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">parent_id</argument>
+        </arguments>
+    </relation>
+    <relation code="invoice_item_invoice">
+        <parent_entity>sales_invoice_item</parent_entity>
+        <child_entity>sales_invoice</child_entity>
+        <sub_entity_field_name>sales_invoice</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">parent_id</argument>
+            <argument name="child_field_name" xsi:type="string">entity_id</argument>
+        </arguments>
+    </relation>
+</config>

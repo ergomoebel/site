@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ExportPro
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="amcron_run_export">
+        <observer instance="Amasty\ExportPro\Cron\RunJob" name="Amasty_ExportPro::run_job"/>
+    </event>
+    <event name="amexport_before_run">
+        <observer name="amasty_export_run_before" instance="Amasty\ExportPro\Observer\ExportRunBefore" />
+    </event>
+    <event name="amexport_after_run">
+        <observer name="amasty_export_run_after" instance="Amasty\ExportPro\Observer\ExportRunAfter"/>
+    </event>
+</config>

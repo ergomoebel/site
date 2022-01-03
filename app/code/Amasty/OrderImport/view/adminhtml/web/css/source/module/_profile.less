@@ -1,0 +1,75 @@
+//
+//  Amasty Order Import Profile styles
+//  ____________________________________________
+
+//
+//  Common
+//  --------------------------------------------
+
+& when (@media-common = true) {
+    .amorderimport-profile-edit .admin__control-select,
+    .amorderimport-profile-edit .admin__field-control .messages,
+    .amorderimport-profile-edit .admin__field-control .admin__control-text,
+    .amorderimport-profile-edit .admin__field-control .admin__field-note {
+        & {
+            width: ~'calc(100% - 45px - 4px)';
+        }
+
+        & + .admin__field-error {
+            width: ~'calc(100% - 45px - 4px)';
+        }
+    }
+
+    .amorderimport-profile-edit .admin__fieldset-wrapper-content .file-uploader-area.amimport-file-uploader {
+        margin-top: auto;
+    }
+
+    .amorderimport-profile-edit .admin__dynamic-rows .admin__control-text {
+        width: 100%;
+    }
+
+    .amorderimport-profile-edit .amorderimport-general-title {
+        .admin__collapsible-title {
+            padding-top: 10px;
+            font-size: 20px;
+            font-weight: 400;
+        }
+
+        > .fieldset-wrapper-title {
+            display: none;
+        }
+    }
+
+    .amorderimport-profile-edit .amorderimport-tooltip {
+        padding-top: 30px;
+    }
+
+    .amorderimport-fields-configuration .admin__fieldset-wrapper-content .admin__fieldset {
+        padding-top: 0;
+    }
+
+    .amorderimport-fieldset-withtooltip > .fieldset-wrapper-title > .admin__collapsible-title {
+        & {
+            display: flex;
+            align-items: center;
+        }
+
+        > .admin__field-tooltip {
+            margin: 0 5px 0;
+        }
+
+        > .admin__field-tooltip > .admin__field-tooltip-content {
+            left: -25px;
+        }
+
+        > .admin__field-tooltip > .admin__field-tooltip-content:before,
+        > .admin__field-tooltip > .admin__field-tooltip-content:after {
+            left: 20px;
+        }
+    }
+
+    .amorderimport-grid-fieldset .sticky-header {
+        display: flex;
+        justify-content: flex-end;
+    }
+}

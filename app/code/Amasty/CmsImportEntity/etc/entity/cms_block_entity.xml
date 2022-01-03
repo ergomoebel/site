@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CmsImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="cms_block_entity">
+        <name>Block</name>
+        <group>Cms</group>
+        <description>Cms Block Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">cms_block</argument>
+                    <argument name="strict" xsi:type="boolean">true</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="entity_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="row_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="identifier">
+                    <validation>
+                        <notEmpty/>
+                    </validation>
+                </field>
+                <field name="is_active">
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name="block_id">1</field>
+                    <field name="row_id">1</field>
+                    <field name="title">Contact us</field>
+                    <field name="identifier">contact-us</field>
+                    <field name="content"><![CDATA[<div class="contact-info cms-content">
+   <p class="cms-content-important">Please contact us about anything at all</p>
+</div>]]></field>
+                    <field name="is_active">1</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <addUpdateDirect name="Add/Update">
+                <tableName>cms_block</tableName>
+                <entityType>Magento\Cms\Api\Data\BlockInterface</entityType>
+                <events>
+                    <beforeApply>
+                        <observer class="Amasty\CmsImportEntity\Import\Behavior\Observer\Sequence\AddUpdateBeforeObserver" />
+                    </beforeApply>
+                    <afterApply>
+                        <observer class="Amasty\CmsImportEntity\Import\Behavior\Observer\Store\SaveAfterObserver" />
+                    </afterApply>
+                </events>
+            </addUpdateDirect>
+            <addDirect name="Only add">
+                <tableName>cms_block</tableName>
+                <entityType>Magento\Cms\Api\Data\BlockInterface</entityType>
+                <events>
+                    <beforeApply>
+                        <observer class="Amasty\CmsImportEntity\Import\Behavior\Observer\Sequence\AddBeforeObserver" />
+                    </beforeApply>
+                    <afterApply>
+                        <observer class="Amasty\CmsImportEntity\Import\Behavior\Observer\Store\SaveAfterObserver" />
+                    </afterApply>
+                </events>
+            </addDirect>
+            <updateDirect name="Only update">
+                <tableName>cms_block</tableName>
+                <entityType>Magento\Cms\Api\Data\BlockInterface</entityType>
+                <events>
+                    <beforeApply>
+                        <observer class="Amasty\CmsImportEntity\Import\Behavior\Observer\Sequence\UpdateBeforeObserver" />
+                    </beforeApply>
+                </events>
+            </updateDirect>
+            <deleteDirect name="Delete">
+                <tableName>cms_block</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+</config>

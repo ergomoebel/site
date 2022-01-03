@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="sales_invoice">
+        <name>Order Invoice</name>
+        <group>Sales</group>
+        <description>Order Invoice Import Entity</description>
+        <fieldsConfig>
+            <!-- This is an initial fields config -->
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">sales_invoice</argument>
+                </arguments>
+            </fieldsClass>
+            <rowValidation class="Amasty\OrderImportEntity\Import\Validation\RowValidator\InvoiceRowValidator">
+                <excludeBehaviors>
+                    <deleteDirect/>
+                    <updateDirect/>
+                    <addUpdateDirect/>
+                </excludeBehaviors>
+            </rowValidation>
+            <fields>
+                <field name="entity_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty>
+                            <excludeBehaviors>
+                                <addDirect/>
+                            </excludeBehaviors>
+                        </notEmpty>
+                    </validation>
+                </field>
+                <field name="order_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <tableRowExists tableName="sales_order"
+                                        idFieldName="entity_id"
+                                        rootOnly="true"
+                                        error="Order entity with specified 'entity_id' doesn't exist">
+                            <excludeBehaviors>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </tableRowExists>
+                    </validation>
+                </field>
+                <field name="store_id">
+                    <validation>
+                        <storeExists/>
+                    </validation>
+                </field>
+                <field name="is_used_for_refund">
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="email_sent">
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="can_void_flag">
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="customer_note_notify">
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+                <field name="created_at">
+                    <validation>
+                        <dateFormat/>
+                    </validation>
+                </field>
+                <field name="updated_at">
+                    <validation>
+                        <dateFormat/>
+                    </validation>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name='entity_id'>5</field>
+                    <field name='order_id'>14</field>
+                    <field name='state'>2</field>
+                    <field name='order_currency_code'>USD</field>
+                    <field name='store_id'>1</field>
+                    <field name='base_grand_total'>161.1400</field>
+                    <field name='shipping_tax_amount'>0.0000</field>
+                    <field name='tax_amount'>11.1400</field>
+                    <field name='base_tax_amount'>11.1400</field>
+                    <field name='store_to_order_rate'>0.0000</field>
+                    <field name='base_shipping_tax_amount'>0.0000</field>
+                    <field name='base_discount_amount'>0.0000</field>
+                    <field name='base_to_order_rate'>1.0000</field>
+                    <field name='grand_total'>161.1400</field>
+                    <field name='shipping_amount'>15.0000</field>
+                    <field name='subtotal_incl_tax'>146.1400</field>
+                    <field name='base_subtotal_incl_tax'>146.1400</field>
+                    <field name='store_to_base_rate'>0.0000</field>
+                    <field name='base_shipping_amount'>15.0000</field>
+                    <field name='total_qty'>3.0000</field>
+                    <field name='base_to_global_rate'>1.0000</field>
+                    <field name='subtotal'>135.0000</field>
+                    <field name='base_subtotal'>135.0000</field>
+                    <field name='discount_amount'>0.0000</field>
+                    <field name='billing_address_id'>24</field>
+                    <field name='is_used_for_refund'/>
+                    <field name='email_sent'/>
+                    <field name='send_email'/>
+                    <field name='can_void_flag'>0</field>
+                    <field name='shipping_address_id'>23</field>
+                    <field name='store_currency_code'>USD</field>
+                    <field name='transaction_id'/>
+                    <field name='base_currency_code'>USD</field>
+                    <field name='global_currency_code'>USD</field>
+                    <field name='increment_id'>000000005</field>
+                    <field name='created_at'>2020-08-16 20:58:29</field>
+                    <field name='updated_at'>2020-08-16 20:58:29</field>
+                    <field name='discount_tax_compensation_amount'>0.0000</field>
+                    <field name='base_discount_tax_compensation_amount'>0.0000</field>
+                    <field name='shipping_discount_tax_compensation_amount'>0.0000</field>
+                    <field name='base_shipping_discount_tax_compensation_amnt'>0.0000</field>
+                    <field name='shipping_incl_tax'>15.0000</field>
+                    <field name='base_shipping_incl_tax'>15.0000</field>
+                    <field name='base_total_refunded'/>
+                    <field name='discount_description'/>
+                    <field name='customer_note'/>
+                    <field name='customer_note_notify'/>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <indexer class="Magento\Sales\Model\ResourceModel\Order\Invoice\Grid" apply="entity" />
+        <behaviors>
+            <addUpdateDirect name="Add/Update" indexerMethod="refresh">
+                <tableName>sales_invoice</tableName>
+            </addUpdateDirect>
+            <addDirect name="Only add" indexerMethod="refresh">
+                <tableName>sales_invoice</tableName>
+            </addDirect>
+            <updateDirect name="Only update" indexerMethod="refresh">
+                <tableName>sales_invoice</tableName>
+            </updateDirect>
+            <deleteDirect name="Delete" indexerMethod="purge">
+                <tableName>sales_invoice</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="sales_invoice">
+        <parent_entity>sales_order</parent_entity>
+        <child_entity>sales_invoice</child_entity>
+        <sub_entity_field_name>sales_invoice</sub_entity_field_name>
+        <type>one_to_many</type>
+        <validation class="Amasty\OrderImportEntity\Import\Validation\RelationValidator\InvoiceValidator">
+            <excludeBehaviors>
+                <delete/>
+            </excludeBehaviors>
+        </validation>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">order_id</argument>
+        </arguments>
+    </relation>
+</config>

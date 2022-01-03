@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderExportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="sales_order_grid">
+        <name>Order Grid</name>
+        <group>Sales</group>
+        <collectionFactory class="Magento\Sales\Model\ResourceModel\Order\Grid\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+            <fields>
+                <field name="entity_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="status">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Amasty\OrderExportEntity\Export\Order\SourceOption\OrderStatus</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="store_id">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Magento\Cms\Ui\Component\Listing\Column\Cms\Options</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="customer_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="base_currency_code">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Amasty\OrderExportEntity\Export\Order\SourceOption\CurrencyOptions</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="order_currency_code">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Amasty\OrderExportEntity\Export\Order\SourceOption\CurrencyOptions</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="customer_group">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Amasty\ExportCore\Export\SourceOption\CustomerGroupOptions</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="payment_method">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Amasty\OrderExportEntity\Export\Order\SourceOption\PaymentMethodOptions</class>
+                        </options>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="order_order_grid">
+        <parent_entity>sales_order</parent_entity>
+        <child_entity>sales_order_grid</child_entity>
+        <sub_entity_field_name>sales_order_grid</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">entity_id</argument>
+        </arguments>
+    </relation>
+    <relation code="order_grid_order">
+        <parent_entity>sales_order_grid</parent_entity>
+        <child_entity>sales_order</child_entity>
+        <sub_entity_field_name>sales_order</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">entity_id</argument>
+        </arguments>
+    </relation>
+</config>

@@ -1,0 +1,222 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="catalog_product_entity">
+        <name>Product</name>
+        <group>Product</group>
+        <description>Product Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ProductImportEntity\Import\FieldsClass\Product\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">catalog_product_entity</argument>
+                    <argument name="strict" xsi:type="boolean">true</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="entity_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                    <identifier>
+                        <label>Product Entity ID</label>
+                    </identifier>
+                </field>
+                <field name="row_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                    <identifier>
+                        <label>Product Row ID</label>
+                    </identifier>
+                </field>
+                <field name="attribute_set_id">
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty/>
+                        <tableRowExists tableName="eav_attribute_set"
+                                        idFieldName="attribute_set_id"
+                                        error="Attribute set with specified 'attribute_set_id' doesn't exist">
+                            <excludeBehaviors>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </tableRowExists>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="type_id">
+                    <validation>
+                        <custom class="Amasty\ProductImportEntity\Import\Validation\EntityValidator\Product\ProductType"
+                                error="Product type with specified 'type_id' doesn't exist"
+                                rootOnly="true">
+                            <excludeBehaviors>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </custom>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="sku">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <notEmpty/>
+                        <custom class="Amasty\ProductImportEntity\Import\Validation\EntityValidator\Product\DuplicateSku" error="Product with %1 is already exists.">
+                            <includeBehaviors>
+                                <addDirect/>
+                            </includeBehaviors>
+                        </custom>
+                    </validation>
+                    <required/>
+                    <identifier>
+                        <label>Product SKU</label>
+                    </identifier>
+                </field>
+                <field name="has_options">
+                    <required/>
+                </field>
+                <field name="required_options">
+                    <required/>
+                </field>
+                <field name="created_at">
+                    <validation>
+                        <dateFormat/>
+                    </validation>
+                </field>
+                <field name="updated_at">
+                    <validation>
+                        <dateFormat/>
+                    </validation>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name="entity_id">1</field>
+                    <field name="attribute_set_id">4</field>
+                    <field name="type_id">simple</field>
+                    <field name="sku">24-WG085</field>
+                    <field name="has_options">1</field>
+                    <field name="required_options">0</field>
+                    <field name="created_at">2020-08-16 20:58:17</field>
+                    <field name="updated_at">2020-08-16 20:58:38</field>
+                    <field name="row_id">1</field>
+                </row>
+                <row>
+                    <field name="entity_id">2</field>
+                    <field name="attribute_set_id">4</field>
+                    <field name="type_id">simple</field>
+                    <field name="sku">24-WG086</field>
+                    <field name="has_options">0</field>
+                    <field name="required_options">0</field>
+                    <field name="created_at">2020-08-16 20:58:17</field>
+                    <field name="updated_at">2020-08-16 20:58:38</field>
+                    <field name="row_id">2</field>
+                </row>
+                <row>
+                    <field name="entity_id">3</field>
+                    <field name="attribute_set_id">4</field>
+                    <field name="type_id">simple</field>
+                    <field name="sku">24-WG087</field>
+                    <field name="has_options">0</field>
+                    <field name="required_options">0</field>
+                    <field name="created_at">2020-08-16 20:58:17</field>
+                    <field name="updated_at">2020-08-16 20:58:38</field>
+                    <field name="row_id">3</field>
+                </row>
+                <row>
+                    <field name="entity_id">4</field>
+                    <field name="attribute_set_id">4</field>
+                    <field name="type_id">configurable</field>
+                    <field name="sku">24-WB06</field>
+                    <field name="has_options">0</field>
+                    <field name="required_options">0</field>
+                    <field name="created_at">2020-08-16 20:58:17</field>
+                    <field name="updated_at">2020-08-16 20:58:38</field>
+                    <field name="row_id">4</field>
+                </row>
+                <row>
+                    <field name="entity_id">5</field>
+                    <field name="attribute_set_id">4</field>
+                    <field name="type_id">grouped</field>
+                    <field name="sku">24-WG085_Group</field>
+                    <field name="has_options">1</field>
+                    <field name="required_options">1</field>
+                    <field name="created_at">2020-08-16 20:58:17</field>
+                    <field name="updated_at">2020-08-16 20:58:38</field>
+                    <field name="row_id">5</field>
+                </row>
+                <row>
+                    <field name="entity_id">6</field>
+                    <field name="attribute_set_id">4</field>
+                    <field name="type_id">bundle</field>
+                    <field name="sku">24-WG085-bundle-dynamic</field>
+                    <field name="has_options">1</field>
+                    <field name="required_options">1</field>
+                    <field name="created_at">2020-08-16 20:58:17</field>
+                    <field name="updated_at">2020-08-16 20:58:38</field>
+                    <field name="row_id">6</field>
+                </row>
+                <row>
+                    <field name="entity_id">7</field>
+                    <field name="attribute_set_id">4</field>
+                    <field name="type_id">bundle</field>
+                    <field name="sku">24-WG085-bundle-fixed</field>
+                    <field name="has_options">1</field>
+                    <field name="required_options">1</field>
+                    <field name="created_at">2020-08-16 20:58:17</field>
+                    <field name="updated_at">2020-08-16 20:58:38</field>
+                    <field name="row_id">7</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <addUpdateDirect name="Add/Update"
+                             class="Amasty\ProductImportEntity\Import\Behavior\Product\AddUpdate\ProductEntity"
+                             indexerMethod="update">
+                <tableName>catalog_product_entity</tableName>
+                <entityType>Magento\Catalog\Api\Data\ProductInterface</entityType>
+                <events>
+                    <beforeApply>
+                        <observer class="Amasty\ProductImportEntity\Import\Behavior\Observer\Sequence\AddUpdateBeforeObserver" />
+                    </beforeApply>
+                </events>
+            </addUpdateDirect>
+            <addDirect name="Only add" indexerMethod="update">
+                <tableName>catalog_product_entity</tableName>
+                <entityType>Magento\Catalog\Api\Data\ProductInterface</entityType>
+                <events>
+                    <beforeApply>
+                        <observer class="Amasty\ProductImportEntity\Import\Behavior\Observer\Sequence\AddBeforeObserver" />
+                    </beforeApply>
+                </events>
+            </addDirect>
+            <updateDirect name="Only update" indexerMethod="update">
+                <tableName>catalog_product_entity</tableName>
+                <entityType>Magento\Catalog\Api\Data\ProductInterface</entityType>
+                <events>
+                    <beforeApply>
+                        <observer class="Amasty\ProductImportEntity\Import\Behavior\Observer\Sequence\UpdateBeforeObserver" />
+                    </beforeApply>
+                </events>
+            </updateDirect>
+            <deleteDirect name="Delete" indexerMethod="delete">
+                <tableName>catalog_product_entity</tableName>
+            </deleteDirect>
+        </behaviors>
+        <fileUploader class="Amasty\ProductImportEntity\Import\Filesystem\FileUploader" storagePath="pub/media/catalog/product" />
+    </entity>
+</config>

@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerExportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="customer_grid">
+        <name>Customer Grid</name>
+        <group>Customer</group>
+        <collectionFactory class="Magento\Customer\Model\ResourceModel\Grid\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+            <fields>
+                <field name="name">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="email">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="group_id">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Amasty\ExportCore\Export\SourceOption\CustomerGroupOptions</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="billing_country_id">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Magento\Directory\Model\Config\Source\Country</class>
+                        </options>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="customer_grid">
+        <parent_entity>customer_entity</parent_entity>
+        <child_entity>customer_grid</child_entity>
+        <sub_entity_field_name>customer_grid</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">entity_id</argument>
+        </arguments>
+    </relation>
+    <relation code="grid_customer">
+        <parent_entity>customer_grid</parent_entity>
+        <child_entity>customer_entity</child_entity>
+        <sub_entity_field_name>customer_entity</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">entity_id</argument>
+        </arguments>
+    </relation>
+</config>

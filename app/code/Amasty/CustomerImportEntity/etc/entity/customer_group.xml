@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="customer_group">
+        <name>Customer Group</name>
+        <group>Customer</group>
+        <description>Customer Group Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">customer_group</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="customer_group_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty>
+                            <excludeBehaviors>
+                                <addDirect/>
+                            </excludeBehaviors>
+                        </notEmpty>
+                    </validation>
+                    <synchronization>
+                        <item>
+                            <entityName>customer_entity</entityName>
+                            <fieldName>group_id</fieldName>
+                        </item>
+                    </synchronization>
+                </field>
+                <field name="tax_class_id">
+                    <validation>
+                        <custom class="Amasty\CustomerImportEntity\Import\Validation\EntityValidator\TaxClass" error="The specified %1 doesn't exist."/>
+                    </validation>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name="customer_group_id">0</field>
+                    <field name="customer_group_code">NOT LOGGED IN</field>
+                    <field name='tax_class_id'>3</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <addUpdateDirect name="Add/Update" indexerMethod="update">
+                <tableName>customer_group</tableName>
+            </addUpdateDirect>
+            <addDirect name="Only add" indexerMethod="update">
+                <tableName>customer_group</tableName>
+            </addDirect>
+            <updateDirect name="Only update" indexerMethod="update">
+                <tableName>customer_group</tableName>
+            </updateDirect>
+            <custom class="Amasty\CustomerImportEntity\Import\Behavior\Delete\CustomerGroup\SafeDeleteDirect"
+                    name="Delete"
+                    code="delete_safe_direct">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">customer_group</argument>
+                </arguments>
+                <executeOnParent>
+                    <deleteDirect/>
+                </executeOnParent>
+            </custom>
+        </behaviors>
+    </entity>
+    <relation code="customer_group">
+        <parent_entity>customer_entity</parent_entity>
+        <child_entity>customer_group</child_entity>
+        <sub_entity_field_name>customer_group</sub_entity_field_name>
+        <skip_relation_fields_update>true</skip_relation_fields_update>
+        <type>one_to_one</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">group_id</argument>
+            <argument name="child_field_name" xsi:type="string">customer_group_id</argument>
+        </arguments>
+    </relation>
+</config>

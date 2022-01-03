@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductExportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="catalog_product_entity_review">
+        <name>Customer Review</name>
+        <group>Product</group>
+        <collectionFactory class="Amasty\ProductExportEntity\Model\ResourceModel\Product\Review\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+            <fields>
+                <field name="title">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="detail">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="nickname">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="email">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="firstname">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="lastname">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="customer_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="store_id">
+                    <actions>
+                        <storeId2StoreCode/>
+                    </actions>
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Magento\Cms\Ui\Component\Listing\Column\Cms\Options</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="status_id">
+                    <actions>
+                        <custom class="Amasty\ProductExportEntity\Export\DataHandling\FieldModifier\Review\StatusId2StatusCode"/>
+                    </actions>
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Magento\Review\Ui\Component\Listing\Columns\Status</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="created_at">
+                    <filter>
+                        <type>date</type>
+                    </filter>
+                </field>
+                <field name="product_sku"/>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="catalog_product_entity_review">
+        <parent_entity>catalog_product_entity</parent_entity>
+        <child_entity>catalog_product_entity_review</child_entity>
+        <sub_entity_field_name>catalog_product_review</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">entity_pk_value</argument>
+        </arguments>
+    </relation>
+    <relation code="review_catalog_product_entity">
+        <parent_entity>catalog_product_entity_review</parent_entity>
+        <child_entity>catalog_product_entity</child_entity>
+        <sub_entity_field_name>catalog_product_entity</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_pk_value</argument>
+            <argument name="child_field_name" xsi:type="string">entity_id</argument>
+        </arguments>
+    </relation>
+</config>

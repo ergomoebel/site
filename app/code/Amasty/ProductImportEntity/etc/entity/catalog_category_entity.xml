@@ -1,0 +1,211 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="catalog_category_entity">
+        <name>Product Category</name>
+        <group>Product</group>
+        <description>Product Category Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">catalog_category_entity</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="entity_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <notEmpty/>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="attribute_set_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="parent_id">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="product_sku">
+                    <actions>
+                        <trim apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <notEmpty/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="product_id"/>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name='product_id'>1</field>
+                    <field name='product_sku'>24-WG085</field>
+                    <field name='entity_id'>7</field>
+                    <field name='row_id'>7</field>
+                    <field name='attribute_set_id'>3</field>
+                    <field name='parent_id'>2</field>
+                    <field name='created_at'>2021-01-26 19:17:22</field>
+                    <field name='updated_at'>2021-04-27 17:59:18</field>
+                    <field name='path'>1/2/7</field>
+                    <field name='position'>0</field>
+                    <field name='level'>2</field>
+                    <field name='children_count'>0</field>
+                    <field name='created_in'>1</field>
+                    <field name='updated_in'>1</field>
+                </row>
+                <row>
+                    <field name='product_id'>2</field>
+                    <field name='product_sku'>24-WG086</field>
+                    <field name='entity_id'>7</field>
+                    <field name='row_id'>7</field>
+                    <field name='attribute_set_id'>3</field>
+                    <field name='parent_id'>2</field>
+                    <field name='created_at'>2021-01-26 19:17:22</field>
+                    <field name='updated_at'>2021-04-27 17:59:18</field>
+                    <field name='path'>1/2/7</field>
+                    <field name='position'>0</field>
+                    <field name='level'>2</field>
+                    <field name='children_count'>0</field>
+                    <field name='created_in'>1</field>
+                    <field name='updated_in'>1</field>
+                </row>
+                <row>
+                    <field name='product_id'>3</field>
+                    <field name='product_sku'>24-WG087</field>
+                    <field name='entity_id'>7</field>
+                    <field name='row_id'>7</field>
+                    <field name='attribute_set_id'>3</field>
+                    <field name='parent_id'>2</field>
+                    <field name='created_at'>2021-01-26 19:17:22</field>
+                    <field name='updated_at'>2021-04-27 17:59:18</field>
+                    <field name='path'>1/2/7</field>
+                    <field name='position'>0</field>
+                    <field name='level'>2</field>
+                    <field name='children_count'>0</field>
+                    <field name='created_in'>1</field>
+                    <field name='updated_in'>1</field>
+                </row>
+                <row>
+                    <field name='product_id'>4</field>
+                    <field name='product_sku'>24-WB06</field>
+                    <field name='entity_id'>7</field>
+                    <field name='row_id'>7</field>
+                    <field name='attribute_set_id'>3</field>
+                    <field name='parent_id'>2</field>
+                    <field name='created_at'>2021-01-26 19:17:22</field>
+                    <field name='updated_at'>2021-04-27 17:59:18</field>
+                    <field name='path'>1/2/7</field>
+                    <field name='position'>0</field>
+                    <field name='level'>2</field>
+                    <field name='children_count'>0</field>
+                    <field name='created_in'>1</field>
+                    <field name='updated_in'>1</field>
+                </row>
+                <row>
+                    <field name='product_id'>5</field>
+                    <field name='product_sku'>24-WG085_Group</field>
+                    <field name='entity_id'>7</field>
+                    <field name='row_id'>7</field>
+                    <field name='attribute_set_id'>3</field>
+                    <field name='parent_id'>2</field>
+                    <field name='created_at'>2021-01-26 19:17:22</field>
+                    <field name='updated_at'>2021-04-27 17:59:18</field>
+                    <field name='path'>1/2/7</field>
+                    <field name='position'>0</field>
+                    <field name='level'>2</field>
+                    <field name='children_count'>0</field>
+                    <field name='created_in'>1</field>
+                    <field name='updated_in'>1</field>
+                </row>
+                <row>
+                    <field name='product_id'>6</field>
+                    <field name='product_sku'>24-WG085-bundle-dynamic</field>
+                    <field name='entity_id'>8</field>
+                    <field name='row_id'>8</field>
+                    <field name='attribute_set_id'>3</field>
+                    <field name='parent_id'>2</field>
+                    <field name='created_at'>2021-01-26 19:17:22</field>
+                    <field name='updated_at'>2021-04-27 17:59:18</field>
+                    <field name='path'>1/2/8</field>
+                    <field name='position'>0</field>
+                    <field name='level'>2</field>
+                    <field name='children_count'>0</field>
+                    <field name='created_in'>1</field>
+                    <field name='updated_in'>1</field>
+                </row>
+                <row>
+                    <field name='product_id'>7</field>
+                    <field name='product_sku'>24-WG085-bundle-fixed</field>
+                    <field name='entity_id'>8</field>
+                    <field name='row_id'>8</field>
+                    <field name='attribute_set_id'>3</field>
+                    <field name='parent_id'>2</field>
+                    <field name='created_at'>2021-01-26 19:17:22</field>
+                    <field name='updated_at'>2021-04-27 17:59:18</field>
+                    <field name='path'>1/2/8</field>
+                    <field name='position'>0</field>
+                    <field name='level'>2</field>
+                    <field name='children_count'>0</field>
+                    <field name='created_in'>1</field>
+                    <field name='updated_in'>1</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <custom class="Amasty\ProductImportEntity\Import\Behavior\Category\Save\Category"
+                    code="save_category_product_relation"
+                    name="Add/Update">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">catalog_category_entity</argument>
+                </arguments>
+                <executeOnParent>
+                    <addDirect/>
+                    <addUpdateDirect/>
+                    <updateDirect/>
+                </executeOnParent>
+                <entityType>Magento\Catalog\Api\Data\CategoryInterface</entityType>
+                <events>
+                    <beforeApply>
+                        <observer class="Amasty\ProductImportEntity\Import\Behavior\Observer\Sequence\AddUpdateBeforeObserver" />
+                    </beforeApply>
+                </events>
+            </custom>
+            <deleteDirect name="Delete" indexerMethod="delete">
+                <tableName>catalog_category_entity</tableName>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="catalog_product_entity_category">
+        <parent_entity>catalog_product_entity</parent_entity>
+        <child_entity>catalog_category_entity</child_entity>
+        <sub_entity_field_name>catalog_product_category</sub_entity_field_name>
+        <skip_relation_fields_update>true</skip_relation_fields_update>
+        <type>one_to_many</type>
+        <action class="Amasty\ProductImportEntity\Import\DataHandling\RelationModifier\CategoryProductRelation"/>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">product_id</argument>
+        </arguments>
+    </relation>
+</config>
+

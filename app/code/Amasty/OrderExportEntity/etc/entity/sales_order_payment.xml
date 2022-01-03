@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_OrderExportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="sales_order_payment">
+        <name>Order Payment</name>
+        <group>Sales</group>
+        <collectionFactory class="Magento\Sales\Model\ResourceModel\Order\Payment\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe">
+                <arguments>
+                    <argument name="strict" xsi:type="boolean">true</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="entity_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="parent_id">
+                    <filter>
+                        <type>text</type>
+                    </filter>
+                </field>
+                <field name="method">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Amasty\OrderExportEntity\Export\Order\SourceOption\PaymentMethodOptions</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="base_shipping_captured">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="shipping_captured">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="amount_refunded">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_amount_paid">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="amount_canceled">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_amount_authorized">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_amount_paid_online">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_amount_refunded_online">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_shipping_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="shipping_amount">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="amount_paid">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="amount_authorized">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_amount_ordered">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_shipping_refunded">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="shipping_refunded">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_amount_refunded">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="amount_ordered">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+                <field name="base_amount_canceled">
+                    <actions>
+                        <custom preselected="false" class="Amasty\OrderExportEntity\Export\DataHandling\FieldModifier\OrderPrice"/>
+                    </actions>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="order_order_payment">
+        <parent_entity>sales_order</parent_entity>
+        <child_entity>sales_order_payment</child_entity>
+        <sub_entity_field_name>sales_order_payment</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">parent_id</argument>
+        </arguments>
+    </relation>
+    <relation code="order_payment_order">
+        <parent_entity>sales_order_payment</parent_entity>
+        <child_entity>sales_order</child_entity>
+        <sub_entity_field_name>sales_order</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">parent_id</argument>
+            <argument name="child_field_name" xsi:type="string">entity_id</argument>
+        </arguments>
+    </relation>
+</config>

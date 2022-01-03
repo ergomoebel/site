@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerExportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="customer_address_entity_attribute">
+        <name>Customer Address Attributes</name>
+        <group>Customer</group>
+        <collectionFactory class="Magento\Customer\Model\ResourceModel\Address\CollectionFactory"/>
+        <enabledChecker class="Amasty\ExportCore\Export\Config\IsModuleEnabled">
+            <arguments>
+                <argument name="moduleName" xsi:type="string">Magento_CustomerCustomAttributes</argument>
+            </arguments>
+        </enabledChecker>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\CustomerExportEntity\Export\FieldsClass\AddressAttribute"/>
+            <fields>
+                <field name="entity_id"/>
+                <field name="country_id">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Magento\Directory\Model\Config\Source\Country</class>
+                        </options>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="customer_address_entity_attribute">
+        <parent_entity>customer_address_entity</parent_entity>
+        <child_entity>customer_address_entity_attribute</child_entity>
+        <sub_entity_field_name>customer_address_entity_attribute</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">entity_id</argument>
+        </arguments>
+    </relation>
+    <relation code="attribute_customer_address_entity">
+        <parent_entity>customer_address_entity_attribute</parent_entity>
+        <child_entity>customer_address_entity</child_entity>
+        <sub_entity_field_name>customer_address_entity</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">entity_id</argument>
+        </arguments>
+    </relation>
+</config>

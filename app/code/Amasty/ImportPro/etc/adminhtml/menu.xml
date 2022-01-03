@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ImportPro
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Amasty_ImportCore::importcron"
+             title="Cron Jobs"
+             translate="title"
+             module="Amasty_ImportPro"
+             parent="Amasty_ImportCore::importcore"
+             dependsOnModule="Amasty_ImportCore"
+             action="amimportpro/importjob/index"
+             sortOrder="20"
+             resource="Amasty_ImportPro::importcron"
+        />
+
+        <add id="Amasty_ImportCore::importhistory"
+             title="Import History"
+             translate="title"
+             module="Amasty_ImportPro"
+             parent="Amasty_ImportCore::importcore"
+             dependsOnModule="Amasty_ImportCore"
+             action="amimportpro/history/index"
+             sortOrder="30"
+             resource="Amasty_ImportPro::importhistory"
+        />
+    </menu>
+</config>

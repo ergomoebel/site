@@ -1,0 +1,208 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductImportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="catalog_product_entity_bundle_selection">
+        <name>Bundle Selection</name>
+        <group>Product</group>
+        <description>Bundle Selection Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">catalog_product_bundle_selection</argument>
+                </arguments>
+            </fieldsClass>
+            <fields>
+                <field name="selection_id" isIdentity="true">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="option_id">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="parent_product_id">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <tableRowExists tableName="catalog_product_entity"
+                                        idFieldName="entity_id"
+                                        error="Product entity with specified 'parent_product_id' doesn't exist"
+                                        rootOnly="true">
+                            <excludeBehaviors>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </tableRowExists>
+                    </validation>
+                    <required/>
+                    <synchronization>
+                        <item>
+                            <entityName>catalog_product_entity_bundle_option</entityName>
+                            <fieldName>parent_id</fieldName>
+                        </item>
+                    </synchronization>
+                </field>
+                <field name="product_id">
+                    <actions>
+                        <trim/>
+                        <custom class="Amasty\ProductImportEntity\Import\DataHandling\FieldModifier\Product\Sku2ProductId"
+                                apply="beforeValidate"/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty/>
+                        <tableRowExists tableName="catalog_product_entity"
+                                        idFieldName="entity_id"
+                                        error="Product entity with specified 'product_id' doesn't exist">
+                            <excludeBehaviors>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </tableRowExists>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="position">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="is_default">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                        <notEmpty isZeroValueAllowed="true"/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="selection_price_type">
+                    <actions>
+                        <custom class="Amasty\ProductImportEntity\Import\DataHandling\FieldModifier\Product\Bundle\PriceTypeLabel2PriceTypeValue"
+                                apply="beforeValidate"/>
+                    </actions>
+                    <required/>
+                </field>
+                <field name="selection_price_value">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="selection_qty">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="selection_can_change_qty">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                    </validation>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name="option_id">1</field>
+                    <field name="parent_product_id">6</field>
+                    <field name="product_id">24-WG085</field>
+                    <field name="is_default">0</field>
+                    <field name="selection_price_type">fixed</field>
+                    <field name="selection_can_change_qty">1</field>
+                    <field name="selection_price_value">15.00</field>
+                    <field name="selection_qty">1.00</field>
+                    <field name="position">1</field>
+                </row>
+                <row>
+                    <field name="option_id">2</field>
+                    <field name="parent_product_id">6</field>
+                    <field name="product_id">24-WG086</field>
+                    <field name="is_default">1</field>
+                    <field name="selection_price_type">fixed</field>
+                    <field name="selection_can_change_qty">1</field>
+                    <field name="selection_price_value">10.00</field>
+                    <field name="selection_qty">1.00</field>
+                    <field name="position">1</field>
+                </row>
+                <row>
+                    <field name="option_id">2</field>
+                    <field name="parent_product_id">7</field>
+                    <field name="product_id">24-WG086</field>
+                    <field name="is_default">1</field>
+                    <field name="selection_price_type">percent</field>
+                    <field name="selection_can_change_qty">1</field>
+                    <field name="selection_price_value">0.00</field>
+                    <field name="selection_qty">3.00</field>
+                    <field name="position">1</field>
+                </row>
+                <row>
+                    <field name="option_id">3</field>
+                    <field name="parent_product_id">7</field>
+                    <field name="product_id">24-WG085</field>
+                    <field name="is_default">0</field>
+                    <field name="selection_price_type">percent</field>
+                    <field name="selection_can_change_qty">1</field>
+                    <field name="selection_price_value">0.00</field>
+                    <field name="selection_qty">3.00</field>
+                    <field name="position">1</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <custom class="Amasty\ProductImportEntity\Import\Behavior\Product\Save\Bundle\BundleSelection"
+                    code="save_bundle_selection"
+                    name="Add/Update">
+                <executeOnParent>
+                    <addDirect/>
+                    <addUpdateDirect/>
+                    <updateDirect/>
+                </executeOnParent>
+            </custom>
+            <custom class="Amasty\ProductImportEntity\Import\Behavior\Product\Delete\Bundle\BundleSelection"
+                    code="delete_bundle_selection"
+                    name="Delete">
+                <executeOnParent>
+                    <deleteDirect/>
+                </executeOnParent>
+            </custom>
+        </behaviors>
+    </entity>
+    <relation code="catalog_product_entity_bundle_selection">
+        <parent_entity>catalog_product_entity_bundle_option</parent_entity>
+        <child_entity>catalog_product_entity_bundle_selection</child_entity>
+        <sub_entity_field_name>catalog_product_bundle_selection</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">option_id</argument>
+            <argument name="child_field_name" xsi:type="string">option_id</argument>
+        </arguments>
+    </relation>
+</config>

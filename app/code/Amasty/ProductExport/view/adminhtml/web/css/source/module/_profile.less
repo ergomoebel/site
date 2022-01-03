@@ -1,0 +1,71 @@
+//
+//  Amasty Product Export Profile styles
+//  ____________________________________________
+
+//
+//  Common
+//  --------------------------------------------
+
+& when (@media-common = true) {
+    .amproductexport-select-field .admin__control-select,
+    .amproductexport-textarea-field .admin__control-textarea,
+    .amproductexport-profile-edit .amproductexport-multiselect .admin__control-multiselect,
+    .amproductexport-profile-edit .admin__field-control .admin__control-text,
+    .amproductexport-profile-edit .admin__field-control .admin__control-select,
+    .amproductexport-profile-edit .admin__field-control .admin__field-note {
+        width: ~'calc(100% - 45px - 4px)';
+    }
+
+    .amproductexport-profile-edit .admin__fieldset-wrapper-content .admin__field.amexport_output_notice .admin__field-label {
+        width: ~'calc( ((100%) * 0.25 - 30px) / 2)';
+    }
+
+    .amproductexport-profile-edit .admin__fieldset-wrapper-content .file-uploader-area.amexportpro-file-uploader {
+        margin-top: auto;
+    }
+
+    .amproductexport-profile-edit .admin__dynamic-rows .admin__control-text {
+        width: 100%;
+    }
+
+    .amproductexport-profile-edit .amproductexport-general-title {
+        .admin__collapsible-title {
+            padding-top: 10px;
+            font-size: 20px;
+            font-weight: 400;
+        }
+
+        > .fieldset-wrapper-title {
+            display: none;
+        }
+    }
+
+    .amproductexport-fields-configuration .admin__fieldset-wrapper-content .admin__fieldset:first-child {
+        padding-top: 0;
+    }
+
+    .amproductexport-fieldset-withtooltip > .fieldset-wrapper-title > .admin__collapsible-title {
+        & {
+            display: flex;
+            align-items: center;
+        }
+
+        > .admin__field-tooltip {
+            margin: 0 5px 0;
+        }
+
+        > .admin__field-tooltip > .admin__field-tooltip-content {
+            left: -25px;
+
+            &:after,
+            &:before {
+                left: 20px;
+            }
+        }
+    }
+
+    .amproductexport-grid-fieldset .sticky-header {
+        display: flex;
+        justify-content: flex-end;
+    }
+}

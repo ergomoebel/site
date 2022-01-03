@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_InventoryExportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <include path="Amasty_InventoryExportEntity::entity/inventory_source.xml"/>
+    <include path="Amasty_InventoryExportEntity::entity/inventory_source_item.xml"/>
+
+    <include path="Amasty_InventoryExportEntity::entity/inventory_stock.xml"/>
+    <include path="Amasty_InventoryExportEntity::entity/inventory_stock_sales_channel.xml"/>
+
+    <include path="Amasty_InventoryExportEntity::entity/inventory_source_carrier_link.xml"/>
+    <include path="Amasty_InventoryExportEntity::entity/inventory_source_stock_link.xml"/>
+
+    <include path="Amasty_InventoryExportEntity::entity/inventory_reservation.xml"/>
+</config>

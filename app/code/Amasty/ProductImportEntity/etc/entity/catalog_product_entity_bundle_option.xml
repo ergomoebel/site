@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductImportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <entity code="catalog_product_entity_bundle_option">
+        <name>Bundle Option</name>
+        <group>Product</group>
+        <description>Bundle Option Import Entity</description>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ImportCore\Import\FieldsClass\Describe">
+                <arguments>
+                    <argument name="tableName" xsi:type="string">catalog_product_bundle_option</argument>
+                </arguments>
+            </fieldsClass>
+            <rowValidation class="Amasty\ProductImportEntity\Import\Validation\RowValidator\Product\Bundle\BundleOptionValidator">
+                <excludeBehaviors>
+                    <deleteDirect/>
+                </excludeBehaviors>
+            </rowValidation>
+            <fields>
+                <field name="option_id" isIdentity="true">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="parent_id">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                        <notEmpty/>
+                        <custom class="Amasty\ProductImportEntity\Import\Validation\EntityValidator\Product\LinkField"
+                                error="Product entity with specified 'parent_id' doesn't exist"
+                                rootOnly="true">
+                            <excludeBehaviors>
+                                <addDirect/>
+                                <deleteDirect/>
+                            </excludeBehaviors>
+                        </custom>
+                    </validation>
+                    <required/>
+                    <synchronization>
+                        <item>
+                            <entityName>catalog_product_entity_bundle_option_value</entityName>
+                            <fieldName>parent_product_id</fieldName>
+                        </item>
+                    </synchronization>
+                </field>
+                <field name="required">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <boolean/>
+                        <notEmpty/>
+                    </validation>
+                    <required/>
+                </field>
+                <field name="position">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <nonNegative/>
+                    </validation>
+                </field>
+                <field name="type">
+                    <actions>
+                        <trim/>
+                    </actions>
+                    <validation>
+                        <notEmpty/>
+                        <!-- todo: option type validation -->
+                    </validation>
+                    <required/>
+                </field>
+            </fields>
+            <sampleData>
+                <row>
+                    <field name="option_id">1</field>
+                    <field name="parent_id">6</field>
+                    <field name="type">select</field>
+                    <field name="required">1</field>
+                    <field name="position">1</field>
+                </row>
+                <row>
+                    <field name="option_id">2</field>
+                    <field name="parent_id">6</field>
+                    <field name="type">select</field>
+                    <field name="required">1</field>
+                    <field name="position">2</field>
+                </row>
+                <row>
+                    <field name="option_id">3</field>
+                    <field name="parent_id">7</field>
+                    <field name="type">radio</field>
+                    <field name="required">1</field>
+                    <field name="position">1</field>
+                </row>
+                <row>
+                    <field name="option_id">4</field>
+                    <field name="parent_id">7</field>
+                    <field name="type">radio</field>
+                    <field name="required">1</field>
+                    <field name="position">2</field>
+                </row>
+            </sampleData>
+        </fieldsConfig>
+        <behaviors>
+            <custom class="Amasty\ProductImportEntity\Import\Behavior\Product\Save\Bundle\BundleOption"
+                    code="save_bundle_option"
+                    name="Add/Update">
+                <executeOnParent>
+                    <addDirect/>
+                    <addUpdateDirect/>
+                    <updateDirect/>
+                </executeOnParent>
+            </custom>
+            <deleteDirect name="Delete">
+                <tableName>catalog_product_bundle_option</tableName>
+                <idField>option_id</idField>
+            </deleteDirect>
+        </behaviors>
+    </entity>
+    <relation code="catalog_product_entity_bundle_option">
+        <parent_entity>catalog_product_entity</parent_entity>
+        <child_entity>catalog_product_entity_bundle_option</child_entity>
+        <sub_entity_field_name>catalog_product_bundle_option</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_entity_name" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+            <argument name="child_field_name" xsi:type="string">parent_id</argument>
+        </arguments>
+    </relation>
+</config>

@@ -1,0 +1,36 @@
+//
+//  Amasty Cron Shedule
+//  ____________________________________________
+
+//
+//  Common
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    .amorderexport-profile-edit,
+    .amproductexport-profile-edit,
+    .amcustomerexport-profile-edit {
+        .admin__fieldset > .admin__field .amcron-schedule-container {
+            width: ~'calc( (100%) * 0.5 - 79px )';
+        }
+
+        .amcron-schedule-container .admin__field-tooltip {
+            position: absolute;
+            padding-left: 5px;
+        }
+
+        .amcron-schedule-container {
+            .admin__field-tooltip {
+                margin-right: 5px;
+            }
+
+            .admin__field-tooltip .admin__field-tooltip-content {
+                right: -5rem;
+            }
+        }
+
+        .amcronschedule-fieldset .admin__fieldset {
+            padding-top: 0;
+        }
+    }
+}

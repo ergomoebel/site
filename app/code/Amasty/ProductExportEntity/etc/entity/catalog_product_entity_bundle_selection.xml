@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_ProductExportEntity
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="catalog_product_entity_bundle_selection">
+        <name>Bundle Selection</name>
+        <isHidden>true</isHidden>
+        <collectionFactory class="Amasty\ProductExportEntity\Model\ResourceModel\Product\Type\Bundle\Selection\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+            <fields>
+                <field name="product_id">
+                    <actions>
+                        <custom class="Amasty\ProductExportEntity\Export\DataHandling\FieldModifier\Product\ProductId2Sku"/>
+                    </actions>
+                </field>
+                <field name="is_default">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+                <field name="selection_price_type">
+                    <actions>
+                        <custom class="Amasty\ProductExportEntity\Export\DataHandling\FieldModifier\Product\Type\Bundle\PriceTypeValue2PriceTypeLabel"/>
+                    </actions>
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Amasty\ProductExportEntity\Export\Product\Type\Bundle\SourceOption\PriceTypeOptions</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="selection_can_change_qty">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="catalog_product_entity_bundle_selection">
+        <parent_entity>catalog_product_entity_bundle_option</parent_entity>
+        <child_entity>catalog_product_entity_bundle_selection</child_entity>
+        <sub_entity_field_name>catalog_product_bundle_selection</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">option_id</argument>
+            <argument name="child_field_name" xsi:type="string">option_id</argument>
+        </arguments>
+    </relation>
+</config>

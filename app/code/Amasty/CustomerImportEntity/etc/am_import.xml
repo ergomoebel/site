@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_CustomerImportEntity
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ImportCore:etc/am_import.xsd">
+    <include path="Amasty_CustomerImportEntity::entity/customer_entity.xml"/>
+    <include path="Amasty_CustomerImportEntity::entity/customer_entity_attribute.xml"/>
+    <include path="Amasty_CustomerImportEntity::entity/customer_log.xml"/>
+    <include path="Amasty_CustomerImportEntity::entity/customer_group.xml"/>
+    <include path="Amasty_CustomerImportEntity::entity/customer_address_entity.xml"/>
+    <include path="Amasty_CustomerImportEntity::entity/customer_address_entity_attribute.xml"/>
+    <include path="Amasty_CustomerImportEntity::entity/customer_balance.xml"/>
+    <include path="Amasty_CustomerImportEntity::entity/customer_newsletter_subscriber.xml"/>
+
+    <include path="Amasty_CustomerImportEntity::entity/customer_segment.xml"/>
+    <include path="Amasty_CustomerImportEntity::entity/customer_segment_relation.xml"/>
+    <include path="Amasty_CustomerImportEntity::entity/segment_website_relation.xml"/>
+</config>
