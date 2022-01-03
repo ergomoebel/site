@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+  <!--<type name="Magento\Catalog\Controller\Product\View">
+    <plugin name="leitner_product_controller_view" type="Leitner\LeitnerShop\Catalog\Controller\Product\View" sortOrder="1"/>
+  </type>-->
+  <preference for="Magento\Catalog\Helper\Product" type="Leitner\LeitnerShop\Catalog\Helper\Product" />
+  <preference for="Magento\Catalog\Controller\Product\View" type="Leitner\LeitnerShop\Catalog\Controller\Product\View" />
+  <preference for="Magento\Swatches\Block\Product\Renderer\Configurable" type="Leitner\LeitnerShop\Swatches\Block\Product\Renderer\Configurable" />
+</config>

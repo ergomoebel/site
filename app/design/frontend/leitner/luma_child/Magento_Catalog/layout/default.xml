@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+		<move element="category.cms" destination="category.view.container" after="category.image"/>
+		<move element="product.info.overview" destination="product.info.main" before="product.info.price"/>
+		<move element="availability.label" destination="product.info.stock.sku" before="product.info.sku"/>
+		<move element="product.info.delivery" destination="product.info.stock.sku" before="product.info.sku"/>
+		<referenceBlock name="product.info.sku" remove="true"/>
+	</body>
+</page>
+
